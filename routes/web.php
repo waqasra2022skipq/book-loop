@@ -7,10 +7,11 @@ use Illuminate\Support\Facades\Route;
 use App\Livewire\CreateBook;
 use App\Livewire\MyBooks;
 use App\Livewire\EditBookInstance;
+use App\Livewire\HomePage;
 
 Route::get('/', function () {
     return view('welcome');
-})->name('home');
+})->name('welcome');
 
 Route::view('dashboard', 'dashboard')
     ->middleware(['auth', 'verified'])

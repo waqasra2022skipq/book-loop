@@ -14,19 +14,11 @@
 
         <!-- Status -->
         <div>
-            <!-- <flux:select wire:model="status" placeholder="Avaiablity Status" :label="__('Status')" clearable>
-                <flux:select.option>Available</flux:select.option>
-                <flux:select.option>Reading</flux:select.option>
-                <flux:select.option>Reserved</flux:select.option>
-
-            </flux:select> -->
-
             <flux:radio.group wire:model="status" label="Avaiablity Status">
                 <flux:radio value="available" label="Available" description="Avaialable for people to request" />
                 <flux:radio value="reading" label="Reading" description="I am currently reading this"/>
                 <flux:radio value="reserved" label="Reserved" description="I am keeping it to myself"/>
             </flux:radio.group>
-            
         </div>
 
         <!-- Notes -->
