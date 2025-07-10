@@ -65,5 +65,7 @@ class CreateBook extends Component
         // Reset form
         $this->reset(['searchTerm', 'title', 'author', 'isbn', 'status', 'notes', 'cover_image']);
         session()->flash('message', 'Book added successfully!');
+        // Optionally, redirect or perform other actions
+        return redirect()->route('books.mybooks');
     }
 }
