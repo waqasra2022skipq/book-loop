@@ -15,11 +15,10 @@
 
             <!-- Status -->
             <div>
-                <flux:radio.group wire:model="status" label="Avaiablity Status" class="flex flex-row gap-4">
-                    <flux:radio value="reading" label="Reading"  class="flex items-center"/>
-                    <flux:radio value="reserved" label="Reserved" class="flex items-center"/>
-                    <flux:radio value="available" label="Available"  class="flex items-center" />
-
+                <flux:radio.group wire:model="status" label="Availability Status">
+                    <flux:radio value="available" label="Available" description="Available for others to request" />
+                    <flux:radio value="reading" label="Reading" description="You’re currently reading this" />
+                    <flux:radio value="reserved" label="Reserved" description="Not sharing for now" />
                 </flux:radio.group>
             </div>
 
