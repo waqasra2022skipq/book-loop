@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\BookRequest as BookRequestModel;
+use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
 
 class BookRequest extends Component
@@ -12,7 +13,7 @@ class BookRequest extends Component
     public $email;
     public $address;
     public $message;
-    public $bookInstance;
+    public BookInstance $bookInstance;
     public $user_id = null;
 
     protected $rules = [
@@ -22,7 +23,7 @@ class BookRequest extends Component
         'message' => 'required|string',
     ];
 
-    public function mount($bookInstance)
+    public function mount(BookInstance $bookInstance)
     {
         $this->bookInstance = $bookInstance;
 

@@ -9,6 +9,7 @@ use App\Livewire\MyBooks;
 use App\Livewire\EditBookInstance;
 use App\Livewire\Books;
 use App\Livewire\BookInstance;
+use App\Livewire\BookRequest;
 
 Route::get('/', function () {
     return view('welcome');
@@ -33,6 +34,7 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('books')->group(function () {
     Route::get('/', Books::class)->name('books.all');
     Route::get('/{id}', BookInstance::class)->name('books.instance');
+    Route::get('/{bookInstance}/request', BookRequest::class)->name('books.instance.request');
 });
 
 require __DIR__ . '/auth.php';

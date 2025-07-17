@@ -1,4 +1,3 @@
-
 <section class="w-full px-2 sm:px-4 md:px-8 py-6">
     <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-blue-700 text-center">All Books</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -17,6 +16,9 @@
                 @endif
                 <p class="text-xs text-gray-500 mb-3">{{ $instance->condition_notes }}</p>
                 <a href="{{ route('books.instance', $instance->id) }}" class="mt-auto inline-block text-blue-600 hover:underline text-sm font-medium">View Details</a>
+                <a href="{{ route('books.instance.request', ['bookInstance' => $instance->id]) }}" class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm font-medium">
+                    Request Book
+                </a>
             </div>
         @endforeach
     </div>
