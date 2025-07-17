@@ -38,10 +38,7 @@
             </div>
             <div x-show="tab === 'request'" class="animate-fade-in">
                 <h3 class="text-lg font-semibold mb-2">Request this Book</h3>
-                <form class="space-y-4 max-w-md">
-                    <textarea class="w-full border rounded p-2" rows="3" placeholder="Write a message to the owner..."></textarea>
-                    <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">Send Request</button>
-                </form>
+                @livewire('book-request', ['bookInstance' => $bookInstance])
             </div>
             <div x-show="tab === 'owner'" class="animate-fade-in">
                 <h3 class="text-lg font-semibold mb-2">Owner Information</h3>
