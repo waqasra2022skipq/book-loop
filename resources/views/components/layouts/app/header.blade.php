@@ -20,6 +20,8 @@
                 <flux:tooltip :content="__('Search')" position="bottom">
                     <flux:navbar.item class="!h-10 [&>div>svg]:size-5" icon="magnifying-glass" href="#" :label="__('Search')" />
                 </flux:tooltip>
+                <flux:navlist.item icon="" :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate>{{ __('All Books') }}</flux:navlist.item>
+
             </flux:navbar>
 
             <!-- Desktop User Menu -->
