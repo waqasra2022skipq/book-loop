@@ -16,7 +16,7 @@
                     </div>
                 @endif
                 <p class="text-xs text-gray-500 mb-3">{{ $instance->condition_notes }}</p>
-                <a  class="mt-auto inline-block text-blue-600 hover:underline text-sm font-medium">View Details</a>
+                <a href="{{ route('books.instance', $instance->id) }}" class="mt-auto inline-block text-blue-600 hover:underline text-sm font-medium">View Details</a>
             </div>
         @endforeach
     </div>
