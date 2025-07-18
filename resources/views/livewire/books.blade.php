@@ -1,8 +1,8 @@
-<section class="w-full px-2 sm:px-4 md:px-8 py-6">
+<section class="w-full px-10 sm:px-4 md:px-8 py-6">
     <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-blue-700 text-center">All Books</h1>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         @foreach($instances as $instance)
-            <div class="bg-white rounded-xl shadow-md border border-zinc-100 hover:shadow-lg transition flex flex-col p-5">
+            <div wire:key="{{ $instance->id }}" class="bg-white rounded-xl shadow-md border border-zinc-100 hover:shadow-lg transition flex flex-col p-5">
                 <h3 class="text-lg font-semibold text-gray-800 mb-2 truncate">{{ $instance->book->title }}</h3>
                 <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ $instance->book->description }}</p>
                 <p class="text-xs text-gray-500 mb-4">By {{ $instance->book->author }}</p>
