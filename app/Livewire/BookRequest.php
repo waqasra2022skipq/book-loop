@@ -18,7 +18,7 @@ class BookRequest extends Component
 
     protected $rules = [
         'name' => 'required|string|max:255',
-        'email' => 'required|email|max:255',
+        'email' => 'required|email|max:255|unique:book_requests,email',
         'address' => 'required|string|max:255',
         'message' => 'required|string',
     ];
