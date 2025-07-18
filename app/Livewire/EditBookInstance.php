@@ -3,12 +3,15 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use App\Models\Book;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
 
 class EditBookInstance extends Component
 {
+    use WithFileUploads;
+
     public $book;
     public $bookInstance;
 
@@ -20,6 +23,9 @@ class EditBookInstance extends Component
     // BookInstance metadata
     public $status;
     public $notes;
+
+    public $image;
+    public $currentImage;
 
     public function mount($bookid)
     {
@@ -37,6 +43,8 @@ class EditBookInstance extends Component
         // Instance fields
         $this->status = $this->bookInstance->status;
         $this->notes = $this->bookInstance->condition_notes;
+
+        $this->currentImage = $this->bookInstance->book->cover_image ?? null;
     }
 
     public function update()
@@ -47,6 +55,7 @@ class EditBookInstance extends Component
             'isbn' => 'nullable|string|max:255',
             'status' => 'required|string|in:available,reading,reserved',
             'notes' => 'nullable|string|max:2000',
+            'image' => 'nullable|image|max:2048', // 2MB Max
         ]);
 
         $this->book->update([
@@ -55,10 +64,19 @@ class EditBookInstance extends Component
             'isbn' => $this->isbn,
         ]);
 
-        $this->bookInstance->update([
+        $updateData = [
             'status' => $this->status,
             'condition_notes' => $this->notes,
-        ]);
+        ];
+
+        if ($this->image) {
+            $path = $this->image->store('cover_images', 'public');
+            $updateData['cover_image'] = $path;
+            $this->book->cover_image = $path; // Update book cover image if changed
+            $this->book->save();
+        }
+
+        $this->bookInstance->update($updateData);
 
         session()->flash('message', 'Book updated successfully!');
         return redirect()->route('books.mybooks');
