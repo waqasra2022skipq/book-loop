@@ -16,6 +16,7 @@ class BookRequest extends Component
     public $message;
     public BookInstance $bookInstance;
     public $user_id = null;
+    public $existingRequest = null;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -28,28 +29,44 @@ class BookRequest extends Component
     {
         $this->bookInstance = $bookInstance;
 
-        // Pre-populate fields if user is logged in
         if (Auth::check()) {
             $user = Auth::user();
             $this->user_id = $user->id;
             $this->name = $user->name ?? '';
             $this->email = $user->email ?? '';
-            $this->updatedEmail($this->email);
             $this->address = $user->address ?? '';
+            // Only for logged in user, show status card if request exists
+            $this->existingRequest = BookRequestModel::where('user_id', $user->id)
+                ->where('book_instance_id', $this->bookInstance->id)
+                ->latest()
+                ->first();
         }
+        // For guests, do not set $existingRequest here
     }
 
     public function updatedEmail($email)
     {
-        $existingRequest = BookRequestModel::where('email', $email)
-            ->where('book_instance_id', $this->bookInstance->id)
-            ->first();
-
-        if ($existingRequest) {
-            $this->addError('email', 'You have already requested this book.');
-            // Disable the submit button or show an error
+        if (Auth::check()) {
+            $user = Auth::user();
+            $this->existingRequest = BookRequestModel::where('user_id', $user->id)
+                ->where('book_instance_id', $this->bookInstance->id)
+                ->latest()
+                ->first();
+            if ($this->existingRequest) {
+                $this->addError('email', 'You have already requested this book.');
+            } else {
+                $this->resetErrorBag('email');
+            }
         } else {
-            $this->resetErrorBag('email');
+            // For guests, just check by email and show error, but do not set $existingRequest
+            $exists = BookRequestModel::where('email', $email)
+                ->where('book_instance_id', $this->bookInstance->id)
+                ->exists();
+            if ($exists) {
+                $this->addError('email', 'You have already requested this book.');
+            } else {
+                $this->resetErrorBag('email');
+            }
         }
     }
 
@@ -62,7 +79,7 @@ class BookRequest extends Component
         try {
             $this->validate();
 
-            BookRequestModel::create([
+            $request = BookRequestModel::create([
                 'book_id' => $this->bookInstance->book_id,
                 'book_instance_id' => $this->bookInstance->id,
                 'user_id' => $this->user_id,
@@ -71,6 +88,11 @@ class BookRequest extends Component
                 'address' => $this->address,
                 'message' => $this->message,
             ]);
+
+            // Only set $existingRequest for logged in user
+            if (Auth::check()) {
+                $this->existingRequest = $request;
+            }
 
             session()->flash('success', 'Your request has been sent!');
             $this->reset(['name', 'email', 'address', 'message']);
