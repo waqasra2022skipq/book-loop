@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use App\Models\Book;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
+use App\Services\BookImageService;
 
 class EditBookInstance extends Component
 {
@@ -69,11 +70,11 @@ class EditBookInstance extends Component
             'condition_notes' => $this->notes,
         ];
 
+        // Use service for image upload and save
+        BookImageService::uploadAndSave($this->book, $this->image);
+
         if ($this->image) {
-            $path = $this->image->store('cover_images', 'public');
-            $updateData['cover_image'] = $path;
-            $this->book->cover_image = $path; // Update book cover image if changed
-            $this->book->save();
+            $this->currentImage = $this->book->cover_image;
         }
 
         $this->bookInstance->update($updateData);

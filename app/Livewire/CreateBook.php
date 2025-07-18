@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\BookInstance;
+use App\Services\BookImageService;
 
 class CreateBook extends Component
 {
@@ -45,13 +46,8 @@ class CreateBook extends Component
             ['author' => $this->author]
         );
 
-        // Handle cover upload
-        $coverPath = null;
-        if ($this->cover_image) {
-            $coverPath = $this->cover_image->store('cover_images', 'public');
-            $book->cover_image = $coverPath;
-            $book->save();
-        }
+        // Handle cover upload via service
+        BookImageService::uploadAndSave($book, $this->cover_image);
 
 
         // Add entry to book_instances
