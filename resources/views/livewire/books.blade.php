@@ -1,25 +1,35 @@
-<section class="w-full px-10 sm:px-4 md:px-8 py-6">
-    <h1 class="text-2xl sm:text-3xl font-bold mb-6 text-blue-700 text-center">All Books</h1>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach($instances as $instance)
-            <div wire:key="{{ $instance->id }}" class="bg-white rounded-xl shadow-md border border-zinc-100 hover:shadow-lg transition flex flex-col p-5">
-                <h3 class="text-lg font-semibold text-gray-800 mb-2 truncate">{{ $instance->book->title }}</h3>
-                <p class="text-sm text-gray-600 mb-3 line-clamp-3">{{ $instance->book->description }}</p>
-                <p class="text-xs text-gray-500 mb-4">By {{ $instance->book->author }}</p>
-                <p class="text-xs text-gray-500 mb-4">Status: <span class="font-medium capitalize">{{ $instance->status }}</span></p>
-                @if($instance->book->cover_image)
-                    <img src="{{ asset('storage/' . $instance->book->cover_image) }}" class="w-full h-40 object-cover rounded mb-3" alt="Book cover">
-                @else
-                    <div class="w-full h-40 bg-gray-100 flex items-center justify-center text-gray-400 rounded mb-3">
-                        No Image
-                    </div>
-                @endif
-                <p class="text-xs text-gray-500 mb-3">{{ $instance->condition_notes }}</p>
-                <a href="{{ route('books.instance', $instance->id) }}" class="mt-auto inline-block text-blue-600 hover:underline text-sm font-medium">View Details</a>
-                <a href="{{ route('books.instance.request', ['bookInstance' => $instance->id]) }}" class="inline-block mt-2 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition text-sm font-medium">
-                    Request Book
-                </a>
+{{-- resources/views/books/index.blade.php --}}
+<section class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Header Section -->
+        <div class="text-center mb-12">
+            <h1 class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+                Discover Amazing Books
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Explore our curated collection of books waiting to find their next reader
+            </p>
+            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <!-- Books Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            @foreach($instances as $instance)
+                <livewire:book-card :instance="$instance" :key="$instance->id" />
+            @endforeach
+        </div>
+
+        <!-- Empty State -->
+        @if($instances->isEmpty())
+            <div class="text-center py-16">
+                <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-2">No Books Available</h3>
+                <p class="text-gray-600">Check back later for new additions to our collection.</p>
             </div>
-        @endforeach
+        @endif
     </div>
 </section>
