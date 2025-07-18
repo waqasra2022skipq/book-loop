@@ -10,7 +10,7 @@
             <flux:input wire:model="name" label="Name"/>
         </div>
         <div>
-            <flux:input wire:model.live="email" label="Email" type="email"/>
+            <flux:input wire:model.blur="email" label="Email" type="email"/>
         </div>
         <div>
             <flux:input wire:model="address" label="Address"/>
@@ -18,6 +18,10 @@
         <div>
             <flux:textarea wire:model="message" label="Message" rows="3"/>
         </div>
-        <button type="submit" class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition w-full">Send Request</button>
+        <button type="submit"
+            class="px-5 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition w-full"
+            @if ($errors->any()) disabled class="opacity-50 cursor-not-allowed" @endif>
+            Send Request
+        </button>
     </form>
 </div>

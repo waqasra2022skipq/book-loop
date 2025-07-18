@@ -55,6 +55,10 @@ class BookRequest extends Component
 
     public function submit()
     {
+        if ($this->getErrorBag()->any()) {
+            return;
+        }
+
         try {
             $this->validate();
 
