@@ -1,6 +1,4 @@
-<section class="w-full">
-    <x-layouts.books.layout :heading="__('')" :subheading="__('')">
-        <h1 class="text-2xl font-semibold mb-4">{{ __('Add a Book') }}</h1>
+<section class="p-6 space-y-6">
         <form wire:submit.prevent="submit" class="my-2 w-full space-y-6">
             <!-- Book details (auto-filled if found) -->
             <div>
@@ -44,5 +42,4 @@
                 @endif
             </div>
         </form>
-    </x-layouts.books.layout>
 </section>

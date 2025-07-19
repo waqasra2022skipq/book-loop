@@ -1,4 +1,4 @@
-<section class="max-w-2xl mx-auto p-6 space-y-6">
+<section class="p-6 space-y-6">
     <h1 class="text-2xl font-bold mb-2">Edit Book Info</h1>
 
     @if (session()->has('message'))

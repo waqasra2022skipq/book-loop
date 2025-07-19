@@ -26,10 +26,7 @@
 
             <!-- Desktop User Menu -->
             @if(auth()->check())
-                <flux:navbar>
-                    <flux:navlist.item icon="" :href="route('books.create')" :current="request()->routeIs('books.create')" wire:navigate>{{ __('Add a Book') }}</flux:navlist.item>
-                    <flux:navlist.item icon="" :href="route('books.mybooks')" :current="request()->routeIs('books.mybooks')" wire:navigate>{{ __('My Books') }}</flux:navlist.item>
-                </flux:navbar>
+
                 <flux:dropdown position="top" align="end">
                     <flux:profile
                         class="cursor-pointer"
@@ -59,7 +56,7 @@
                         <flux:menu.separator />
 
                         <flux:menu.radio.group>
-                            <flux:menu.item :href="route('settings.profile')" icon="cog" wire:navigate>{{ __('Settings') }}</flux:menu.item>
+                            <flux:menu.item :href="route('books.mybooks')" icon="cog" wire:navigate>{{ __('Dashobard') }}</flux:menu.item>
                         </flux:menu.radio.group>
 
                         <flux:menu.separator />

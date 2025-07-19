@@ -1,8 +1,5 @@
 
-<section class="w-full px-2 sm:px-4 md:px-8">
-    <x-layouts.books.layout :heading="__('')" :subheading="__('')">
-
-    <h1 class="text-xl sm:text-2xl font-semibold mb-3 sm:mb-4">My Books</h1>
+<section class="p-6 space-y-6">
 
     @if($books->isEmpty())
         <p class="text-gray-500 text-base sm:text-lg">You haven't added any books yet.</p>
@@ -31,6 +28,5 @@
             @endforeach
         </div>
     @endif
-    </x-layouts.books.layout>
 </section>
 

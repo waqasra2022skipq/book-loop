@@ -85,6 +85,9 @@ class EditBookInstance extends Component
 
     public function render()
     {
-        return view('livewire.edit-book-instance');
+        return view('livewire.edit-book-instance')->layout('layouts.dashboard', [
+            'heading' => __('Edit Book'),
+            'subheading' => __('Update the details below to modify the book information.')
+        ]);
     }
 }

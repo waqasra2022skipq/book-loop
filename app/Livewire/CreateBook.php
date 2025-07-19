@@ -23,7 +23,10 @@ class CreateBook extends Component
 
     public function render()
     {
-        return view('livewire.create-book');
+        return view('livewire.create-book')->layout('layouts.dashboard', [
+            'heading' => __('Add a Book'),
+            'subheading' => __('Fill in the details below to add a new book to your collection.')
+        ]);
     }
 
     public function submit()
