@@ -10,7 +10,7 @@
             <flux:navlist.group expandable heading="My Books" class="lg:grid">
                 <flux:navlist.item :href="route('books.mybooks')">My Books</flux:navlist.item>
                 <flux:navlist.item :href="route('books.create')">Add a Book</flux:navlist.item>
-                <flux:navlist.item href="#">Requests</flux:navlist.item>
+                <flux:navlist.item :href="route('mybooks.requests')">Requests</flux:navlist.item>
             </flux:navlist.group>
         </flux:navlist>
 

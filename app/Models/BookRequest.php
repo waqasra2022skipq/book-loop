@@ -17,6 +17,7 @@ class BookRequest extends Model
         'email',
         'address',
         'status',
+        'message',
     ];
 
     public function book()
@@ -32,5 +33,10 @@ class BookRequest extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function requester()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

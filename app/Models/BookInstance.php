@@ -21,5 +21,10 @@ class BookInstance extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'owner_id');
-    }   
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(\App\Models\BookRequest::class, 'book_instance_id');
+    }
 }

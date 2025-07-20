@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Services;
+
+use App\Models\BookRequest;
+use Illuminate\Support\Facades\Auth;
+
+class BookRequestService
+{
+    /**
+     * Get all requests for books owned by the current user.
+     */
+    public static function getReceivedRequestsForUser($userId)
+    {
+        return BookRequest::with(['book', 'bookInstance', 'requester'])
+            ->whereHas('bookInstance', function ($q) use ($userId) {
+                $q->where('owner_id', $userId);
+            })
+            ->latest()
+            ->get();
+    }
+
+    /**
+     * Update the status of a book request.
+     */
+    public static function updateStatus(BookRequest $request, string $status)
+    {
+        $request->status = $status;
+        $request->save();
+    }
+}
