@@ -19,6 +19,11 @@
             @endforeach
         </div>
 
+        <!-- Pagination -->
+        <div class="mt-8">
+            {{ $instances->links() }}
+        </div>
+
         <!-- Empty State -->
         @if($instances->isEmpty())
             <div class="text-center py-16">
