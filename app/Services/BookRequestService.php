@@ -16,6 +16,7 @@ class BookRequestService
             ->whereHas('bookInstance', function ($q) use ($userId) {
                 $q->where('owner_id', $userId);
             })
+            ->orderByRaw("FIELD(status, 'pending') DESC")
             ->latest()
             ->get();
     }
@@ -27,5 +28,19 @@ class BookRequestService
     {
         $request->status = $status;
         $request->save();
+    }
+
+    /**
+     * Get requests by status for books owned by the current user.
+     */
+    public static function getRequestsByStatus($userId, $status)
+    {
+        return BookRequest::with(['book', 'bookInstance', 'requester'])
+            ->whereHas('bookInstance', function ($q) use ($userId) {
+                $q->where('owner_id', $userId);
+            })
+            ->where('status', $status)
+            ->latest()
+            ->get();
     }
 }

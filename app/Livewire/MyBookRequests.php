@@ -9,18 +9,34 @@ use App\Models\BookRequest;
 
 class MyBookRequests extends Component
 {
-    public $requests;
+    public $tab = 'pending';
+    public $pendingRequests = [];
+    public $approvedRequests = [];
+    public $rejectedRequests = [];
 
     public function mount()
     {
-        $this->requests = BookRequestService::getReceivedRequestsForUser(Auth::id());
+        $this->fetchRequests();
+    }
+
+    public function setTab($tab)
+    {
+        $this->tab = $tab;
+    }
+
+    public function fetchRequests()
+    {
+        $userId = Auth::id();
+        $this->pendingRequests = BookRequestService::getRequestsByStatus($userId, 'pending');
+        $this->approvedRequests = BookRequestService::getRequestsByStatus($userId, 'accepted');
+        $this->rejectedRequests = BookRequestService::getRequestsByStatus($userId, 'rejected');
     }
 
     public function accept($requestId)
     {
         $request = BookRequest::findOrFail($requestId);
-        BookRequestService::updateStatus($request, 'accepted');
-        $this->mount();
+        BookRequestService::updateStatus($request, 'approved');
+        $this->fetchRequests();
         session()->flash('message', 'Request approved.');
     }
 
@@ -28,7 +44,7 @@ class MyBookRequests extends Component
     {
         $request = BookRequest::findOrFail($requestId);
         BookRequestService::updateStatus($request, 'rejected');
-        $this->mount();
+        $this->fetchRequests();
         session()->flash('message', 'Request rejected.');
     }
 
