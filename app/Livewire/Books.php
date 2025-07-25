@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 use App\Models\BookInstance;
+use Livewire\Attributes\Title;
 
 class Books extends Component
 {
@@ -31,6 +32,7 @@ class Books extends Component
         $this->resetPage();
     }
 
+    #[Title('Explore Books')] 
     public function render()
     {
         $query = BookInstance::with('book')
