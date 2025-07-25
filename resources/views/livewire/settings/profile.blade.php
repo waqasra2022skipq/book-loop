@@ -27,6 +27,11 @@
                 @endif
             </div>
 
+            <div>
+                <flux:input wire:model="address" :label="__('Address')" type="text" autocomplete="address" />
+                <flux:input wire:model="city" :label="__('City')" type="text" autocomplete="address-level2" />
+            </div>
+
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
                     <flux:button variant="primary" type="submit" class="w-full">{{ __('Save') }}</flux:button>

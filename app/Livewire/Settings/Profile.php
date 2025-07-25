@@ -14,13 +14,20 @@ class Profile extends Component
 
     public string $email = '';
 
+    public string $address = '';
+
+    public string $city = '';
+
     /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $user = Auth::user();
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->address = $user->address ?? '';
+        $this->city = $user->city ?? '';
     }
 
     /**
@@ -41,6 +48,10 @@ class Profile extends Component
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id),
             ],
+
+            'address' => ['nullable', 'string', 'max:255'],
+
+            'city' => ['nullable', 'string', 'max:255'],
         ]);
 
         $user->fill($validated);
