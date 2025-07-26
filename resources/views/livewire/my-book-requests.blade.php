@@ -8,8 +8,8 @@
             {{ $tab === 'pending' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700' }}">
             Pending
         </button>
-        <button wire:click="setTab('approved')" class="flex-1 py-2 rounded 
-            {{ $tab === 'approved' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700' }}">
+        <button wire:click="setTab('accepted')" class="flex-1 py-2 rounded 
+            {{ $tab === 'accepted' ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-700' }}">
             Approved
         </button>
         <button wire:click="setTab('rejected')" class="flex-1 py-2 rounded 
@@ -50,7 +50,7 @@
             @if(count($pendingRequests) === 0)
                 <div class="text-gray-500 text-center py-8">No pending requests.</div>
             @endif
-        @elseif($tab === 'approved')
+        @elseif($tab === 'accepted')
             @foreach ($approvedRequests as $request)
                 <div class="flex flex-col sm:flex-row items-start sm:items-center bg-white rounded shadow p-4 border mb-3">
                     <div class="w-full sm:w-20 h-28 flex-shrink-0 mb-2 sm:mb-0 sm:mr-4">

@@ -17,7 +17,7 @@
                 <div class="mt-2">
                     <span class="font-semibold">Status:</span>
                     <span class="inline-block px-2 py-1 rounded 
-                        @if($existingRequest->status === 'approved') bg-green-100 text-green-800
+                        @if($existingRequest->status === 'accepted') bg-green-100 text-green-800
                         @elseif($existingRequest->status === 'rejected') bg-red-100 text-red-800
                         @else bg-yellow-100 text-yellow-800 @endif">
                         {{ ucfirst($existingRequest->status ?? 'pending') }}

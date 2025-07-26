@@ -1,5 +1,6 @@
 <section class="p-6 space-y-6">
         <form wire:submit.prevent="submit" class="my-2 w-full space-y-6">
+            
             <!-- Book details (auto-filled if found) -->
             <div>
                 <flux:input wire:model="title" :label="__('Title')" type="text" required autocomplete="title" />
@@ -31,6 +32,14 @@
             <!-- cover_image upload -->
             <div>
                 <flux:input type="file" wire:model="cover_image" label="Cover Image (Optional)"/>
+            </div>
+
+            <!-- Address fields -->
+            <div>
+                <flux:input wire:model="city" :label="__('City')" type="text" autocomplete="address-level2" />
+            </div>
+            <div>
+                <flux:input wire:model="address" :label="__('Address')" type="text" autocomplete="street-address" />
             </div>
 
             <div class="flex items-center gap-4">

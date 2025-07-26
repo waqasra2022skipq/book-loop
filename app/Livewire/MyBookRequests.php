@@ -35,9 +35,9 @@ class MyBookRequests extends Component
     public function accept($requestId)
     {
         $request = BookRequest::findOrFail($requestId);
-        BookRequestService::updateStatus($request, 'approved');
+        BookRequestService::updateStatus($request, 'accepted');
         $this->fetchRequests();
-        session()->flash('message', 'Request approved.');
+        session()->flash('message', 'Request Accepted.');
     }
 
     public function reject($requestId)

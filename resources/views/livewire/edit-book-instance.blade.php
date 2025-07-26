@@ -46,6 +46,13 @@
             <flux:textarea wire:model="notes" label="Condition Notes"
                 placeholder="Describe the book’s condition (optional)" />
         </div>
+        <!-- Address fields -->
+        <div>
+            <flux:input wire:model="city" :label="__('City')" type="text" autocomplete="address-level2" />
+        </div>
+        <div>
+            <flux:input wire:model="address" :label="__('Address')" type="text" autocomplete="street-address" />
+        </div>
         <div class="flex justify-between items-center">
             <flux:button variant="primary" type="submit">{{ __('Update Book') }}</flux:button>
             <a href="{{ route('books.mybooks') }}" class="text-gray-500 hover:underline">Cancel</a>

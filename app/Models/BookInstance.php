@@ -14,6 +14,10 @@ class BookInstance extends Model
         'owner_id',
         'condition_notes',
         'status',
+        'city',
+        'address',
+        'lat',
+        'lng',
     ];
 
     public function book()

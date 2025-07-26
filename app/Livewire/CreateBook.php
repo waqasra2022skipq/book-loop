@@ -20,6 +20,16 @@ class CreateBook extends Component
     public $status = "available"; // Default status
     public $notes;
     public $cover_image;
+    public $city;
+    public $address;
+    public $lat;
+    public $lng;
+    public function mount()
+    {
+        $user = Auth::user();
+        $this->city = $user->city ?? '';
+        $this->address = $user->address ?? '';
+    }
 
     public function render()
     {
@@ -39,6 +49,8 @@ class CreateBook extends Component
             'status' => 'required|string',
             'notes' => 'nullable|string',
             'cover_image' => 'nullable|image|max:2048',
+            'city' => 'nullable|string',
+            'address' => 'nullable|string',
         ]);
 
 
@@ -59,10 +71,12 @@ class CreateBook extends Component
             'owner_id' => Auth::id(),
             'condition_notes' => $this->notes,
             'status' => $this->status,
+            'city' => $this->city,
+            'address' => $this->address,
         ]);
 
         // Reset form
-        $this->reset(['searchTerm', 'title', 'author', 'isbn', 'status', 'notes', 'cover_image']);
+        $this->reset(['searchTerm', 'title', 'author', 'isbn', 'status', 'notes', 'cover_image', 'city', 'address', 'lat', 'lng']);
         session()->flash('message', 'Book added successfully!');
         // Optionally, redirect or perform other actions
         return redirect()->route('books.mybooks');

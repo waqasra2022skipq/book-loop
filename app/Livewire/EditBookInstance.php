@@ -11,6 +11,8 @@ use App\Services\BookImageService;
 
 class EditBookInstance extends Component
 {
+    public $city;
+    public $address;
     use WithFileUploads;
 
     public $book;
@@ -46,6 +48,9 @@ class EditBookInstance extends Component
         $this->notes = $this->bookInstance->condition_notes;
 
         $this->currentImage = $this->bookInstance->book->cover_image ?? null;
+
+        $this->city = $this->bookInstance->city;
+        $this->address = $this->bookInstance->address;
     }
 
     public function update()
@@ -57,6 +62,8 @@ class EditBookInstance extends Component
             'status' => 'required|string|in:available,reading,reserved',
             'notes' => 'nullable|string|max:2000',
             'image' => 'nullable|image|max:2048', // 2MB Max
+            'city' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
         ]);
 
         $this->book->update([
@@ -68,6 +75,8 @@ class EditBookInstance extends Component
         $updateData = [
             'status' => $this->status,
             'condition_notes' => $this->notes,
+            'city' => $this->city,
+            'address' => $this->address,
         ];
 
         // Use service for image upload and save
