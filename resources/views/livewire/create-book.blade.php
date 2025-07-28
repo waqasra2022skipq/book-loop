@@ -45,10 +45,8 @@
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end w-full">
                     <flux:button variant="primary" type="submit" class="w-full">{{ __('Add Book') }}</flux:button>
+                    <span wire:loading>Saving...</span> 
                 </div>
-                @if (session()->has('message'))
-                    <span class="text-green-600 font-medium">{{ session('message') }}</span>
-                @endif
             </div>
         </form>
 </section>

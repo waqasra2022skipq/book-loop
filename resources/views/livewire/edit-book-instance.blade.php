@@ -51,6 +51,7 @@
         </div>
         <div class="flex justify-between items-center">
             <flux:button variant="primary" type="submit">{{ __('Update Book') }}</flux:button>
+            <span wire:loading>Saving...</span> 
             <a href="{{ route('books.mybooks') }}" class="text-gray-500 hover:underline">Cancel</a>
         </div>
         <x-action-message class="me-3" on="bookUpdated">
