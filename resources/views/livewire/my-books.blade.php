@@ -23,11 +23,14 @@
                     <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 mt-2">
                         <a href="{{ route('books.editBook', $instance->book->id) }}" class="text-blue-600 hover:underline text-sm">Edit Book</a>
                         <a href="{{ route('books.summary.write', $instance->book->id) }}" class="text-green-600 hover:underline text-sm">Write Summary</a>
-                        <button wire:click="delete({{ $instance->id }})" class="text-red-600 hover:underline text-sm text-left sm:text-center" onclick="return confirm('Are you sure?')">Delete</button>
+                        <button wire:click="delete({{ $instance->id }})" class="text-red-600 hover:underline text-sm text-left sm:text-center" wire:confirm="Are you sure you want to delete this Book">Delete</button>
                     </div>
                 </div>
             @endforeach
         </div>
+        <x-action-message class="me-3 text-green-600" on="book-deleted">
+                {{ __('Book deleted successfully.') }}
+        </x-action-message>
     @endif
 </section>
 

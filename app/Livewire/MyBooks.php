@@ -33,11 +33,10 @@ class MyBooks extends Component
         ]);
     }
 
-    public function delete($id)
+    public function delete(BookInstance $bookInstance)
     {
-        $book = BookInstance::where('id', $id)->where('owner_id', Auth::id())->firstOrFail();
-        $book->delete();
+        $bookInstance->delete();
         $this->fetchBooks();
-        session()->flash('message', 'Book deleted successfully!');
+        $this->dispatch('book-deleted', "Book deleted successfully!");
     }
 }
