@@ -29,7 +29,12 @@
 
             <div>
                 <flux:input wire:model="address" :label="__('Address')" type="text" autocomplete="address" />
+            </div>
+            <div>
                 <flux:input wire:model="city" :label="__('City')" type="text" autocomplete="address-level2" />
+            </div>
+            <div>
+                <flux:input wire:model="phone" :label="__('Phone Number')" type="text" autocomplete="tel" />
             </div>
 
             <div class="flex items-center gap-4">

@@ -11,12 +11,10 @@ use Livewire\Component;
 class Profile extends Component
 {
     public string $name = '';
-
     public string $email = '';
-
     public string $address = '';
-
     public string $city = '';
+    public string $phone = '';
 
     /**
      * Mount the component.
@@ -28,6 +26,7 @@ class Profile extends Component
         $this->email = $user->email;
         $this->address = $user->address ?? '';
         $this->city = $user->city ?? '';
+        $this->phone = $user->phone ?? '';
     }
 
     /**
@@ -39,7 +38,6 @@ class Profile extends Component
 
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
-
             'email' => [
                 'required',
                 'string',
@@ -48,10 +46,9 @@ class Profile extends Component
                 'max:255',
                 Rule::unique(User::class)->ignore($user->id),
             ],
-
             'address' => ['nullable', 'string', 'max:255'],
-
             'city' => ['nullable', 'string', 'max:255'],
+            'phone' => ['nullable', 'string', 'max:20'],
         ]);
 
         $user->fill($validated);
