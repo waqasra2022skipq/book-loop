@@ -8,24 +8,28 @@ use App\Models\Book;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
 use App\Services\BookImageService;
+use Livewire\Attributes\Locked;
+
 
 class EditBookInstance extends Component
 {
-    public $city;
-    public $address;
+    public string $city = '';
+    public string $address = '';
     use WithFileUploads;
 
-    public $book;
-    public $bookInstance;
+    #[Locked]
+    public Book $book;
+    #[Locked]
+    public BookInstance $bookInstance;
 
     // Book metadata
-    public $title;
-    public $author;
-    public $isbn;
+    public string $title = '';
+    public string $author = '';
+    public string $isbn = '';
 
     // BookInstance metadata
-    public $status;
-    public $notes;
+    public string $status = '';
+    public string $notes = '';
 
     public $image;
     public $currentImage;
@@ -33,29 +37,24 @@ class EditBookInstance extends Component
     public function mount($bookid)
     {
         $this->book = Book::findOrFail($bookid);
-
         $this->bookInstance = BookInstance::where('book_id', $bookid)
             ->where('owner_id', Auth::id())
             ->firstOrFail();
-
-        // Book fields
-        $this->title = $this->book->title;
-        $this->author = $this->book->author;
-        $this->isbn = $this->book->isbn;
-
-        // Instance fields
-        $this->status = $this->bookInstance->status;
-        $this->notes = $this->bookInstance->condition_notes;
-
-        $this->currentImage = $this->bookInstance->book->cover_image ?? null;
-
-        $this->city = $this->bookInstance->city;
-        $this->address = $this->bookInstance->address;
+        $this->fill([
+            'title' => $this->book->title,
+            'author' => $this->book->author,
+            'isbn' => $this->book->isbn,
+            'status' => $this->bookInstance->status,
+            'notes' => $this->bookInstance->condition_notes,
+            'currentImage' => $this->bookInstance->book->cover_image ?? null,
+            'city' => $this->bookInstance->city,
+            'address' => $this->bookInstance->address,
+        ]);
     }
 
     public function update()
     {
-        $this->validate([
+        $validated = $this->validate([
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:255',
@@ -67,29 +66,27 @@ class EditBookInstance extends Component
         ]);
 
         $this->book->update([
-            'title' => $this->title,
-            'author' => $this->author,
-            'isbn' => $this->isbn,
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
         ]);
 
         $updateData = [
-            'status' => $this->status,
-            'condition_notes' => $this->notes,
-            'city' => $this->city,
-            'address' => $this->address,
+            'status' => $validated['status'],
+            'condition_notes' => $validated['notes'],
+            'city' => $validated['city'],
+            'address' => $validated['address'],
         ];
 
-        // Use service for image upload and save
-        BookImageService::uploadAndSave($this->book, $this->image);
+        BookImageService::uploadAndSave($this->book, $validated['image'] ?? null);
 
-        if ($this->image) {
+        if ($validated['image']) {
             $this->currentImage = $this->book->cover_image;
         }
 
         $this->bookInstance->update($updateData);
 
         session()->flash('message', 'Book updated successfully!');
-        return redirect()->route('books.mybooks');
     }
 
     public function render()

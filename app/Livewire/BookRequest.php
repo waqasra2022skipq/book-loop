@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use Livewire\Component;
+use Livewire\Attributes\Locked;
 use App\Models\BookRequest as BookRequestModel;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
@@ -10,13 +11,18 @@ use Illuminate\Database\QueryException;
 
 class BookRequest extends Component
 {
-    public $name;
-    public $email;
-    public $address;
-    public $message;
+    public string $name = '';
+    public string $email = '';
+    public string $address = '';
+    public string $message = '';
+    
+    #[Locked]
     public BookInstance $bookInstance;
-    public $user_id = null;
-    public $existingRequest = null;
+    
+    #[Locked]
+    public ?int $user_id = null;
+    
+    public ?BookRequestModel $existingRequest = null;
 
     protected $rules = [
         'name' => 'required|string|max:255',
@@ -32,16 +38,20 @@ class BookRequest extends Component
         if (Auth::check()) {
             $user = Auth::user();
             $this->user_id = $user->id;
-            $this->name = $user->name ?? '';
-            $this->email = $user->email ?? '';
-            $this->address = $user->address ?? '';
+            
+            // Use fill() for bulk assignment as recommended in docs
+            $this->fill([
+                'name' => $user->name ?? '',
+                'email' => $user->email ?? '',
+                'address' => $user->address ?? '',
+            ]);
+            
             // Only for logged in user, show status card if request exists
             $this->existingRequest = BookRequestModel::where('user_id', $user->id)
                 ->where('book_instance_id', $this->bookInstance->id)
                 ->latest()
                 ->first();
         }
-        // For guests, do not set $existingRequest here
     }
 
     public function updatedEmail($email)
@@ -77,16 +87,16 @@ class BookRequest extends Component
         }
 
         try {
-            $this->validate();
+            $validated = $this->validate();
 
             $request = BookRequestModel::create([
                 'book_id' => $this->bookInstance->book_id,
                 'book_instance_id' => $this->bookInstance->id,
                 'user_id' => $this->user_id,
-                'name' => $this->name,
-                'email' => $this->email,
-                'address' => $this->address,
-                'message' => $this->message,
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                'address' => $validated['address'],
+                'message' => $validated['message'],
             ]);
 
             // Only set $existingRequest for logged in user
@@ -95,7 +105,10 @@ class BookRequest extends Component
             }
 
             session()->flash('success', 'Your request has been sent!');
+            
+            // Use reset() method as recommended in docs
             $this->reset(['name', 'email', 'address', 'message']);
+            
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) { // Duplicate entry
                 session()->flash('error', 'You have already requested this book.');

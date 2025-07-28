@@ -13,22 +13,26 @@ class CreateBook extends Component
 {
     use WithFileUploads;
 
-    public $searchTerm;
-    public $title;
-    public $author;
-    public $isbn;
-    public $status = "available"; // Default status
-    public $notes;
+    public string $searchTerm = '';
+    public string $title = '';
+    public string $author = '';
+    public string $isbn = '';
+    public string $status = "available";
+    public string $notes = '';
     public $cover_image;
-    public $city;
-    public $address;
+    public string $city = '';
+    public string $address = '';
     public $lat;
     public $lng;
     public function mount()
     {
         $user = Auth::user();
-        $this->city = $user->city ?? '';
-        $this->address = $user->address ?? '';
+        if ($user) {
+            $this->fill([
+                'city' => $user->city ?? '',
+                'address' => $user->address ?? '',
+            ]);
+        }
     }
 
     public function render()
@@ -41,7 +45,6 @@ class CreateBook extends Component
 
     public function submit()
     {
-        // Validate input
         $validated = $this->validate([
             'title' => 'required|string',
             'author' => 'nullable|string',
@@ -53,32 +56,24 @@ class CreateBook extends Component
             'address' => 'nullable|string',
         ]);
 
-
-
-        // Save book if new
         $book = Book::firstOrCreate(
-            ['isbn' => $this->isbn ?: null, 'title' => $this->title],
-            ['author' => $this->author]
+            ['isbn' => $validated['isbn'] ?: null, 'title' => $validated['title']],
+            ['author' => $validated['author']]
         );
 
-        // Handle cover upload via service
-        BookImageService::uploadAndSave($book, $this->cover_image);
+        BookImageService::uploadAndSave($book, $validated['cover_image'] ?? null);
 
-
-        // Add entry to book_instances
         BookInstance::create([
             'book_id' => $book->id,
             'owner_id' => Auth::id(),
-            'condition_notes' => $this->notes,
-            'status' => $this->status,
-            'city' => $this->city,
-            'address' => $this->address,
+            'condition_notes' => $validated['notes'],
+            'status' => $validated['status'],
+            'city' => $validated['city'],
+            'address' => $validated['address'],
         ]);
 
-        // Reset form
         $this->reset(['searchTerm', 'title', 'author', 'isbn', 'status', 'notes', 'cover_image', 'city', 'address', 'lat', 'lng']);
         session()->flash('message', 'Book added successfully!');
-        // Optionally, redirect or perform other actions
         return redirect()->route('books.mybooks');
     }
 }
