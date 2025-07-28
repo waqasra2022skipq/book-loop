@@ -65,6 +65,7 @@
                 @if ($errors->any()) disabled class="opacity-50 cursor-not-allowed" @endif>
                 Send Request
             </button>
+            <span wire:loading>Saving...</span> 
         </form>
     @endauth
 </div>
