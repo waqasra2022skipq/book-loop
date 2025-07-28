@@ -26,10 +26,13 @@
             @endforeach
         </div>
         @if($summaries->count() < $total)
-            <div class="mt-8 flex justify-center">
+            {{-- <div class="mt-8 flex justify-center">
                 <button wire:click="loadMore" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
                     More Summaries
                 </button>
+            </div> --}}
+            <div x-intersect="$wire.loadMore()">
+                Loading More
             </div>
         @endif
     @endif
