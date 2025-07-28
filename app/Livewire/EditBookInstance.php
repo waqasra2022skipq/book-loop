@@ -87,6 +87,7 @@ class EditBookInstance extends Component
         $this->bookInstance->update($updateData);
 
         session()->flash('message', 'Book updated successfully!');
+        $this->dispatch('bookUpdated', "Book updated successfully!");
     }
 
     public function render()

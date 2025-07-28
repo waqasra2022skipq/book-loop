@@ -1,10 +1,6 @@
 <section class="p-6 space-y-6">
     <h1 class="text-2xl font-bold mb-2">Edit Book Info</h1>
 
-    @if (session()->has('message'))
-        <p class="text-green-600 font-medium">{{ session('message') }}</p>
-    @endif
-
     <form wire:submit.prevent="update" class="space-y-6">
         <!-- Book Metadata -->
         <div>
@@ -57,5 +53,8 @@
             <flux:button variant="primary" type="submit">{{ __('Update Book') }}</flux:button>
             <a href="{{ route('books.mybooks') }}" class="text-gray-500 hover:underline">Cancel</a>
         </div>
+        <x-action-message class="me-3" on="bookUpdated">
+            {{ __('Book updated successfully.') }}
+        </x-action-message>
     </form>
 </section>
