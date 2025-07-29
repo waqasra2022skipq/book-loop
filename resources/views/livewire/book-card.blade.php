@@ -1,7 +1,7 @@
 {{-- resources/views/livewire/book-card.blade.php --}}
 <div class="group relative bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-2xl hover:border-blue-200 transition-all duration-300 overflow-hidden">
     <!-- Book Cover -->
-    <div class="relative overflow-hidden">
+    <a href="{{ route('books.instance', $instance->id) }}" class="relative overflow-hidden block">
         @if($instance->book->cover_image)
             <img src="{{ asset('storage/' . $instance->book->cover_image) }}" 
                  class="w-full h-56 object-cover group-hover:scale-105 transition-transform duration-300" 
@@ -22,14 +22,16 @@
                 {{ ucfirst($instance->status) }}
             </span>
         </div>
-    </div>
+    </a>
 
     <!-- Book Details -->
     <div class="p-6 space-y-4">
         <!-- Title -->
-        <h3 class="text-xl font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
-            {{ $instance->book->title }}
-        </h3>
+        <a href="{{ route('books.instance', $instance->id) }}">
+            <h3 class="text-xl font-bold text-gray-900 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                {{ $instance->book->title }}
+            </h3>
+        </a>
 
         <!-- Author -->
         <p class="text-sm font-medium text-gray-600 flex items-center">
