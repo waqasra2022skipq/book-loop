@@ -33,6 +33,9 @@
                     <flux:input wire:model.blur="email" label="Email" type="email"/>
                 </div>
                 <div>
+                    <flux:input wire:model="phone" label="Phone Number" type="text" autocomplete="tel"/>
+                </div>
+                <div>
                     <flux:input wire:model="address" label="Address"/>
                 </div>
                 <div>
@@ -53,6 +56,9 @@
             </div>
             <div>
                 <flux:input wire:model.blur="email" label="Email" type="email"/>
+            </div>
+            <div>
+                <flux:input wire:model="phone" label="Phone Number" type="text" autocomplete="tel"/>
             </div>
             <div>
                 <flux:input wire:model="address" label="Address"/>

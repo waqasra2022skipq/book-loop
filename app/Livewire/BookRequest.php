@@ -13,6 +13,7 @@ class BookRequest extends Component
 {
     public string $name = '';
     public string $email = '';
+    public string $phone = '';
     public string $address = '';
     public string $message = '';
     
@@ -27,6 +28,7 @@ class BookRequest extends Component
     protected $rules = [
         'name' => 'required|string|max:255',
         'email' => 'required|email|max:255',
+        'phone' => 'nullable|string|max:20',
         'address' => 'required|string|max:255',
         'message' => 'required|string',
     ];
@@ -43,6 +45,7 @@ class BookRequest extends Component
             $this->fill([
                 'name' => $user->name ?? '',
                 'email' => $user->email ?? '',
+                'phone' => $user->phone ?? '',
                 'address' => $user->address ?? '',
             ]);
             
@@ -95,6 +98,7 @@ class BookRequest extends Component
                 'user_id' => $this->user_id,
                 'name' => $validated['name'],
                 'email' => $validated['email'],
+                'phone' => $validated['phone'],
                 'address' => $validated['address'],
                 'message' => $validated['message'],
             ]);
@@ -107,7 +111,7 @@ class BookRequest extends Component
             session()->flash('success', 'Your request has been sent!');
             
             // Use reset() method as recommended in docs
-            $this->reset(['name', 'email', 'address', 'message']);
+            $this->reset(['name', 'email', 'phone', 'address', 'message']);
             
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) { // Duplicate entry
