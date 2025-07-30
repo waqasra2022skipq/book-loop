@@ -18,6 +18,9 @@
                 <flux:navbar.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate>
                     {{ __('Explore') }}
                 </flux:navbar.item>
+                <flux:navbar.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate>
+                    {{ __('Contact Us') }}
+                </flux:navbar.item>
                 @if(auth()->check())
                     <flux:navbar.item :href="route('books.mybooks')" :current="request()->routeIs('books.mybooks')" wire:navigate>
                         {{ __('Dashboard') }}
@@ -72,6 +75,9 @@
             <flux:navlist variant="outline">
                 <flux:navlist.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate>
                     {{ __('Explore') }}
+                </flux:navlist.item>
+                <flux:navlist.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate>
+                    {{ __('Contact Us') }}
                 </flux:navlist.item>
                 @if(auth()->check())
                     <flux:navlist.item :href="route('books.mybooks')" :current="request()->routeIs('books.mybooks')" wire:navigate>

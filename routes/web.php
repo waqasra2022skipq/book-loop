@@ -40,4 +40,7 @@ Route::prefix('books')->group(function () {
     Route::get('/{bookInstance}/request', BookRequest::class)->name('books.instance.request');
 });
 
+Route::get('contact', \App\Livewire\ContactUs::class)->name('contact');
+Route::get('admin/user-queries', \App\Livewire\UserQueriesList::class)->name('admin.user-queries');
+
 require __DIR__ . '/auth.php';
