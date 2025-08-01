@@ -85,7 +85,7 @@
                     <flux:navlist.item :href="route('books.mybooks')" :current="request()->routeIs('books.mybooks')" wire:navigate icon="rectangle-stack">
                         {{ __('My Books') }}
                     </flux:navlist.item>
-                    <flux:navlist.item :href="route('books.requests')" :current="request()->routeIs('books.requests')" wire:navigate icon="inbox">
+                    <flux:navlist.item :href="route('mybooks.requests')" :current="request()->routeIs('mybooks.requests')" wire:navigate icon="inbox">
                         {{ __('My Requests') }}
                     </flux:navlist.item>
                 @endif
