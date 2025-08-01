@@ -1,4 +1,4 @@
-<section class="p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 max-w-2xl mx-auto">
+<section class="p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 max-w-2xl">
         <form wire:submit.prevent="submit" class="my-2 w-full space-y-4 sm:space-y-6">
             
             <!-- Book details (auto-filled if found) -->

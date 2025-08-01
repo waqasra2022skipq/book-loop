@@ -1,5 +1,5 @@
 
-<section class="p-6 space-y-6">
+<section class="p-4 space-y-6">
 
     @if($books->isEmpty())
         <p class="text-gray-500 text-base sm:text-lg">You haven't added any books yet.</p>

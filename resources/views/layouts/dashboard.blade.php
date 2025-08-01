@@ -21,12 +21,10 @@
         </flux:navlist>
         </flux:sidebar>
 
-        <flux:main>
             <flux:heading>{{ $heading ?? '' }}</flux:heading>
             <flux:subheading>{{ $subheading ?? '' }}</flux:subheading>
             <flux:separator variant="subtle" />
 
             {{ $slot }}
-        </flux:main>
     </div>
 </x-layouts.app>
