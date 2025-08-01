@@ -44,7 +44,7 @@
                     <flux:textarea wire:model="message" label="Message" rows="3"/>
                 </div>
                 <button type="submit"
-                    class="px-4 sm:px-5 py-2.5 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition w-full text-sm sm:text-base font-medium"
+                    class="w-full py-3 text-base font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-300 transition"
                     @if ($errors->any()) disabled class="opacity-50 cursor-not-allowed" @endif>
                     Send Request
                 </button>
@@ -69,11 +69,11 @@
                 <flux:textarea wire:model="message" label="Message" rows="3"/>
             </div>
             <button type="submit"
-                class="px-4 sm:px-5 py-2.5 sm:py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition w-full text-sm sm:text-base font-medium"
+                class="w-full py-3 text-base font-semibold rounded-lg bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 focus:ring-2 focus:ring-blue-300 transition"
                 @if ($errors->any()) disabled class="opacity-50 cursor-not-allowed" @endif>
                 Send Request
             </button>
-            <span wire:loading class="text-xs sm:text-sm text-gray-500 text-center block mt-2">Saving...</span> 
+            <span wire:loading class="text-xs sm:text-sm text-blue-500 text-center block mt-2">Saving...</span> 
         </form>
     @endauth
 </div>
