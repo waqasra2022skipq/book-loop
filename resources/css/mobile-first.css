@@ -1,0 +1,207 @@
+/* Mobile-First Optimization for Book Loop */
+
+/* Base mobile-first typography */
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 640px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+/* Mobile-optimized touch targets */
+.btn-mobile {
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.75rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .btn-mobile {
+    min-height: auto;
+    min-width: auto;
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Improved mobile text readability */
+.mobile-text {
+  line-height: 1.6;
+}
+
+@media (min-width: 640px) {
+  .mobile-text {
+    line-height: 1.5;
+  }
+}
+
+/* Mobile-first form spacing */
+.mobile-form {
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-form {
+    gap: 1.5rem;
+  }
+}
+
+/* Enhanced mobile card spacing */
+.mobile-card {
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-card {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+
+/* Mobile-optimized grid gaps */
+.mobile-grid {
+  gap: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-grid {
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-grid {
+    gap: 2rem;
+  }
+}
+
+/* Mobile-first container padding */
+.mobile-container {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .mobile-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Mobile navigation improvements */
+.mobile-nav {
+  padding: 0.5rem;
+}
+
+@media (min-width: 1024px) {
+  .mobile-nav {
+    padding: 0;
+  }
+}
+
+/* Mobile sidebar width optimization */
+.mobile-sidebar {
+  width: 280px;
+}
+
+@media (max-width: 375px) {
+  .mobile-sidebar {
+    width: 100vw;
+  }
+}
+
+/* Enhanced mobile focus states */
+.mobile-focus:focus {
+  outline: 2px solid #3B82F6;
+  outline-offset: 2px;
+}
+
+/* Mobile-optimized shadows */
+.mobile-shadow {
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+}
+
+@media (min-width: 640px) {
+  .mobile-shadow {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Mobile-first image aspect ratios */
+.mobile-img {
+  aspect-ratio: 4/3;
+  object-fit: cover;
+}
+
+@media (min-width: 640px) {
+  .mobile-img {
+    aspect-ratio: 3/4;
+  }
+}
+
+/* Mobile search input optimization */
+.mobile-search {
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* Mobile modal and overlay optimization */
+.mobile-modal {
+  padding: 1rem;
+  margin: 1rem;
+}
+
+@media (min-width: 640px) {
+  .mobile-modal {
+    padding: 2rem;
+    margin: 2rem;
+  }
+}
+
+/* Mobile-optimized table scrolling */
+.mobile-table {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Mobile-first loading states */
+.mobile-loading {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Mobile toast notifications */
+.mobile-toast {
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  position: fixed;
+  z-index: 50;
+}
+
+@media (min-width: 640px) {
+  .mobile-toast {
+    bottom: 2rem;
+    right: 2rem;
+    left: auto;
+    max-width: 400px;
+  }
+}

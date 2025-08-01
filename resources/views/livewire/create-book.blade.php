@@ -1,5 +1,5 @@
-<section class="p-6 space-y-6">
-        <form wire:submit.prevent="submit" class="my-2 w-full space-y-6">
+<section class="p-3 sm:p-4 md:p-6 space-y-4 sm:space-y-6 max-w-2xl mx-auto">
+        <form wire:submit.prevent="submit" class="my-2 w-full space-y-4 sm:space-y-6">
             
             <!-- Book details (auto-filled if found) -->
             <div>
@@ -44,8 +44,8 @@
 
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end w-full">
-                    <flux:button variant="primary" type="submit" class="w-full">{{ __('Add Book') }}</flux:button>
-                    <span wire:loading>Saving...</span> 
+                    <flux:button variant="primary" type="submit" class="w-full py-2.5 sm:py-3 text-sm sm:text-base">{{ __('Add Book') }}</flux:button>
+                    <span wire:loading class="text-xs sm:text-sm text-gray-500 ml-2">Saving...</span> 
                 </div>
             </div>
         </form>

@@ -1,24 +1,24 @@
 {{-- resources/views/livewire/books.blade.php --}}
 <section class="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
-    <div class="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="container mx-auto px-3 sm:px-4 md:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
         <!-- Header Section -->
-        <div class="text-center mb-12">
-            <h1 class="text-4xl sm:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-4">
+        <div class="text-center mb-8 sm:mb-12">
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent mb-3 sm:mb-4">
                 Discover Amazing Books
             </h1>
-            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            <p class="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-2">
                 Explore our curated collection of books waiting to find their next reader
             </p>
-            <div class="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+            <div class="w-16 sm:w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-3 sm:mt-4 rounded-full"></div>
         </div>
 
         <!-- Search Section -->
-        <div class="max-w-2xl mx-auto mb-8">
-            <div class="relative">
+        <div class="max-w-2xl mx-auto mb-6 sm:mb-8">
+            <div class="relative px-2 sm:px-0">
                 <!-- Search Input -->
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="h-4 w-4 sm:h-5 sm:w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
                     </div>
@@ -26,7 +26,7 @@
                         type="text" 
                         wire:model.live.debounce.300ms="search"
                         placeholder="{{ $searchPlaceholder }}"
-                        class="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all duration-200"
+                        class="block w-full pl-9 sm:pl-10 pr-10 sm:pr-12 py-2.5 sm:py-3 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition-all duration-200 text-sm sm:text-base"
                         autocomplete="off"
                     >
                     <!-- Clear Button -->
@@ -72,14 +72,14 @@
         <!-- Books Grid -->
         <div wire:loading.remove.delay>
             @if($instances->count() > 0)
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 px-2 sm:px-0">
                     @foreach($instances as $instance)
                         <livewire:book-card :instance="$instance" :key="$instance->id" />
                     @endforeach
                 </div>
 
                 <!-- Pagination -->
-                <div class="mt-12">
+                <div class="mt-8 sm:mt-12 px-2 sm:px-0">
                     {{ $instances->links() }}
                 </div>
             @endif
