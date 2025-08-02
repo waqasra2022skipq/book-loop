@@ -1,10 +1,15 @@
 <div class="px-3 sm:px-4 py-4 sm:py-6">
-    @if (session()->has('success'))
-        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded text-sm">{{ session('success') }}</div>
-    @endif
-    @if (session()->has('error'))
-        <div class="mb-4 p-3 bg-red-100 text-red-800 rounded text-sm">{{ session('error') }}</div>
-    @endif
+
+    <div 
+        x-data="{ show: false, type: '', message: '' }"
+        x-on:notify.window="show = true; type = $event.detail.type; message = $event.detail.message; setTimeout(() => show = false, 4000)"
+        x-show="show"
+        x-transition
+        class="mb-4"
+    >
+        <div x-show="type === 'success'" class="p-3 bg-green-100 text-green-800 rounded text-sm" x-text="message"></div>
+        <div x-show="type === 'error'" class="p-3 bg-red-100 text-red-800 rounded text-sm" x-text="message"></div>
+    </div>
 
     @auth
         @if ($existingRequest)
@@ -29,16 +34,16 @@
         @else
             <form wire:submit.prevent="submit" class="space-y-4 max-w-md mx-auto">
                 <div>
-                    <flux:input wire:model="name" label="Name"/>
+                    <flux:input wire:model="name" label="Name" required/>
                 </div>
                 <div>
-                    <flux:input wire:model.blur="email" label="Email" type="email"/>
+                    <flux:input wire:model.blur="email" label="Email" type="email" required/>
                 </div>
                 <div>
                     <flux:input wire:model="phone" label="Phone Number" type="text" autocomplete="tel"/>
                 </div>
                 <div>
-                    <flux:input wire:model="address" label="Address"/>
+                    <flux:input wire:model="address" label="Address" required/>
                 </div>
                 <div>
                     <flux:textarea wire:model="message" label="Message" rows="3"/>
@@ -54,16 +59,16 @@
         {{-- Always show form for guests --}}
         <form wire:submit.prevent="submit" class="space-y-4 max-w-md mx-auto">
             <div>
-                <flux:input wire:model="name" label="Name"/>
+                <flux:input wire:model="name" label="Name" required/>
             </div>
             <div>
-                <flux:input wire:model.blur="email" label="Email" type="email"/>
+                <flux:input wire:model.blur="email" label="Email" type="email" required/>
             </div>
             <div>
                 <flux:input wire:model="phone" label="Phone Number" type="text" autocomplete="tel"/>
             </div>
             <div>
-                <flux:input wire:model="address" label="Address"/>
+                <flux:input wire:model="address" label="Address" required/>
             </div>
             <div>
                 <flux:textarea wire:model="message" label="Message" rows="3"/>

@@ -8,6 +8,7 @@ use App\Models\BookRequest as BookRequestModel;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use App\Notifications\BookRequestStatusNotification;
 
 class BookRequest extends Component
 {
@@ -30,7 +31,7 @@ class BookRequest extends Component
         'email' => 'required|email|max:255',
         'phone' => 'nullable|string|max:20',
         'address' => 'required|string|max:255',
-        'message' => 'required|string',
+        'message' => 'nullable|string',
     ];
 
     public function mount(BookInstance $bookInstance)
@@ -108,19 +109,26 @@ class BookRequest extends Component
                 $this->existingRequest = $request;
             }
 
-            session()->flash('success', 'Your request has been sent!');
-            
+            // Notify the book owner
+            $owner = $this->bookInstance->owner;
+            if ($owner) {
+                $owner->notify(new BookRequestStatusNotification($request, 'received', 'You have received a new book request.'));
+            }
+
+            // Dispatch Livewire event for UI feedback
+            $this->dispatch('notify', type: 'success', message: 'Your request has been sent!');
+
             // Use reset() method as recommended in docs
             $this->reset(['name', 'email', 'phone', 'address', 'message']);
             
         } catch (QueryException $e) {
             if ($e->getCode() == 23000) { // Duplicate entry
-                session()->flash('error', 'You have already requested this book.');
+                $this->dispatch('notify', type: 'error', message: 'You have already requested this book.');
             } else {
-                session()->flash('error', 'An unexpected error occurred. Please try again.');
+                $this->dispatch('notify', type: 'error', message: 'An unexpected error occurred. Please try again.');
             }
         } catch (\Throwable $th) {
-            session()->flash('error', 'An error occurred. Please try again.');
+            $this->dispatch('notify', type: 'error', message: $th->getMessage());
         }
     }
 
