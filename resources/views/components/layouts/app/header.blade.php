@@ -28,26 +28,42 @@
             </flux:navbar>
             <flux:spacer />
             @if(auth()->check())
-                <!-- User profile dropdown -->
-                <flux:dropdown position="top" align="start">
-                    @if(auth()->user()->avatar ?? false)
-                        <flux:profile avatar="{{ auth()->user()->avatar }}" />
-                    @else
-                        <flux:button variant="ghost" size="sm">
-                            <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full bg-blue-200 text-blue-700 font-semibold">
-                                {{ auth()->user()->initials() }}
+                <!-- Notification icon: mobile links to page, desktop shows dropdown -->
+                <div class="flex items-center gap-1">
+                    <!-- Mobile: link to notifications page -->
+                    <a href="{{ route('notifications.index') }}" class="md:hidden relative flex items-center justify-center w-10 h-10 rounded-full bg-white shadow hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition mr-1" aria-label="Notifications">
+                        <svg class="w-6 h-6 text-zinc-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        </svg>
+                        @if(auth()->user()->unreadNotifications->count())
+                            <span class="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full animate-pulse">
+                                {{ auth()->user()->unreadNotifications->count() }}
                             </span>
-                        </flux:button>
-                    @endif
-                    <flux:menu>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-                            <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
-                                {{ __('Sign Out') }}
-                            </flux:menu.item>
-                        </form>
-                    </flux:menu>
-                </flux:dropdown>
+                        @endif
+                    </a>
+                    <!-- Desktop: show dropdown -->
+                    <livewire:notifications-dropdown />
+                    <!-- User profile dropdown -->
+                    <flux:dropdown position="top" align="start">
+                        @if(auth()->user()->avatar ?? false)
+                            <flux:profile avatar="{{ auth()->user()->avatar }}" />
+                        @else
+                            <flux:button variant="ghost" size="sm">
+                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full bg-blue-200 text-blue-700 font-semibold">
+                                    {{ auth()->user()->initials() }}
+                                </span>
+                            </flux:button>
+                        @endif
+                        <flux:menu>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
+                                    {{ __('Sign Out') }}
+                                </flux:menu.item>
+                            </form>
+                        </flux:menu>
+                    </flux:dropdown>
+                </div>
             @else
                 <!-- Login button for guests -->
                 <flux:navbar>
