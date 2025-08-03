@@ -27,10 +27,7 @@ class MyBooks extends Component
 
     public function render()
     {
-        return view('livewire.my-books')->layout('layouts.dashboard', [
-            'heading' => __('My Books'),
-            'subheading' => __('Here you can manage the books you have added to your collection.')
-        ]);
+        return view('livewire.my-books');
     }
 
     public function delete(BookInstance $bookInstance)

@@ -3,135 +3,131 @@
     <head>
         @include('partials.head')
     </head>
-    <body class="min-h-screen bg-white dark:bg-zinc-800">
-        <flux:header container class="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 border-b border-zinc-200 dark:border-zinc-700 px-3 sm:px-6 rounded-b-2xl shadow-sm">
-            <!-- Mobile sidebar toggle -->
-            <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
-            <!-- Logo and brand -->
-            <a href="{{ route('welcome') }}" class="flex items-center gap-2 rtl:space-x-reverse text-xl font-bold text-blue-700 tracking-tight" wire:navigate>
-                <x-app-logo class="h-8 w-8" />
-                <span class="hidden sm:inline">Book Loop</span>
-            </a>
-            <!-- Desktop navigation -->
-            <flux:navbar class="-mb-px max-lg:hidden gap-2">
-                <flux:navbar.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+    
+<body class="min-h-screen bg-white dark:bg-zinc-800">
+    <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
+        <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
+
+        <flux:brand href="{{ route('welcome') }}"  logo="https://fluxui.dev/img/demo/logo.png" name="Loop Your Book" class="max-lg:hidden dark:hidden" />
+
+        <flux:navbar class="-mb-px max-lg:hidden">
+            {{-- <flux:navbar.item icon="home" href="#" current>Home</flux:navbar.item> --}}
+
+            <flux:separator vertical variant="subtle" class="my-2"/>
+
+            <flux:dropdown class="max-lg:hidden">
+                <flux:navbar.item icon:trailing="chevron-down">My Books</flux:navbar.item>
+                <flux:navmenu>
+                    <flux:navmenu.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navmenu.item>
+                    <flux:navmenu.item :href="route('books.create')" wire:navigate>Add a Book</flux:navmenu.item>
+                    <flux:navmenu.item :href="route('mybooks.requests')" wire:navigate badge="12">Borrow Requests</flux:navmenu.item>
+                </flux:navmenu>
+            </flux:dropdown>
+        </flux:navbar>
+
+        <flux:spacer />
+
+        <flux:navbar class="me-4">
+            <flux:navbar.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Explore') }}
                 </flux:navbar.item>
-                <flux:navbar.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
-                    {{ __('Contact Us') }}
-                </flux:navbar.item>
-                @if(auth()->check())
-                    <flux:navbar.item :href="route('books.mybooks')" :current="request()->routeIs('books.mybooks')" wire:navigate icon="rectangle-stack" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
-                        {{ __('Dashboard') }}
-                    </flux:navbar.item>
-                @endif
-            </flux:navbar>
-            <flux:spacer />
-            @if(auth()->check())
-                <!-- Notification icon: mobile links to page, desktop shows dropdown -->
-                <div class="flex items-center gap-1">
-                    <!-- Mobile: link to notifications page -->
-                    <a href="{{ route('notifications.index') }}" class="md:hidden relative flex items-center justify-center w-10 h-10 rounded-full bg-white shadow hover:bg-zinc-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition mr-1" aria-label="Notifications">
-                        <svg class="w-6 h-6 text-zinc-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
-                        </svg>
-                        @if(auth()->user()->unreadNotifications->count())
-                            <span class="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full animate-pulse">
-                                {{ auth()->user()->unreadNotifications->count() }}
-                            </span>
-                        @endif
-                    </a>
-                    <!-- Desktop: show dropdown -->
-                    <livewire:notifications-dropdown />
-                    <!-- User profile dropdown -->
-                    <flux:dropdown position="top" align="start">
-                        @if(auth()->user()->avatar ?? false)
-                            <flux:profile avatar="{{ auth()->user()->avatar }}" />
-                        @else
-                            <flux:button variant="ghost" size="sm">
-                                <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full bg-blue-200 text-blue-700 font-semibold">
-                                    {{ auth()->user()->initials() }}
-                                </span>
-                            </flux:button>
-                        @endif
-                        <flux:menu>
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
-                                    {{ __('Sign Out') }}
-                                </flux:menu.item>
-                            </form>
-                        </flux:menu>
-                    </flux:dropdown>
+            <flux:navbar.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                {{ __('Contact Us') }}
+            </flux:navbar.item>
+            @if(auth()->user()->unreadNotifications->count())
+                <flux:navbar.item :href="route('notifications.index')" :current="request()->routeIs('notifications.index')" wire:navigate class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                <div class="flex items-center gap-1">     
+                    <svg class="w-6 h-6 text-zinc-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    @if(auth()->user()->unreadNotifications->count())
+                        <span class="absolute top-1 right-1 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-600 rounded-full animate-pulse">
+                            {{ auth()->user()->unreadNotifications->count() }}
+                        </span>
+                    @endif
                 </div>
-            @else
-                <!-- Login button for guests -->
-                <flux:navbar>
-                    <flux:navbar.item :href="route('login')" icon="user" wire:navigate class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
-                        {{ __('Login') }}
-                    </flux:navbar.item>
-                </flux:navbar>
+                </flux:navbar.item>
             @endif
-        </flux:header>
+        </flux:navbar>
 
-        <!-- Mobile sidebar -->
-        <flux:sidebar stashable sticky class="lg:hidden bg-gradient-to-b from-blue-50 via-purple-50 to-pink-50 border rtl:border-r-0 rtl:border-l border-zinc-200 dark:border-zinc-700 w-72 rounded-r-2xl shadow-xl">
-            
-            <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
-            
-            <!-- Mobile logo -->
-            <div class="flex items-center justify-center py-4 border-b border-zinc-200 dark:border-zinc-700 bg-white/70">
-                <a href="{{ route('welcome') }}" class="flex items-center gap-2 rtl:space-x-reverse text-lg font-bold text-blue-700 tracking-tight" wire:navigate>
-                    <x-app-logo class="h-7 w-7" />
-                    <span class="font-semibold">Book Loop</span>
-                </a>
-            </div>
-            
-            <!-- Mobile navigation -->
-            <flux:navlist variant="outline" class="px-2 py-4 gap-1">
-                <flux:navlist.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate icon="book-open" class="rounded-lg px-4 py-2 text-base font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                    {{ __('Explore Books') }}
-                </flux:navlist.item>
-                @if(auth()->check())
-                    <flux:navlist.item :href="route('books.create')" :current="request()->routeIs('books.create')" wire:navigate icon="plus-circle" class="rounded-lg px-4 py-2 text-base font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                        {{ __('Add Book') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item :href="route('books.mybooks')" :current="request()->routeIs('books.mybooks')" wire:navigate icon="rectangle-stack" class="rounded-lg px-4 py-2 text-base font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                        {{ __('My Books') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item :href="route('mybooks.requests')" :current="request()->routeIs('mybooks.requests')" wire:navigate icon="inbox" class="rounded-lg px-4 py-2 text-base font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                        {{ __('My Requests') }}
-                    </flux:navlist.item>
+        @if(auth()->check())
+            <!-- Notification icon: mobile links to page, desktop shows dropdown -->
+                
+            <!-- User profile dropdown -->
+            <flux:dropdown position="top" align="start">
+                @if(auth()->user()->avatar ?? false)
+                    <flux:profile avatar="{{ auth()->user()->avatar }}" />
+                @else
+                    <flux:button variant="ghost" size="sm">
+                        <span class="relative flex h-8 w-8 shrink-0 overflow-hidden rounded-full bg-blue-200 text-blue-700 font-semibold">
+                            {{ auth()->user()->initials() }}
+                        </span>
+                    </flux:button>
                 @endif
-                <flux:navlist.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate icon="phone" class="rounded-lg px-4 py-2 text-base font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                    {{ __('Contact Us') }}
-                </flux:navlist.item>
-            </flux:navlist>
-            
-            <flux:spacer />
-            
-            <!-- Mobile bottom actions -->
-            <flux:navlist variant="outline" class="px-2 pb-4 gap-1">
-                @if(auth()->check())
+                <flux:menu>
+                    <flux:menu.item icon="user" :href="route('settings.profile')">Profile</flux:menu.item>
+                    <flux:menu.item icon="key" :href="route('settings.password')">Update Password</flux:menu.item>
+                    <flux:menu.separator />
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <flux:navlist.item as="button" type="submit" icon="arrow-right-start-on-rectangle" class="w-full text-left rounded-lg px-4 py-2 font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
+                        <flux:menu.item as="button" type="submit" icon="arrow-right-start-on-rectangle">
                             {{ __('Sign Out') }}
-                        </flux:navlist.item>
+                        </flux:menu.item>
                     </form>
-                @else
-                    <flux:navlist.item :href="route('login')" icon="user" wire:navigate class="rounded-lg px-4 py-2 font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                        {{ __('Login') }}
-                    </flux:navlist.item>
-                    <flux:navlist.item :href="route('register')" icon="user-plus" wire:navigate class="rounded-lg px-4 py-2 font-semibold flex items-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
-                        {{ __('Register') }}
-                    </flux:navlist.item>
-                @endif
-            </flux:navlist>
-        </flux:sidebar>
+                </flux:menu>
+            </flux:dropdown>
+        @else
+            <!-- Login button for guests -->
+            <flux:navbar>
+                <flux:navbar.item :href="route('login')" icon="user" wire:navigate class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                    {{ __('Login') }}
+                </flux:navbar.item>
+            </flux:navbar>
+        @endif
+
+        {{-- <flux:dropdown position="top" align="start">
+            <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
+
+            <flux:menu>
+                <flux:menu.item icon="user" :href="route('settings.profile')">Profile</flux:menu.item>
+                <flux:menu.item icon="key" :href="route('settings.password')">Update Password</flux:menu.item>
+
+                <flux:menu.separator />
+
+                <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
+            </flux:menu>
+        </flux:dropdown> --}}
+    </flux:header>
+
+    <flux:sidebar stashable sticky class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border rtl:border-r-0 rtl:border-l border-zinc-200 dark:border-zinc-700">
+        <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
+
+        <flux:brand href="{{ route('welcome') }}" logo="https://fluxui.dev/img/demo/logo.png" name="Loop Your Book" class="px-2 dark:hidden" />
+
+        <flux:navlist variant="outline">
+            <flux:navlist.group expandable heading="My Books" class="">
+                <flux:navlist.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navlist.item>
+                <flux:navlist.item :href="route('books.create')" wire:navigate>Add Book</flux:navlist.item>
+                <flux:navlist.item :href="route('mybooks.requests')" wire:navigate>Borrow Requests</flux:navlist.item>
+            </flux:navlist.group>
+        </flux:navlist>
+
+        {{-- <flux:spacer />
+
+        <flux:navlist variant="outline">
+            <flux:navlist.item icon="cog-6-tooth" href="#">Settings</flux:navlist.item>
+            <flux:navlist.item icon="information-circle" href="#">Help</flux:navlist.item>
+        </flux:navlist> --}}
+    </flux:sidebar>
+
+    <flux:main container>
+        {{-- <flux:heading size="xl" level="1">Good afternoon, Olivia</flux:heading>
+        <flux:text class="mt-2 mb-6 text-base">Here's what's new today</flux:text>
+        <flux:separator variant="subtle" /> --}}
 
         {{ $slot }}
+    </flux:main>
 
-        @fluxScripts
-    </body>
+    @fluxScripts
+</body>
 </html>

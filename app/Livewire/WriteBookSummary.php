@@ -48,9 +48,6 @@ class WriteBookSummary extends Component
     public function render()
     {
         $book = Book::findOrFail($this->bookId);
-        return view('livewire.write-book-summary', compact('book'))->layout('layouts.dashboard', [
-            'heading' => __('Write Book Summary'),
-            'subheading' => __('Share your thoughts and rating for this book.')
-        ]);
+        return view('livewire.write-book-summary', compact('book'));
     }
 }

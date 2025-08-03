@@ -50,9 +50,6 @@ class MyBookRequests extends Component
 
     public function render()
     {
-        return view('livewire.my-book-requests')->layout('layouts.dashboard', [
-            'heading' => __('Book Requests'),
-            'subheading' => __('Manage requests you have received for your books.')
-        ]);
+        return view('livewire.my-book-requests');
     }
 }
