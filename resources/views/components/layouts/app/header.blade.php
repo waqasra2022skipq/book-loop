@@ -14,15 +14,16 @@
             {{-- <flux:navbar.item icon="home" href="#" current>Home</flux:navbar.item> --}}
 
             <flux:separator vertical variant="subtle" class="my-2"/>
-
-            <flux:dropdown class="max-lg:hidden">
-                <flux:navbar.item icon:trailing="chevron-down">My Books</flux:navbar.item>
-                <flux:navmenu>
-                    <flux:navmenu.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navmenu.item>
-                    <flux:navmenu.item :href="route('books.create')" wire:navigate>Add a Book</flux:navmenu.item>
-                    <flux:navmenu.item :href="route('mybooks.requests')" wire:navigate badge="12">Borrow Requests</flux:navmenu.item>
-                </flux:navmenu>
-            </flux:dropdown>
+            @if(auth()->user())
+                <flux:dropdown class="max-lg:hidden">
+                    <flux:navbar.item icon:trailing="chevron-down">My Books</flux:navbar.item>
+                    <flux:navmenu>
+                        <flux:navmenu.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navmenu.item>
+                        <flux:navmenu.item :href="route('books.create')" wire:navigate>Add a Book</flux:navmenu.item>
+                        <flux:navmenu.item :href="route('mybooks.requests')" wire:navigate badge="12">Borrow Requests</flux:navmenu.item>
+                    </flux:navmenu>
+                </flux:dropdown>
+            @endif
         </flux:navbar>
 
         <flux:spacer />
@@ -34,7 +35,7 @@
             <flux:navbar.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                 {{ __('Contact Us') }}
             </flux:navbar.item>
-            @if(auth()->user()->unreadNotifications->count())
+            @if(auth()->user())
                 <flux:navbar.item :href="route('notifications.index')" :current="request()->routeIs('notifications.index')" wire:navigate class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                 <div class="flex items-center gap-1">     
                     <svg class="w-6 h-6 text-zinc-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -104,13 +105,15 @@
 
         <flux:brand href="{{ route('welcome') }}" logo="https://fluxui.dev/img/demo/logo.png" name="Loop Your Book" class="px-2 dark:hidden" />
 
-        <flux:navlist variant="outline">
-            <flux:navlist.group expandable heading="My Books" class="">
-                <flux:navlist.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navlist.item>
-                <flux:navlist.item :href="route('books.create')" wire:navigate>Add Book</flux:navlist.item>
-                <flux:navlist.item :href="route('mybooks.requests')" wire:navigate>Borrow Requests</flux:navlist.item>
-            </flux:navlist.group>
-        </flux:navlist>
+        @if(auth()->user())
+            <flux:navlist variant="outline">
+                <flux:navlist.group expandable heading="My Books" class="">
+                    <flux:navlist.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navlist.item>
+                    <flux:navlist.item :href="route('books.create')" wire:navigate>Add Book</flux:navlist.item>
+                    <flux:navlist.item :href="route('mybooks.requests')" wire:navigate>Borrow Requests</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
+        @endif
 
         {{-- <flux:spacer />
 
