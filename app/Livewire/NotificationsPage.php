@@ -27,6 +27,15 @@ class NotificationsPage extends Component
         }
     }
 
+    public function markAllAsRead()
+    {
+        $user = Auth::user();
+        if ($user) {
+            $user->unreadNotifications()->update(['read_at' => now()]);
+            $this->notifications = $user->notifications()->latest()->take(30)->get();
+        }
+    }
+
     public function render()
     {
         return view('livewire.notifications-page');
