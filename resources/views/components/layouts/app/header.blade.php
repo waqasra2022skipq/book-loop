@@ -86,18 +86,6 @@
             </flux:navbar>
         @endif
 
-        {{-- <flux:dropdown position="top" align="start">
-            <flux:profile avatar="https://fluxui.dev/img/demo/user.png" />
-
-            <flux:menu>
-                <flux:menu.item icon="user" :href="route('settings.profile')">Profile</flux:menu.item>
-                <flux:menu.item icon="key" :href="route('settings.password')">Update Password</flux:menu.item>
-
-                <flux:menu.separator />
-
-                <flux:menu.item icon="arrow-right-start-on-rectangle">Logout</flux:menu.item>
-            </flux:menu>
-        </flux:dropdown> --}}
     </flux:header>
 
     <flux:sidebar stashable sticky class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border rtl:border-r-0 rtl:border-l border-zinc-200 dark:border-zinc-700">
@@ -115,19 +103,9 @@
             </flux:navlist>
         @endif
 
-        {{-- <flux:spacer />
-
-        <flux:navlist variant="outline">
-            <flux:navlist.item icon="cog-6-tooth" href="#">Settings</flux:navlist.item>
-            <flux:navlist.item icon="information-circle" href="#">Help</flux:navlist.item>
-        </flux:navlist> --}}
     </flux:sidebar>
 
     <flux:main container>
-        {{-- <flux:heading size="xl" level="1">Good afternoon, Olivia</flux:heading>
-        <flux:text class="mt-2 mb-6 text-base">Here's what's new today</flux:text>
-        <flux:separator variant="subtle" /> --}}
-
         {{ $slot }}
     </flux:main>
 
