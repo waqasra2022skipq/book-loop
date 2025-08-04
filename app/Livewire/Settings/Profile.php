@@ -82,6 +82,6 @@ class Profile extends Component
 
     public function render()
     {
-        return view('livewire.settings.profile')->layout('layouts.dashboard');
+        return view('livewire.settings.profile');
     }
 }

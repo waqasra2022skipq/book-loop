@@ -43,6 +43,6 @@ class Password extends Component
 
     public function render()
     {
-        return view('livewire.settings.password')->layout('layouts.dashboard');
+        return view('livewire.settings.password');
     }
 }
