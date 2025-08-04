@@ -8,7 +8,7 @@
     <flux:header container class="bg-zinc-50 dark:bg-zinc-900 border-b border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 
-        <flux:brand href="{{ route('welcome') }}"  logo="https://fluxui.dev/img/demo/logo.png" name="Loop Your Book" class="max-lg:hidden dark:hidden" />
+        <flux:brand href="{{ route('welcome') }}"  logo="{{ asset('images/logo.svg') }}" name="Loop Your Book" class="max-lg:hidden dark:hidden" />
 
         <flux:navbar class="-mb-px max-lg:hidden">
             <flux:separator vertical variant="subtle" class="my-2"/>
@@ -89,7 +89,7 @@
     <flux:sidebar stashable sticky class="lg:hidden bg-zinc-50 dark:bg-zinc-900 border rtl:border-r-0 rtl:border-l border-zinc-200 dark:border-zinc-700">
         <flux:sidebar.toggle class="lg:hidden" icon="x-mark" />
 
-        <flux:brand href="{{ route('welcome') }}" logo="https://fluxui.dev/img/demo/logo.png" name="Loop Your Book" class="px-2 dark:hidden" />
+        <flux:brand href="{{ route('welcome') }}" logo="{{ asset('images/logo.svg') }}" name="Loop Your Book" class="px-2 dark:hidden" />
 
         @if(auth()->user())
             <flux:navlist variant="outline">
