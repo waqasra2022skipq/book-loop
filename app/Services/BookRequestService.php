@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use App\Models\BookRequest;
-use Illuminate\Support\Facades\Auth;
+use App\Models\User;
+use App\Notifications\BookRequestStatusNotification;
 
 class BookRequestService
 {
@@ -28,6 +29,24 @@ class BookRequestService
     {
         $request->status = $status;
         $request->save();
+
+        // Notify the requester
+        $user = $request->requester;
+        self::sendStatusNotification($user, $status, $request);
+    }
+
+    // Write a method to send notification based on status
+    // if status is 'accepted' or 'rejected', send a notification to the requester
+    // if status is 'pending', do not send a notification to the owner
+    public static function sendStatusNotification($user, string $status, BookRequest $request)
+    {
+        if(!$user) return;
+        if ($status === 'accepted' || $status === 'rejected') {
+            $user->notify(new BookRequestStatusNotification($request, $status, 'Your book request has been ' . $status));
+        } else if ($status === 'pending') {
+            // Notify the book owner
+            $user->notify(new BookRequestStatusNotification($request, 'received', 'You have received a new book request.'));
+        }
     }
 
     /**

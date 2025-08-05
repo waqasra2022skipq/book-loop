@@ -8,7 +8,7 @@ use App\Models\BookRequest as BookRequestModel;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
-use App\Notifications\BookRequestStatusNotification;
+use App\Services\BookRequestService;
 
 class BookRequest extends Component
 {
@@ -109,11 +109,7 @@ class BookRequest extends Component
                 $this->existingRequest = $request;
             }
 
-            // Notify the book owner
-            $owner = $this->bookInstance->owner;
-            if ($owner) {
-                $owner->notify(new BookRequestStatusNotification($request, 'received', 'You have received a new book request.'));
-            }
+            BookRequestService::sendStatusNotification(Auth::user(), 'pending', $request);
 
             // Dispatch Livewire event for UI feedback
             $this->dispatch('notify', type: 'success', message: 'Your request has been sent!');
