@@ -109,7 +109,7 @@ class BookRequest extends Component
                 $this->existingRequest = $request;
             }
 
-            BookRequestService::sendStatusNotification(Auth::user(), 'pending', $request);
+            BookRequestService::sendStatusNotification($this->bookInstance->owner, 'pending', $request);
 
             // Dispatch Livewire event for UI feedback
             $this->dispatch('notify', type: 'success', message: 'Your request has been sent!');
