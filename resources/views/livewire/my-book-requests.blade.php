@@ -1,7 +1,12 @@
 <div>
-    @if (session()->has('message'))
-        <div class="mb-4 p-3 bg-green-100 text-green-800 rounded">{{ session('message') }}</div>
-    @endif
+    {{-- Notification for request status changes --}}
+    <x-action-message class="me-3" on="acceptedRequest">
+        {{ __('Request accepted.') }}
+    </x-action-message>
+
+    <x-action-message class="me-3" on="rejectedRequest">
+        {{ __('Request rejected.') }}
+    </x-action-message>
 
     <div class="flex flex-col sm:flex-row gap-2 mb-4">
         <button wire:click="setTab('pending')" class="flex-1 py-2 rounded 
