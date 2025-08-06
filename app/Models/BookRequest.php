@@ -10,14 +10,8 @@ class BookRequest extends Model
     use HasFactory;
 
     protected $fillable = [
-        'book_id',
-        'book_instance_id',
-        'user_id',
-        'name',
-        'email',
-        'address',
-        'status',
-        'message',
+        'book_id', 'book_instance_id', 'user_id',
+        'name', 'email', 'address', 'phone', 'status', 'message'
     ];
 
     public function book()
