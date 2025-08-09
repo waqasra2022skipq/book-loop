@@ -69,4 +69,21 @@ class BookRequestService
             ->latest()
             ->get();
     }
+
+    /**
+     * Reject all the pending request for a bookinstance
+     */
+
+    public static function rejectPendingRequests($bookInstanceId)
+    {
+        $requests = BookRequest::where('book_instance_id', $bookInstanceId)
+            ->where('status', 'pending')
+            ->get();
+
+        foreach ($requests as $request) {
+            $request->status = 'rejected';
+            $request->save();
+            self::sendStatusNotification($request->requester, 'rejected', $request);
+        }
+    }
 }

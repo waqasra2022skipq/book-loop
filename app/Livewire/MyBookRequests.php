@@ -46,6 +46,10 @@ class MyBookRequests extends Component
     {
         if ($this->selectedRequest) {
             BookRequestService::updateStatus($this->selectedRequest, 'accepted', $this->loanDuration);
+            
+            // set all other requests for this book instance to rejected
+            BookRequestService::rejectPendingRequests($this->selectedRequest->book_instance_id);
+
             $this->fetchRequests();
             $this->closeAcceptModal();
             $this->dispatch('acceptedRequest');
