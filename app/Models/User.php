@@ -65,4 +65,27 @@ class User extends Authenticatable implements MustVerifyEmail
             ->map(fn ($word) => Str::substr($word, 0, 1))
             ->implode('');
     }
+
+    /**
+     * Loan relationships
+     */
+    public function borrowedLoans()
+    {
+        return $this->hasMany(BookLoan::class, 'borrower_id');
+    }
+
+    public function ownedLoans()
+    {
+        return $this->hasMany(BookLoan::class, 'owner_id');
+    }
+
+    public function activeBorrowedLoans()
+    {
+        return $this->borrowedLoans()->active();
+    }
+
+    public function activeOwnedLoans()
+    {
+        return $this->ownedLoans()->active();
+    }
 }

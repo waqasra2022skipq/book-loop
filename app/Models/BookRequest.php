@@ -33,4 +33,14 @@ class BookRequest extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function loan()
+    {
+        return $this->hasOne(BookLoan::class);
+    }
+
+    public function owner()
+    {
+        return $this->hasOneThrough(User::class, BookInstance::class, 'id', 'id', 'book_instance_id', 'owner_id');
+    }
 }

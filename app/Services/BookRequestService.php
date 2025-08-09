@@ -25,14 +25,21 @@ class BookRequestService
     /**
      * Update the status of a book request.
      */
-    public static function updateStatus(BookRequest $request, string $status)
+    public static function updateStatus(BookRequest $request, string $status, ?int $loanDurationDays = null)
     {
         $request->status = $status;
         $request->save();
 
+        // If request is accepted, create a loan
+        if ($status === 'accepted') {
+            $loan = BookLoanService::createLoanFromRequest($request, $loanDurationDays);
+        }
+
         // Notify the requester
         $user = $request->requester;
         self::sendStatusNotification($user, $status, $request);
+
+        return $request;
     }
 
     // Write a method to send notification based on status
