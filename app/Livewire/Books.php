@@ -36,6 +36,7 @@ class Books extends Component
     public function render()
     {
         $query = BookInstance::with('book')
+            ->where('status', 'available')
             ->whereNot('owner_id', auth()->id());
 
         if ($this->search) {
