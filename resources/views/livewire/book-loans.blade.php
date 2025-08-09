@@ -170,7 +170,7 @@
                                             @if($activeTab === 'as_borrower')
                                                 <span>Owner: {{ $loan->owner->name }}</span>
                                             @else
-                                                <span>Borrower: {{ $loan->borrower->name }}</span>
+                                                <span>Borrower: {{ $loan->borrower?->name }}</span>
                                             @endif
                                             <span class="mx-2">•</span>
                                             <span>Due: {{ \Carbon\Carbon::parse($loan->due_date)->format('M j, Y') }}</span>
