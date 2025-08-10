@@ -8,6 +8,10 @@ use App\Models\BookRequest as BookRequestModel;
 use App\Models\BookInstance;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\DB;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 use App\Services\BookRequestService;
 
 class BookRequest extends Component
@@ -33,6 +37,13 @@ class BookRequest extends Component
         'address' => 'required|string|max:255',
         'message' => 'nullable|string',
     ];
+
+    protected BookRequestService $bookRequestService;
+
+    public function boot(BookRequestService $bookRequestService)
+    {
+        $this->bookRequestService = $bookRequestService;
+    }
 
     public function mount(BookInstance $bookInstance)
     {
@@ -86,46 +97,19 @@ class BookRequest extends Component
 
     public function submit()
     {
-        if ($this->getErrorBag()->any()) {
-            return;
-        }
-
-        try {
-            $validated = $this->validate();
-
-            $request = BookRequestModel::create([
-                'book_id' => $this->bookInstance->book_id,
-                'book_instance_id' => $this->bookInstance->id,
-                'user_id' => $this->user_id,
-                'name' => $validated['name'],
-                'email' => $validated['email'],
-                'phone' => $validated['phone'],
-                'address' => $validated['address'],
-                'message' => $validated['message'],
-            ]);
-
-            // Only set $existingRequest for logged in user
-            if (Auth::check()) {
-                $this->existingRequest = $request;
-            }
-
-            BookRequestService::sendStatusNotification($this->bookInstance->owner, 'pending', $request);
-
-            // Dispatch Livewire event for UI feedback
-            $this->dispatch('notify', type: 'success', message: 'Your request has been sent!');
-
-            // Use reset() method as recommended in docs
-            $this->reset(['name', 'email', 'phone', 'address', 'message']);
-            
-        } catch (QueryException $e) {
-            if ($e->getCode() == 23000) { // Duplicate entry
-                $this->dispatch('notify', type: 'error', message: 'You have already requested this book.');
-            } else {
-                $this->dispatch('notify', type: 'error', message: 'An unexpected error occurred. Please try again.');
-            }
-        } catch (\Throwable $th) {
-            $this->dispatch('notify', type: 'error', message: $th->getMessage());
-        }
+        $this->validate();
+        
+        $result = $this->bookRequestService->createBookRequest([
+                'name' => $this->name,
+                'email' => $this->email,
+                'phone' => $this->phone,
+                'address' => $this->address,
+                'message' => $this->message,
+            ], $this->bookInstance->id, $this->bookInstance->book_id);
+        
+        $this->dispatch('notify', type: 'success', message: 'Your request has been sent!');
+        
+        $this->reset(['name', 'email', 'phone', 'address', 'message']);
     }
 
     public function render()
