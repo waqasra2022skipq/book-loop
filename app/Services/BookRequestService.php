@@ -52,7 +52,7 @@ class BookRequestService
     /**
      * Create or find existing user based on email
      */
-    private function createOrFindUser(array $data): array
+    public function createOrFindUser(array $data): array
     {
         $existingUser = User::where('email', $data['email'])->first();
 
@@ -72,8 +72,13 @@ class BookRequestService
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'] ?? null,
+            'address' => $data['address'] ?? null,
+            'city' => $data['city'] ?? null,
+            'state' => $data['state'] ?? null,
+            'postal_code' => $data['postal_code'] ?? null,
             'password' => Hash::make(Str::random(12)), // Random password
-            'email_verified_at' => now(), // Auto-verify for book requests
+            'email_verified_at' => now(), // Auto-verify for guest interactions
         ]);
 
         return [
@@ -153,7 +158,7 @@ class BookRequestService
     // if status is 'pending', do not send a notification to the owner
     public static function sendStatusNotification($user, string $status, BookRequest $request)
     {
-        if(!$user) return;
+        if (!$user) return;
         if ($status === 'accepted' || $status === 'rejected') {
             $user->notify(new BookRequestStatusNotification($request, $status, 'Your book request has been ' . $status));
         } else if ($status === 'pending') {

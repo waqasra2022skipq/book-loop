@@ -32,6 +32,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('books/mybooks/requests', \App\Livewire\MyBookRequests::class)->name('mybooks.requests');
     Route::get('books/loans', \App\Livewire\BookLoans::class)->name('books.loans');
     Route::get('books/mybooks/{bookid}/summary', WriteBookSummary::class)->name('books.summary.write');
+    Route::get('books/{book}/write-summary', WriteBookSummary::class)->name('books.summary.write');
     Route::get('books/mybooks/{bookid}/edit', EditBookInstance::class)->name('books.editBook');
     Route::get('notifications', \App\Livewire\NotificationsPage::class)->name('notifications.index');
 });
@@ -40,6 +41,7 @@ Route::prefix('books')->group(function () {
     Route::get('/', Books::class)->name('books.all');
     Route::get('/{id}', BookInstance::class)->name('books.instance');
     Route::get('/{bookInstance}/request', BookRequest::class)->name('books.instance.request');
+    Route::get('/{bookId}/guest-summary', \App\Livewire\GuestWriteSummary::class)->name('books.guest.write.summary');
 });
 
 Route::get('contact', \App\Livewire\ContactUs::class)->name('contact');

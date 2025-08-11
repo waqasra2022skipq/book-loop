@@ -13,10 +13,12 @@ class WriteBookSummary extends Component
     public $summary = '';
     public $rating;
 
-    public function mount($bookid)
+    public function mount($bookid = null, $book = null)
     {
-        $this->bookId = $bookid;
-        $existing = BookSummary::where('book_id', $bookid)->where('user_id', Auth::id())->first();
+        // Handle both old route (bookid) and new route (book)
+        $this->bookId = $bookid ?: $book;
+
+        $existing = BookSummary::where('book_id', $this->bookId)->where('user_id', Auth::id())->first();
         if ($existing) {
             $this->summary = $existing->summary;
             $this->rating = $existing->rating;
