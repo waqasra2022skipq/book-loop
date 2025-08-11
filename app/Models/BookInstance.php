@@ -34,4 +34,14 @@ class BookInstance extends Model
     {
         return $this->hasMany(\App\Models\BookRequest::class, 'book_instance_id');
     }
+
+    public function loans()
+    {
+        return $this->hasMany(BookLoan::class);
+    }
+
+    public function activeLoan()
+    {
+        return $this->hasOne(BookLoan::class)->active();
+    }
 }

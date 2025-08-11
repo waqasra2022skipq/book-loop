@@ -21,6 +21,11 @@ class Book extends Model
         return $this->hasMany(BookInstance::class);
     }
 
+    public function loans()
+    {
+        return $this->hasMany(BookLoan::class);
+    }
+
     public function getCoverUrlAttribute()
     {
         return $this->cover ? asset('storage/' . $this->cover) : null;

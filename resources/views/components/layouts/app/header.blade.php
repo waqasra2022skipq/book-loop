@@ -19,6 +19,8 @@
                         <flux:navmenu.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navmenu.item>
                         <flux:navmenu.item :href="route('books.create')" wire:navigate>Add a Book</flux:navmenu.item>
                         <flux:navmenu.item :href="route('mybooks.requests')" wire:navigate badge="12">Borrow Requests</flux:navmenu.item>
+                        <flux:navmenu.item :href="route('books.loans')" wire:navigate>Book Loans</flux:navmenu.item>
+
                     </flux:navmenu>
                 </flux:dropdown>
             @endif
@@ -97,6 +99,7 @@
                     <flux:navlist.item :href="route('books.mybooks')" wire:navigate>My Books</flux:navlist.item>
                     <flux:navlist.item :href="route('books.create')" wire:navigate>Add Book</flux:navlist.item>
                     <flux:navlist.item :href="route('mybooks.requests')" wire:navigate>Borrow Requests</flux:navlist.item>
+                    <flux:navlist.item :href="route('books.loans')">Book Loans</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
         @endif

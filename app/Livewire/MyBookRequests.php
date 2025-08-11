@@ -13,6 +13,9 @@ class MyBookRequests extends Component
     public $pendingRequests = [];
     public $approvedRequests = [];
     public $rejectedRequests = [];
+    public $showAcceptModal = false;
+    public $selectedRequest = null;
+    public $loanDuration = 30; // default 30 days
 
     public function mount()
     {
@@ -34,10 +37,31 @@ class MyBookRequests extends Component
 
     public function accept($requestId)
     {
-        $request = BookRequest::findOrFail($requestId);
-        BookRequestService::updateStatus($request, 'accepted');
-        $this->fetchRequests();
-        $this->dispatch('acceptedRequest');
+        $this->selectedRequest = BookRequest::findOrFail($requestId);
+        $this->confirmAccept();
+        $this->showAcceptModal = true;
+    }
+
+    public function confirmAccept()
+    {
+        if ($this->selectedRequest) {
+            BookRequestService::updateStatus($this->selectedRequest, 'accepted', $this->loanDuration);
+            
+            // set all other requests for this book instance to rejected
+            BookRequestService::rejectPendingRequests($this->selectedRequest->book_instance_id);
+
+            $this->fetchRequests();
+            $this->closeAcceptModal();
+            $this->dispatch('acceptedRequest');
+            session()->flash('message', 'Request accepted and loan created successfully!');
+        }
+    }
+
+    public function closeAcceptModal()
+    {
+        $this->showAcceptModal = false;
+        $this->selectedRequest = null;
+        $this->loanDuration = 30;
     }
 
     public function reject($requestId)
