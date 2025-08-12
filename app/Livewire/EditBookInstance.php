@@ -34,10 +34,10 @@ class EditBookInstance extends Component
     public $image;
     public $currentImage;
 
-    public function mount($bookid)
+    public function mount($bookId)
     {
-        $this->book = Book::findOrFail($bookid);
-        $this->bookInstance = BookInstance::where('book_id', $bookid)
+        $this->book = Book::findOrFail($bookId);
+        $this->bookInstance = BookInstance::where('book_id', $bookId)
             ->where('owner_id', Auth::id())
             ->firstOrFail();
         $this->fill([

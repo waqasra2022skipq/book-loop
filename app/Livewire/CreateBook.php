@@ -70,6 +70,6 @@ class CreateBook extends Component
         ]);
 
         $this->reset(['searchTerm', 'title', 'author', 'isbn', 'status', 'notes', 'cover_image', 'city', 'address', 'lat', 'lng']);
-        return redirect()->route('books.mybooks');
+        return redirect()->route('books.my-books');
     }
 }

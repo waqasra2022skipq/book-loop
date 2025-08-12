@@ -18,7 +18,7 @@
             <label class="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>
             @if ($currentImage)
                 <div class="mb-2">
-                    <img src="{{ asset('storage/' . $currentImage)}}" alt="Current Cover" class="h-32 rounded shadow">
+                    <img src="{{ asset('storage/' . $currentImage) }}" alt="Current Cover" class="h-32 rounded shadow">
                 </div>
             @endif
             @if ($image)
@@ -27,7 +27,9 @@
                 </div>
             @endif
             <input type="file" wire:model="image" accept="image/*" class="block w-full text-sm text-gray-500" />
-            @error('image') <span class="text-red-600 text-xs">{{ $message }}</span> @enderror
+            @error('image')
+                <span class="text-red-600 text-xs">{{ $message }}</span>
+            @enderror
         </div>
 
         <!-- Instance Metadata -->
@@ -51,8 +53,8 @@
         </div>
         <div class="flex justify-between items-center">
             <flux:button variant="primary" type="submit">{{ __('Update Book') }}</flux:button>
-            <span wire:loading>Saving...</span> 
-            <a href="{{ route('books.mybooks') }}" class="text-gray-500 hover:underline">Cancel</a>
+            <span wire:loading>Saving...</span>
+            <a href="{{ route('books.my-books') }}" class="text-gray-500 hover:underline">Cancel</a>
         </div>
         <x-action-message class="me-3" on="bookUpdated">
             {{ __('Book updated successfully.') }}

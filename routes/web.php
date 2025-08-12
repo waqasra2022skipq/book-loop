@@ -28,12 +28,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('settings/appearance', Appearance::class)->name('settings.appearance');
 
     Route::get('books/create', CreateBook::class)->name('books.create');
-    Route::get('books/mybooks', MyBooks::class)->name('books.mybooks');
-    Route::get('books/mybooks/requests', \App\Livewire\MyBookRequests::class)->name('mybooks.requests');
+    Route::get('books/my-books', MyBooks::class)->name('books.my-books');
+    Route::get('books/my-books/requests', \App\Livewire\MyBookRequests::class)->name('my-books.requests');
     Route::get('books/loans', \App\Livewire\BookLoans::class)->name('books.loans');
-    Route::get('books/mybooks/{bookid}/summary', WriteBookSummary::class)->name('books.summary.write');
+    Route::get('books/my-books/{bookId}/summary', WriteBookSummary::class)->name('books.summary.write');
     Route::get('books/{book}/write-summary', WriteBookSummary::class)->name('books.summary.write');
-    Route::get('books/mybooks/{bookid}/edit', EditBookInstance::class)->name('books.editBook');
+    Route::get('books/my-books/{bookId}/edit', EditBookInstance::class)->name('books.editBook');
     Route::get('notifications', \App\Livewire\NotificationsPage::class)->name('notifications.index');
 });
 
