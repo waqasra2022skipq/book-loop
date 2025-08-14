@@ -219,6 +219,8 @@ namespace App\Models{
  * @property string $name
  * @property string $email
  * @property string|null $phone
+ * @property int $reviews_count
+ * @property string|null $avg_rating Average rating with 2 decimal places
  * @property \Illuminate\Support\Carbon|null $email_verified_at
  * @property string $password
  * @property string|null $remember_token
@@ -232,15 +234,21 @@ namespace App\Models{
  * @property string|null $postal_code
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $borrowedLoans
  * @property-read int|null $borrowed_loans_count
+ * @property-read string $star_rating
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserReview> $givenReviews
+ * @property-read int|null $given_reviews_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $ownedLoans
  * @property-read int|null $owned_loans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserReview> $receivedReviews
+ * @property-read int|null $received_reviews_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereAvgRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCity($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereEmail($value)
@@ -253,6 +261,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePhone($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User wherePostalCode($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereRememberToken($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereReviewsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
@@ -287,5 +296,46 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|UserQuery whereUserId($value)
  */
 	class UserQuery extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $reviewed_user_id
+ * @property int $reviewer_user_id
+ * @property int $rating Rating from 1 to 5
+ * @property string|null $review
+ * @property string|null $transaction_type book_request, book_loan, general, etc.
+ * @property int|null $transaction_id ID of related transaction (book_request_id, book_loan_id, etc.)
+ * @property bool $is_public
+ * @property \Illuminate\Support\Carbon $reviewed_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read string $star_rating
+ * @property-read string $summary
+ * @property-read \App\Models\User $reviewedUser
+ * @property-read \App\Models\User $reviewer
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview byRating($rating)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview byTransactionType($type)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview byUser($userId)
+ * @method static \Database\Factories\UserReviewFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview forUser($userId)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview public()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereIsPublic($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereReview($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereReviewedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereReviewedUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereReviewerUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereTransactionId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereTransactionType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserReview whereUpdatedAt($value)
+ */
+	class UserReview extends \Eloquent {}
 }
 

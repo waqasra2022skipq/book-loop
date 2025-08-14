@@ -31,6 +31,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'lat',
         'lng',
         'phone',
+        'reviews_count',
+        'avg_rating',
     ];
 
     /**
@@ -89,5 +91,71 @@ class User extends Authenticatable implements MustVerifyEmail
     public function activeOwnedLoans()
     {
         return $this->ownedLoans()->active();
+    }
+
+    /**
+     * Review relationships
+     */
+    public function receivedReviews()
+    {
+        return $this->hasMany(UserReview::class, 'reviewed_user_id');
+    }
+
+    public function givenReviews()
+    {
+        return $this->hasMany(UserReview::class, 'reviewer_user_id');
+    }
+
+    public function publicReceivedReviews()
+    {
+        return $this->receivedReviews()->public();
+    }
+
+    /**
+     * Get average rating (from cached column)
+     */
+    public function getAverageRating(): ?float
+    {
+        return $this->avg_rating;
+    }
+
+    /**
+     * Get reviews count (from cached column)
+     */
+    public function getReviewsCount(): int
+    {
+        return $this->reviews_count ?? 0;
+    }
+
+    /**
+     * Get star rating display
+     */
+    public function getStarRatingAttribute(): string
+    {
+        if (!$this->avg_rating) {
+            return 'No ratings yet';
+        }
+
+        $fullStars = floor($this->avg_rating);
+        $halfStar = ($this->avg_rating - $fullStars) >= 0.5;
+        $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+
+        return str_repeat('★', $fullStars) .
+            ($halfStar ? '½' : '') .
+            str_repeat('☆', $emptyStars) .
+            ' (' . number_format($this->avg_rating, 1) . ')';
+    }
+
+    /**
+     * Update cached review statistics
+     */
+    public function updateReviewStats(): void
+    {
+        $reviews = $this->receivedReviews()->public();
+
+        $this->update([
+            'reviews_count' => $reviews->count(),
+            'avg_rating' => $reviews->avg('rating'),
+        ]);
     }
 }

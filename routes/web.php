@@ -35,6 +35,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('books/{book}/write-summary', WriteBookSummary::class)->name('books.summary.write');
     Route::get('books/my-books/{bookId}/edit', EditBookInstance::class)->name('books.editBook');
     Route::get('notifications', \App\Livewire\NotificationsPage::class)->name('notifications.index');
+
+    // User review routes
+    Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.profile');
+    Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
+    Route::get('users/{userId}/write-review', \App\Livewire\WriteUserReview::class)->name('users.write-review');
+    Route::get('users/{userId}/write-review/{transactionType}/{transactionId}', \App\Livewire\WriteUserReview::class)->name('users.write-review.transaction');
 });
 
 Route::prefix('books')->group(function () {
