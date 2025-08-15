@@ -196,6 +196,21 @@
                             <div class="text-lg font-semibold text-gray-800">{{ $bookInstance->city }},
                                 {{ $bookInstance->address }}</div>
                         </div>
+
+                        {{-- Show Book Ratings --}}
+                        <div class="flex items-center gap-1">
+                            <div
+                                class="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
+                                <flux:icon.star variant="solid" class="text-yellow-500" />
+                            </div>
+                            <span
+                                class="text-sm font-semibold">{{ $bookInstance->book->average_rating() ?? 0 }}/5</span>
+
+                            {{-- add a button to switch to summaries tab --}}
+                            <button @click="tab = 'summaries'" class="text-sm text-blue-500 hover:underline">
+                                View Summaries
+                            </button>
+                        </div>
                     </div>
                 </div>
 
