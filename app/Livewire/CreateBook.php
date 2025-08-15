@@ -7,6 +7,7 @@ use Livewire\WithFileUploads;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Book;
 use App\Models\BookInstance;
+use App\Models\Genre;
 use App\Services\BookImageService;
 
 class CreateBook extends Component
@@ -22,6 +23,7 @@ class CreateBook extends Component
     public $cover_image;
     public string $city = '';
     public string $address = '';
+    public $genre_id = '';
     public $lat;
     public $lng;
     public function mount()
@@ -35,17 +37,13 @@ class CreateBook extends Component
         }
     }
 
-    public function render()
-    {
-        return view('livewire.create-book');
-    }
-
     public function submit()
     {
         $validated = $this->validate([
             'title' => 'required|string',
             'author' => 'nullable|string',
             'isbn' => 'nullable|string',
+            'genre_id' => 'nullable|exists:genres,id',
             'status' => 'required|string',
             'notes' => 'nullable|string',
             'cover_image' => 'nullable|image|max:2048',
@@ -55,7 +53,10 @@ class CreateBook extends Component
 
         $book = Book::firstOrCreate(
             ['isbn' => $validated['isbn'] ?: null, 'title' => $validated['title']],
-            ['author' => $validated['author']]
+            [
+                'author' => $validated['author'],
+                'genre_id' => $validated['genre_id'] ?: null,
+            ]
         );
 
         BookImageService::uploadAndSave($book, $validated['cover_image'] ?? null);
@@ -69,7 +70,13 @@ class CreateBook extends Component
             'address' => $validated['address'],
         ]);
 
-        $this->reset(['searchTerm', 'title', 'author', 'isbn', 'status', 'notes', 'cover_image', 'city', 'address', 'lat', 'lng']);
+        $this->reset(['searchTerm', 'title', 'author', 'isbn', 'genre_id', 'status', 'notes', 'cover_image', 'city', 'address', 'lat', 'lng']);
         return redirect()->route('books.my-books');
+    }
+
+    public function render()
+    {
+        $genres = Genre::active()->orderByName()->get();
+        return view('livewire.create-book', compact('genres'));
     }
 }

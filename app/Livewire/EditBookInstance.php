@@ -6,6 +6,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Models\Book;
 use App\Models\BookInstance;
+use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
 use App\Services\BookImageService;
 use Livewire\Attributes\Locked;
@@ -26,6 +27,7 @@ class EditBookInstance extends Component
     public string $title = '';
     public string $author = '';
     public string $isbn = '';
+    public ?int $genre_id = null;
 
     // BookInstance metadata
     public string $status = '';
@@ -44,11 +46,12 @@ class EditBookInstance extends Component
             'title' => $this->book->title,
             'author' => $this->book->author,
             'isbn' => $this->book->isbn,
+            'genre_id' => $this->book->genre_id,
             'status' => $this->bookInstance->status,
             'notes' => $this->bookInstance->condition_notes,
             'currentImage' => $this->bookInstance->book->cover_image ?? null,
-            'city' => $this->bookInstance->city,
-            'address' => $this->bookInstance->address,
+            'city' => $this->bookInstance->city ?? '',
+            'address' => $this->bookInstance->address ?? '',
         ]);
     }
 
@@ -58,6 +61,7 @@ class EditBookInstance extends Component
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:255',
             'isbn' => 'nullable|string|max:255',
+            'genre_id' => 'nullable|exists:genres,id',
             'status' => 'required|string|in:available,reading,reserved',
             'notes' => 'nullable|string|max:2000',
             'image' => 'nullable|image|max:2048', // 2MB Max
@@ -69,6 +73,7 @@ class EditBookInstance extends Component
             'title' => $validated['title'],
             'author' => $validated['author'],
             'isbn' => $validated['isbn'],
+            'genre_id' => $validated['genre_id'],
         ]);
 
         $updateData = [
@@ -92,6 +97,8 @@ class EditBookInstance extends Component
 
     public function render()
     {
-        return view('livewire.edit-book-instance');
+        return view('livewire.edit-book-instance', [
+            'genres' => Genre::active()->orderByName()->get(),
+        ]);
     }
 }

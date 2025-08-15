@@ -14,6 +14,7 @@ class Book extends Model
         'author',
         'isbn',
         'cover',
+        'genre_id',
     ];
 
     public function instances()
@@ -24,6 +25,11 @@ class Book extends Model
     public function loans()
     {
         return $this->hasMany(BookLoan::class);
+    }
+
+    public function genre()
+    {
+        return $this->belongsTo(Genre::class);
     }
 
     public function getCoverUrlAttribute()

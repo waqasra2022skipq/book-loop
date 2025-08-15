@@ -13,6 +13,15 @@
             <flux:input wire:model="isbn" :label="__('ISBN')" type="text" />
         </div>
 
+        <!-- Genre -->
+        <div>
+            <flux:select wire:model="genre_id" label="Genre" placeholder="Select a genre...">
+                @foreach ($genres as $genre)
+                    <flux:select.option value="{{ $genre->id }}">{{ $genre->name }}</flux:option>
+                @endforeach
+            </flux:select>
+        </div>
+
         <!-- Image Upload -->
         <div>
             <label class="block text-sm font-medium text-gray-700 mb-1">Cover Image</label>

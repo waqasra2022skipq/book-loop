@@ -23,7 +23,7 @@ namespace App\Models{
  * @property string $language
  * @property int|null $pages
  * @property string|null $publisher
- * @property string|null $genre
+ * @property \App\Models\Genre|null $genre
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $cover_url
@@ -215,6 +215,20 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Book> $books
+ * @property-read int|null $books_count
+ * @property-read string $display_name
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre active()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre orderByName()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre query()
+ */
+	class Genre extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * @property int $id
  * @property string $name
  * @property string $email
@@ -265,7 +279,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
-	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
+    class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
 }
 
 namespace App\Models{
