@@ -3,25 +3,19 @@
 
     <!-- Add Summary Button -->
     @auth
-        <a href="{{ route('books.summary.write', ['book' => $bookId]) }}"
-            class="flex-1 text-center px-4 py-2 text-sm font-semibold text-purple-700 bg-purple-50 rounded-lg flex items-center justify-center gap-2 hover:bg-purple-100 focus:bg-purple-200 transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                </path>
-            </svg>
-            Add Summary
-        </a>
+        <div class="mb-3">
+
+            <flux:button href="{{ route('books.summary.write', ['book' => $bookId]) }}" icon:trailing="arrow-up-right">
+                Add Summary
+            </flux:button>
+        </div>
     @else
-        <a href="{{ route('books.guest.write.summary', ['bookId' => $bookId]) }}"
-            class="flex-1 text-center px-4 py-2 text-sm font-semibold text-purple-700 bg-purple-50 rounded-lg flex items-center justify-center gap-2 hover:bg-purple-100 focus:bg-purple-200 transition">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z">
-                </path>
-            </svg>
-            Add Summary
-        </a>
+        <div class="mb-3">
+            <flux:button href="{{ route('books.guest.write.summary', ['bookId' => $bookId]) }}"
+                icon:trailing="arrow-up-right">
+                Add Summary
+            </flux:button>
+        </div>
     @endauth
     @if ($summaries->isEmpty())
         <p class="text-gray-600 text-lg">No summaries available yet. Be the first to add one!</p>
