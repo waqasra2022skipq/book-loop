@@ -24,6 +24,7 @@ namespace App\Models{
  * @property int|null $pages
  * @property string|null $publisher
  * @property \App\Models\Genre|null $genre
+ * @property int|null $genre_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $cover_url
@@ -31,6 +32,8 @@ namespace App\Models{
  * @property-read int|null $instances_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $loans
  * @property-read int|null $loans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookSummary> $summaries
+ * @property-read int|null $summaries_count
  * @method static \Database\Factories\BookFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book newQuery()
@@ -40,6 +43,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereGenre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereGenreId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereIsbn($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereLanguage($value)
@@ -215,6 +219,13 @@ namespace App\Models{
 
 namespace App\Models{
 /**
+ * @property int $id
+ * @property string $name
+ * @property string $slug
+ * @property string|null $description
+ * @property bool $is_active
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Book> $books
  * @property-read int|null $books_count
  * @property-read string $display_name
@@ -223,6 +234,13 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre orderByName()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereIsActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Genre whereUpdatedAt($value)
  */
 	class Genre extends \Eloquent {}
 }
@@ -279,7 +297,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereState($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
-    class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
+	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
 }
 
 namespace App\Models{
