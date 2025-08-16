@@ -65,7 +65,8 @@
                                         class="rounded-lg flex items-center justify-center">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H10m2-12a9 9 0 00-9 9v0a9 9 0 009 9v0a9 9 0 009-9v0a9 9 0 00-9-9z">
+                                            </path>
                                         </svg>
                                         Request Book
                                     </a>
@@ -241,27 +242,26 @@
                         <h3 class="text-2xl font-bold text-gray-800">Owner Information</h3>
                     </div>
 
-                    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-8">
-                        <div class="flex items-center gap-6">
-                            <div class="relative">
+                    <div class="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-4 sm:p-8">
+                        <div class="flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+                            <div class="relative flex-shrink-0">
                                 <div
-                                    class="w-20 h-20 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-2xl shadow-lg">
+                                    class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold text-xl sm:text-2xl shadow-lg">
                                     {{ strtoupper(substr($bookInstance->owner->name, 0, 1)) }}
                                 </div>
                                 <div
-                                    class="absolute -bottom-1 -right-1 w-6 h-6 bg-green-500 rounded-full border-4 border-white">
+                                    class="absolute -bottom-1 -right-1 w-5 h-5 sm:w-6 sm:h-6 bg-green-500 rounded-full border-2 sm:border-4 border-white">
                                 </div>
                             </div>
-                            <div class="space-y-2">
-                                {{-- link to user profile to see the detail page of user --}}
-                                <div class="text-xl font-bold text-gray-800">
-                                    <a href="{{ route('users.profile', $bookInstance->owner->id) }}">
-                                        {{ $bookInstance->owner->name }}
-                                    </a>
+                            <div class="flex-1 space-y-2 text-center sm:text-left">
+                                <div class="text-lg sm:text-xl font-bold text-gray-800">
+                                    {{ $bookInstance->owner->name }}
                                 </div>
-                                <div class="text-gray-600 font-medium">{{ $bookInstance->owner->email }}</div>
-                                <div class="flex items-center gap-2 text-sm text-gray-500">
-                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                <div class="text-sm sm:text-base text-gray-600 font-medium break-all sm:break-normal">
+                                    {{ $bookInstance->owner->email }}</div>
+                                <div
+                                    class="flex items-center justify-center sm:justify-start gap-2 text-xs sm:text-sm text-gray-500">
+                                    <svg class="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd"
                                             d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
                                             clip-rule="evenodd" />
@@ -269,6 +269,18 @@
                                     Active member
                                 </div>
                             </div>
+                        </div>
+
+                        <!-- View Profile Button -->
+                        <div class="mt-6 flex justify-center sm:justify-end">
+                            <a href="{{ route('users.profile', $bookInstance->owner->id) }}"
+                                class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-xl hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                                </svg>
+                                View Profile
+                            </a>
                         </div>
                     </div>
                 </div>
