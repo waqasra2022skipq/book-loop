@@ -60,7 +60,26 @@
                             </span>
                             <span
                                 class="inline-flex items-center px-4 py-2 rounded-full text-sm font-semibold bg-gradient-to-r from-amber-500 to-orange-600 text-white shadow-lg">
-                                {{ $bookInstance->condition_notes }}
+                                @if ($bookInstance->status === 'available')
+                                    <a href="{{ route('books.instance.request', ['bookInstance' => $bookInstance->id]) }}"
+                                        class="rounded-lg flex items-center justify-center">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                                        </svg>
+                                        Request Book
+                                    </a>
+                                @else
+                                    <button disabled
+                                        class="text-gray-400 bg-gray-100 rounded-lg cursor-not-allowed flex items-center justify-center gap-2">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 15v2m0 0v2m0-2h2m-2 0H10m2-12a9 9 0 00-9 9v0a9 9 0 009 9v0a9 9 0 009-9v0a9 9 0 00-9-9z">
+                                            </path>
+                                        </svg>
+                                        {{ ucfirst($bookInstance->status) }}
+                                    </button>
+                                @endif
                             </span>
                         </div>
                     </div>
@@ -99,20 +118,6 @@
                                     clip-rule="evenodd" />
                             </svg>
                             Summaries
-                        </span>
-                    </button>
-                    <button @click="tab = 'request'"
-                        :class="tab === 'request' ?
-                            'bg-gradient-to-r from-blue-600 to-indigo-600 text-white shadow-lg scale-105' :
-                            'text-gray-600 hover:text-gray-800 hover:bg-white/50'"
-                        class="flex-1 sm:flex-none px-6 py-3 font-semibold rounded-xl transition-all duration-300 transform hover:scale-105 min-w-max">
-                        <span class="flex items-center justify-center gap-2">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Request
                         </span>
                     </button>
                     <button @click="tab = 'owner'"
@@ -221,22 +226,6 @@
                     @livewire('book-summaries', ['bookId' => $bookInstance->book->id])
                 </div>
 
-                <!-- Request Book -->
-                <div x-show="tab === 'request'" x-transition:enter="transition ease-out duration-300 transform"
-                    x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100">
-                    <div class="flex items-center gap-3 mb-8">
-                        <div
-                            class="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-lg flex items-center justify-center">
-                            <svg class="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd"
-                                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-800">Request this Book</h3>
-                    </div>
-                    @livewire('book-request', ['bookInstance' => $bookInstance])
-                </div>
 
                 <!-- Owner Info -->
                 <div x-show="tab === 'owner'" x-transition:enter="transition ease-out duration-300 transform"
