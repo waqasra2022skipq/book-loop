@@ -6,7 +6,6 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use Livewire\Attributes\Url;
 use App\Models\BookInstance;
-use Livewire\Attributes\Title;
 
 class Books extends Component
 {
@@ -32,7 +31,24 @@ class Books extends Component
         $this->resetPage();
     }
 
-    #[Title('Explore Books')] 
+    public function getDescriptionProperty()
+    {
+        if ($this->search) {
+            return "Search results for '{$this->search}' - Find books by title, author, or genre in your area.";
+        }
+
+        return 'Explore hundreds of free books to read in your city. Find your next great read from our community of book lovers.';
+    }
+
+    public function getTitleProperty()
+    {
+        if ($this->search) {
+            return "Search: {$this->search} - Book Explorer";
+        }
+
+        return 'Explore Books - Book Loop';
+    }
+
     public function render()
     {
         $query = BookInstance::with('book')
@@ -50,6 +66,10 @@ class Books extends Component
 
         $instances = $query->paginate(12);
 
-        return view('livewire.books', compact('instances'));
+        return view('livewire.books', compact('instances'))
+            ->layoutData([
+                'title' => $this->title,
+                'description' => $this->description
+            ]);
     }
 }
