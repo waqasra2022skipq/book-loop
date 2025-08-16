@@ -29,11 +29,7 @@
                         </flux:navmenu>
                     </flux:dropdown>
                 @endif
-            </flux:navbar>
 
-            <flux:spacer />
-
-            <flux:navbar class="me-4">
                 <flux:navbar.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate
                     icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Explore') }}
@@ -42,6 +38,11 @@
                     icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Contact Us') }}
                 </flux:navbar.item>
+            </flux:navbar>
+
+            <flux:spacer />
+
+            <flux:navbar class="me-4">
                 @if (auth()->user())
                     <flux:navbar.item :href="route('notifications.index')"
                         :current="request()->routeIs('notifications.index')" wire:navigate
@@ -121,6 +122,15 @@
                     </flux:navlist.group>
                 </flux:navlist>
             @endif
+
+            <flux:navlist.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate
+                icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                {{ __('Explore') }}
+            </flux:navlist.item>
+            <flux:navlist.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate
+                icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                {{ __('Contact Us') }}
+            </flux:navlist.item>
 
         </flux:sidebar>
 
