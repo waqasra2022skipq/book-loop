@@ -37,8 +37,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('notifications', \App\Livewire\NotificationsPage::class)->name('notifications.index');
 
     // User review routes
-    Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.profile');
-    Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
     Route::get('users/{userId}/write-review', \App\Livewire\WriteUserReview::class)->name('users.write-review');
     Route::get('users/{userId}/write-review/{transactionType}/{transactionId}', \App\Livewire\WriteUserReview::class)->name('users.write-review.transaction');
 });
@@ -52,5 +50,9 @@ Route::prefix('books')->group(function () {
 
 Route::get('contact', \App\Livewire\ContactUs::class)->name('contact');
 Route::get('admin/user-queries', \App\Livewire\UserQueriesList::class)->name('admin.user-queries');
+
+// User profile routes
+Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.profile');
+Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
 
 require __DIR__ . '/auth.php';
