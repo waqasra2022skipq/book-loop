@@ -11,6 +11,8 @@ use App\Livewire\Books;
 use App\Livewire\BookInstance;
 use App\Livewire\BookRequest;
 use App\Livewire\WriteBookSummary;
+use App\Livewire\PostsFeed;
+use App\Livewire\CreatePost;
 
 Route::get('/', function () {
     return view('welcome');
@@ -54,5 +56,10 @@ Route::get('admin/user-queries', \App\Livewire\UserQueriesList::class)->name('ad
 // User profile routes
 Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.profile');
 Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
+
+
+// Posts
+Route::get('feed', PostsFeed::class)->name('feed');
+
 
 require __DIR__ . '/auth.php';

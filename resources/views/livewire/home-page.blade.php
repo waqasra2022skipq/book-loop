@@ -7,4 +7,9 @@
 
     <!-- Call to Action Section -->
     <x-home.cta />
+
+    <!-- Community Posts Feed -->
+    <div class="max-w-2xl w-full mx-auto px-4 py-8">
+        @include('livewire.partials.posts-panel')
+    </div>
 </section>

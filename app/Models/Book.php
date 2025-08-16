@@ -53,4 +53,9 @@ class Book extends Model
     {
         return $this->hasMany(BookSummary::class);
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
