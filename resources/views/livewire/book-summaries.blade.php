@@ -1,10 +1,8 @@
 <div>
     <h3 class="text-2xl font-bold text-gray-800 mb-4">Book Summaries</h3>
-
     <!-- Add Summary Button -->
     @auth
         <div class="mb-3">
-
             <flux:button href="{{ route('books.summary.write', ['book' => $bookId]) }}" icon:trailing="arrow-up-right">
                 Add Summary
             </flux:button>

@@ -197,14 +197,14 @@
                         <div class="flex items-center gap-4">
                             <div
                                 class="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
-                                <flux:icon name="map-pin" class="w-6 h-6 text-white" />
+                                <flux:icon name="map-pin" />
                             </div>
                             <div class="text-lg font-semibold text-gray-800">{{ $bookInstance->city }},
                                 {{ $bookInstance->address }}</div>
                         </div>
 
                         {{-- Show Book Ratings --}}
-                        <div class="flex items-center gap-1">
+                        <div class="flex items-center gap-4">
                             <div
                                 class="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-600 rounded-xl flex items-center justify-center">
                                 <flux:icon.star variant="solid" class="text-yellow-500" />
@@ -223,7 +223,7 @@
                 <!-- Summaries -->
                 <div x-show="tab === 'summaries'" x-transition:enter="transition ease-out duration-300 transform"
                     x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
-                    class="text-center py-12">
+                    class="text-center">
                     @livewire('book-summaries', ['bookId' => $bookInstance->book->id])
                 </div>
 
