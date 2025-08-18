@@ -18,7 +18,11 @@ class Book extends Component
     public function render()
     {
         return view('livewire.book', [
-            'instances' => $this->book->instances()->with(['owner'])->latest()->get(),
+            'instances' => $this->book->instances()
+                ->with(['owner'])
+                ->orderByRaw("status = 'available' DESC")
+                ->latest()
+                ->get(),
         ])->layoutData([
             'title' => $this->book->title . ' by ' . $this->book->author,
             'description' => "Discover '{$this->book->title}' by {$this->book->author}.",
