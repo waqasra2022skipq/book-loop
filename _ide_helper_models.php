@@ -32,6 +32,8 @@ namespace App\Models{
  * @property-read int|null $instances_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $loans
  * @property-read int|null $loans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookSummary> $summaries
  * @property-read int|null $summaries_count
  * @method static \Database\Factories\BookFactory factory($count = null, $state = [])
@@ -248,6 +250,37 @@ namespace App\Models{
 namespace App\Models{
 /**
  * @property int $id
+ * @property int $user_id
+ * @property int|null $book_id
+ * @property string $body
+ * @property string $visibility
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\Book|null $book
+ * @property-read \App\Models\User $user
+ * @method static \Database\Factories\PostFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereBody($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereBookId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereVisibility($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post withoutTrashed()
+ */
+	class Post extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property string $name
  * @property string $email
  * @property string|null $phone
@@ -273,6 +306,8 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $ownedLoans
  * @property-read int|null $owned_loans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
+ * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserReview> $receivedReviews
  * @property-read int|null $received_reviews_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])

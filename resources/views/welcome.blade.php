@@ -1,3 +1,3 @@
-<x-layouts.app >
+<x-layouts.app>
     @livewire('home-page')
-</x-layouts.app >
+</x-layouts.app>
