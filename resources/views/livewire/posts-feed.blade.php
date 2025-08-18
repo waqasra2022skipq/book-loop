@@ -1,4 +1,14 @@
 <div class="space-y-3">
+    @auth
+        @livewire('create-post')
+    @else
+        <div class="mb-4">
+            <p class="text-gray-600">
+                <a href="{{ route('login') }}" class="font-semibold text-blue-600 hover:underline">What are you reading?
+                    Log in to share.</a>
+            </p>
+        </div>
+    @endauth
     @foreach ($posts as $post)
         <div class="bg-white dark:bg-zinc-900 rounded-lg p-3 sm:p-4 shadow border border-zinc-200 dark:border-zinc-800">
             <div class="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400">

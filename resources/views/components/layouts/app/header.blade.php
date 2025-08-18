@@ -38,6 +38,10 @@
                     icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Contact Us') }}
                 </flux:navbar.item>
+                <flux:navbar.item :href="route('feed')" :current="request()->routeIs('feed')" wire:navigate
+                    icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                    {{ __('Book Posts') }}
+                </flux:navbar.item>
             </flux:navbar>
 
             <flux:spacer />
@@ -122,6 +126,12 @@
                     </flux:navlist.group>
                 </flux:navlist>
             @endif
+
+            <flux:navlist variant="outline">
+                <flux:navlist.group expandable heading="Book Posts" class="">
+                    <flux:navlist.item :href="route('feed')">Book Posts</flux:navlist.item>
+                </flux:navlist.group>
+            </flux:navlist>
 
             <flux:navlist.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate
                 icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
