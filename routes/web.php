@@ -9,6 +9,7 @@ use App\Livewire\MyBooks;
 use App\Livewire\EditBookInstance;
 use App\Livewire\Books;
 use App\Livewire\BookInstance;
+use App\Livewire\Book;
 use App\Livewire\BookRequest;
 use App\Livewire\WriteBookSummary;
 use App\Livewire\PostsFeed;
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::prefix('books')->group(function () {
     Route::get('/', Books::class)->name('books.all');
+    Route::get('/book/{bookId}', Book::class)->name('books.show');
     Route::get('/{id}', BookInstance::class)->name('books.instance');
     Route::get('/{bookInstance}/request', BookRequest::class)->name('books.instance.request');
     Route::get('/{bookId}/guest-summary', \App\Livewire\GuestWriteSummary::class)->name('books.guest.write.summary');

@@ -22,7 +22,7 @@
             @if ($post->book)
                 <div class="mt-2 text-xs text-zinc-600 dark:text-zinc-400">
                     Reading: <a class="underline"
-                        href="{{ route('books.instance', $post->book->id) }}">{{ $post->book->title }}</a>
+                        href="{{ route('books.show', $post->book->id) }}">{{ $post->book->title }}</a>
                 </div>
             @endif
         </div>
