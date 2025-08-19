@@ -254,10 +254,18 @@ namespace App\Models{
  * @property int|null $book_id
  * @property string $body
  * @property string $visibility
+ * @property-read int|null $reactions_count
+ * @property-read int|null $comments_count
+ * @property int $likes_count
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostComment> $allComments
+ * @property-read int|null $all_comments_count
  * @property-read \App\Models\Book|null $book
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostComment> $comments
+ * @property-read mixed $time_ago
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostReaction> $reactions
  * @property-read \App\Models\User $user
  * @method static \Database\Factories\PostFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post newModelQuery()
@@ -266,9 +274,12 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereBody($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereBookId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereCommentsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereLikesCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereReactionsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post whereVisibility($value)
@@ -276,6 +287,77 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Post withoutTrashed()
  */
 	class Post extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $post_id
+ * @property int $user_id
+ * @property int|null $parent_id
+ * @property string $content
+ * @property bool $is_edited
+ * @property \Illuminate\Support\Carbon|null $edited_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read mixed $time_ago
+ * @property-read PostComment|null $parent
+ * @property-read \App\Models\Post $post
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostReaction> $reactions
+ * @property-read int|null $reactions_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, PostComment> $replies
+ * @property-read int|null $replies_count
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment onlyTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment replies()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment topLevel()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereContent($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereEditedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereIsEdited($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereParentId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment wherePostId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment withTrashed(bool $withTrashed = true)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostComment withoutTrashed()
+ */
+	class PostComment extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property string $reactable_type
+ * @property int $reactable_id
+ * @property string $reaction_type
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read mixed $display_name
+ * @property-read mixed $emoji
+ * @property-read \Illuminate\Database\Eloquent\Model|\Eloquent $reactable
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction byUser($userId)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction ofType($type)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereReactableId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereReactableType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereReactionType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|PostReaction whereUserId($value)
+ */
+	class PostReaction extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -306,6 +388,10 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $ownedLoans
  * @property-read int|null $owned_loans_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostComment> $postComments
+ * @property-read int|null $post_comments_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PostReaction> $postReactions
+ * @property-read int|null $post_reactions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Post> $posts
  * @property-read int|null $posts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserReview> $receivedReviews

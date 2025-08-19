@@ -23672,11 +23672,31 @@ namespace App\Livewire {
             }
     /**
      */
+    class BookLoans extends \Livewire\Component {
+            }
+    /**
+     */
+    class WriteBookSummary extends \Livewire\Component {
+            }
+    /**
+     */
     class EditBookInstance extends \Livewire\Component {
             }
     /**
      */
+    class NotificationsPage extends \Livewire\Component {
+            }
+    /**
+     */
+    class WriteUserReview extends \Livewire\Component {
+            }
+    /**
+     */
     class Books extends \Livewire\Component {
+            }
+    /**
+     */
+    class Book extends \Livewire\Component {
             }
     /**
      */
@@ -23685,6 +23705,30 @@ namespace App\Livewire {
     /**
      */
     class BookRequest extends \Livewire\Component {
+            }
+    /**
+     */
+    class GuestWriteSummary extends \Livewire\Component {
+            }
+    /**
+     */
+    class ContactUs extends \Livewire\Component {
+            }
+    /**
+     */
+    class UserQueriesList extends \Livewire\Component {
+            }
+    /**
+     */
+    class UserProfile extends \Livewire\Component {
+            }
+    /**
+     */
+    class UserReviews extends \Livewire\Component {
+            }
+    /**
+     */
+    class PostsFeed extends \Livewire\Component {
             }
     }
 
