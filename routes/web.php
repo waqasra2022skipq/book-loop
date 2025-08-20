@@ -14,6 +14,7 @@ use App\Livewire\BookRequest;
 use App\Livewire\WriteBookSummary;
 use App\Livewire\PostsFeed;
 use App\Livewire\CreatePost;
+use App\Livewire\PostsIndex;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,9 +60,16 @@ Route::get('admin/user-queries', \App\Livewire\UserQueriesList::class)->name('ad
 Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.profile');
 Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
 
+// AI Book Recommendations
+Route::get('ai-book-recommendation', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
+
+// Book search for autocomplete
+Route::get('api/books/search', [App\Http\Controllers\AiBookController::class, 'searchBooks'])
+    ->middleware('auth');
 
 // Posts
 Route::get('feed', PostsFeed::class)->name('feed');
+// Route::get('posts', PostsIndex::class)->name('posts.index');
 
 
 require __DIR__ . '/auth.php';

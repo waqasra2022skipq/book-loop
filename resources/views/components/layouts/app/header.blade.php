@@ -46,6 +46,13 @@
                     icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Book Posts') }}
                 </flux:navbar.item>
+                <flux:navbar.item :href="route('ai.books.recommendation')"
+                    :current="request()->routeIs('ai.books.recommendation')" wire:navigate
+                    class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                    <div class="flex items-center gap-2">
+                        🤖 {{ __('AI Recommendations') }}
+                    </div>
+                </flux:navbar.item>
             </flux:navbar>
 
             <flux:spacer />
@@ -136,6 +143,15 @@
                     <flux:navlist.item :href="route('feed')">Book Posts</flux:navlist.item>
                 </flux:navlist.group>
             </flux:navlist>
+
+
+            <flux:navlist.item :href="route('ai.books.recommendation')"
+                :current="request()->routeIs('ai.books.recommendation')" wire:navigate icon="book-open"
+                class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                <div class="flex items-center gap-2">
+                    🤖 {{ __('AI Recommendations') }}
+                </div>
+            </flux:navlist.item>
 
             <flux:navlist.item :href="route('books.all')" :current="request()->routeIs('books.all')" wire:navigate
                 icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
