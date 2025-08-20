@@ -8,8 +8,10 @@ use App\Models\User;
 use App\Models\UserBookPreference;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Cache;
 use App\Services\GeminiService;
 use App\Services\PromptBuilderService;
+use Carbon\Carbon;
 
 
 class AiRecommendationService
@@ -24,10 +26,75 @@ class AiRecommendationService
     }
 
     /**
+     * Check if user can make a new recommendation request (3 per hour limit)
+     */
+    public function canMakeRequest($user, $ipAddress = null): array
+    {
+        $hourAgo = Carbon::now()->subHour();
+
+        // For authenticated users, check by user_id
+        if ($user) {
+            $requestCount = AiRecommendationRequest::where('user_id', $user->id)
+                ->where('created_at', '>=', $hourAgo)
+                ->count();
+        } else {
+            // For guest users, we'll need to track by IP or session
+            // Since we create users for guests, this shouldn't happen in our current flow
+            $requestCount = 3; // Block if no user
+        }
+
+        $remainingRequests = max(0, 3 - $requestCount);
+        $canRequest = $requestCount < 3;
+
+        return [
+            'can_request' => $canRequest,
+            'requests_made' => $requestCount,
+            'remaining_requests' => $remainingRequests,
+            'reset_time' => $hourAgo->addHour()->format('Y-m-d H:i:s'),
+            'minutes_until_reset' => max(0, Carbon::now()->diffInMinutes($hourAgo->addHour(), false))
+        ];
+    }
+
+    /**
+     * Get next available request time for rate limited users
+     */
+    public function getNextAvailableTime($user): ?Carbon
+    {
+        $hourAgo = Carbon::now()->subHour();
+
+        $oldestRequestInHour = AiRecommendationRequest::where('user_id', $user->id)
+            ->where('created_at', '>=', $hourAgo)
+            ->orderBy('created_at', 'asc')
+            ->first();
+
+        if ($oldestRequestInHour) {
+            return $oldestRequestInHour->created_at->addHour();
+        }
+
+        return null;
+    }
+
+    /**
      * Generate AI book recommendations for a user
      */
     public function generateRecommendations(User $user, array $recentBooks, string $userPrompt, array $preferences = [])
     {
+        // Check rate limit first
+        $rateLimitCheck = $this->canMakeRequest($user);
+        if (!$rateLimitCheck['can_request']) {
+            $nextAvailableTime = $this->getNextAvailableTime($user);
+            $waitMinutes = $rateLimitCheck['minutes_until_reset'];
+
+            return [
+                'success' => false,
+                'error' => "Rate limit exceeded. You can make {$rateLimitCheck['remaining_requests']} more requests. Next request available in {$waitMinutes} minutes.",
+                'rate_limit_exceeded' => true,
+                'next_available_at' => $nextAvailableTime ? $nextAvailableTime->toISOString() : null,
+                'requests_made' => $rateLimitCheck['requests_made'],
+                'remaining_requests' => $rateLimitCheck['remaining_requests']
+            ];
+        }
+
         $startTime = microtime(true);
 
         // Create the recommendation request

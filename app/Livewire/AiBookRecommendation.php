@@ -121,7 +121,17 @@ class AiBookRecommendation extends Component
 
                 session()->flash('success', $message);
             } else {
-                session()->flash('error', 'Failed to generate recommendations: ' . $result['error']);
+                // Handle rate limiting specifically
+                if (isset($result['rate_limit_exceeded']) && $result['rate_limit_exceeded']) {
+                    session()->flash('error', $result['error']);
+                    session()->flash('rate_limit_info', [
+                        'requests_made' => $result['requests_made'],
+                        'remaining_requests' => $result['remaining_requests'],
+                        'next_available_at' => $result['next_available_at']
+                    ]);
+                } else {
+                    session()->flash('error', 'Failed to generate recommendations: ' . $result['error']);
+                }
             }
         } catch (\Exception $e) {
             session()->flash('error', 'An error occurred while generating recommendations. Please try again.');
@@ -180,15 +190,38 @@ class AiBookRecommendation extends Component
         $this->reset(['recentBooks', 'userPrompt', 'guestName', 'guestEmail', 'recommendations', 'currentRequest']);
     }
 
+    public function getRateLimitInfo()
+    {
+        $user = auth()->user();
+        if (!$user && !empty($this->guestEmail)) {
+            // Try to find guest user by email
+            $user = \App\Models\User::where('email', $this->guestEmail)->first();
+        }
+
+        if ($user) {
+            $aiService = app(AiRecommendationService::class);
+            return $aiService->canMakeRequest($user);
+        }
+
+        return [
+            'can_request' => true,
+            'requests_made' => 0,
+            'remaining_requests' => 3,
+            'reset_time' => null,
+            'minutes_until_reset' => 0
+        ];
+    }
+
     public function render()
     {
         $history = null;
+        $rateLimitInfo = $this->getRateLimitInfo();
 
         if ($this->showHistory && auth()->check()) {
             $aiService = app(AiRecommendationService::class);
             $history = $aiService->getRecommendationHistory(auth()->user(), $this->getPage());
         }
 
-        return view('livewire.ai-book-recommendation', compact('history'));
+        return view('livewire.ai-book-recommendation', compact('history', 'rateLimitInfo'));
     }
 }

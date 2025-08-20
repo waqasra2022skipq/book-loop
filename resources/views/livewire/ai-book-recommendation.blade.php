@@ -148,10 +148,64 @@
                         </div>
                     @endguest
 
+                    <!-- Rate Limit Information -->
+                    @if (isset($rateLimitInfo))
+                        <div
+                            class="bg-white rounded-lg shadow-sm p-4 sm:p-6 border-l-4 
+                            {{ $rateLimitInfo['remaining_requests'] > 0 ? 'border-green-500' : 'border-orange-500' }}">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center">
+                                    <svg class="w-5 h-5 mr-2 {{ $rateLimitInfo['remaining_requests'] > 0 ? 'text-green-600' : 'text-orange-600' }}"
+                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <h3
+                                        class="text-sm font-medium {{ $rateLimitInfo['remaining_requests'] > 0 ? 'text-green-800' : 'text-orange-800' }}">
+                                        Usage Limit
+                                    </h3>
+                                </div>
+                                <div class="text-right">
+                                    <p
+                                        class="text-sm font-semibold {{ $rateLimitInfo['remaining_requests'] > 0 ? 'text-green-800' : 'text-orange-800' }}">
+                                        {{ $rateLimitInfo['remaining_requests'] }} of 3 requests remaining
+                                    </p>
+                                    @if ($rateLimitInfo['remaining_requests'] == 0)
+                                        <p class="text-xs text-orange-600">
+                                            Next request available in {{ $rateLimitInfo['minutes_until_reset'] }}
+                                            minutes
+                                        </p>
+                                    @endif
+                                </div>
+                            </div>
+
+                            @if ($rateLimitInfo['remaining_requests'] > 0)
+                                <div class="mt-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-600 h-2 rounded-full transition-all duration-300"
+                                            style="width: {{ ($rateLimitInfo['remaining_requests'] / 3) * 100 }}%">
+                                        </div>
+                                    </div>
+                                </div>
+                            @else
+                                <div class="mt-3 p-3 bg-orange-50 rounded-lg">
+                                    <p class="text-xs text-orange-700">
+                                        ⏰ You've reached the hourly limit of 3 AI recommendations. This helps us manage
+                                        server costs and ensures quality for all users.
+                                    </p>
+                                </div>
+                            @endif
+                        </div>
+                    @endif
+
                     <!-- Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-3 sm:gap-4">
                         <button type="submit" wire:loading.attr="disabled"
-                            class="flex-1 px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200">
+                            @if (isset($rateLimitInfo) && $rateLimitInfo['remaining_requests'] == 0) disabled @endif
+                            class="flex-1 px-6 py-3 font-medium rounded-lg transition-colors duration-200
+                                @if (isset($rateLimitInfo) && $rateLimitInfo['remaining_requests'] == 0) bg-gray-400 text-gray-600 cursor-not-allowed
+                                @else
+                                    bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed @endif">
                             <div wire:loading wire:target="generateRecommendations"
                                 class="flex items-center justify-center">
                                 <svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24">
@@ -164,7 +218,11 @@
                                 Generating Recommendations...
                             </div>
                             <span wire:loading.remove wire:target="generateRecommendations">
-                                🤖 Get AI Recommendations
+                                @if (isset($rateLimitInfo) && $rateLimitInfo['remaining_requests'] == 0)
+                                    ⏰ Rate Limited ({{ $rateLimitInfo['minutes_until_reset'] }}m remaining)
+                                @else
+                                    🤖 Get AI Recommendations
+                                @endif
                             </span>
                         </button>
 
