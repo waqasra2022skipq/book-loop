@@ -63,14 +63,6 @@ Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('us
 // AI Book Recommendations
 Route::get('ai-book-recommendation', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
 
-// AI Book API Routes
-Route::prefix('api/ai-books')->middleware('auth')->group(function () {
-    Route::post('recommend', [App\Http\Controllers\AiBookController::class, 'recommend']);
-    Route::post('save-recommendation', [App\Http\Controllers\AiBookController::class, 'saveRecommendation']);
-    Route::get('history', [App\Http\Controllers\AiBookController::class, 'getHistory']);
-    Route::post('feedback', [App\Http\Controllers\AiBookController::class, 'submitFeedback']);
-});
-
 // Book search for autocomplete
 Route::get('api/books/search', [App\Http\Controllers\AiBookController::class, 'searchBooks'])
     ->middleware('auth');
