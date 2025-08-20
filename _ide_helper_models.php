@@ -14,6 +14,89 @@
 namespace App\Models{
 /**
  * @property int $id
+ * @property int $request_id
+ * @property int $user_id
+ * @property string $title
+ * @property string $author
+ * @property string $genre
+ * @property string $description
+ * @property string $ai_reason
+ * @property int|null $publication_year
+ * @property int|null $pages
+ * @property numeric $confidence_score
+ * @property string|null $cover_url
+ * @property numeric|null $rating
+ * @property string|null $user_feedback
+ * @property \Illuminate\Support\Carbon|null $feedback_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\AiRecommendationRequest $request
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereAiReason($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereAuthor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereConfidenceScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereCoverUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereFeedbackAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereGenre($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation wherePages($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation wherePublicationYear($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereRequestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereUserFeedback($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiBookRecommendation whereUserId($value)
+ */
+	class AiBookRecommendation extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property array<array-key, mixed> $recent_books
+ * @property string $user_prompt
+ * @property array<array-key, mixed>|null $preferences
+ * @property string $generated_prompt
+ * @property array<array-key, mixed> $ai_response
+ * @property int $total_tokens_used
+ * @property numeric $response_time
+ * @property string $status
+ * @property string|null $error_message
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AiBookRecommendation> $recommendations
+ * @property-read int|null $recommendations_count
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereAiResponse($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereErrorMessage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereGeneratedPrompt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest wherePreferences($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereRecentBooks($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereResponseTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereTotalTokensUsed($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|AiRecommendationRequest whereUserPrompt($value)
+ */
+	class AiRecommendationRequest extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
  * @property string $title
  * @property string $author
  * @property string|null $isbn
@@ -379,6 +462,11 @@ namespace App\Models{
  * @property string|null $lng
  * @property string|null $state
  * @property string|null $postal_code
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AiBookRecommendation> $aiBookRecommendations
+ * @property-read int|null $ai_book_recommendations_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\AiRecommendationRequest> $aiRecommendationRequests
+ * @property-read int|null $ai_recommendation_requests_count
+ * @property-read \App\Models\UserBookPreference|null $bookPreferences
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $borrowedLoans
  * @property-read int|null $borrowed_loans_count
  * @property-read string $star_rating
@@ -419,6 +507,38 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|User whereUpdatedAt($value)
  */
 	class User extends \Eloquent implements \Illuminate\Contracts\Auth\MustVerifyEmail {}
+}
+
+namespace App\Models{
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property array<array-key, mixed>|null $favorite_genres
+ * @property array<array-key, mixed>|null $disliked_genres
+ * @property string $preferred_length
+ * @property string $preferred_era
+ * @property numeric $min_rating
+ * @property int $recommendations_count
+ * @property numeric $avg_feedback_score
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereAvgFeedbackScore($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereDislikedGenres($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereFavoriteGenres($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereMinRating($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference wherePreferredEra($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference wherePreferredLength($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereRecommendationsCount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|UserBookPreference whereUserId($value)
+ */
+	class UserBookPreference extends \Eloquent {}
 }
 
 namespace App\Models{

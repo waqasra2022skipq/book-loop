@@ -23728,6 +23728,10 @@ namespace App\Livewire {
             }
     /**
      */
+    class AiBookRecommendation extends \Livewire\Component {
+            }
+    /**
+     */
     class PostsFeed extends \Livewire\Component {
             }
     }

@@ -171,6 +171,24 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
     /**
+     * AI Recommendation relationships
+     */
+    public function aiRecommendationRequests()
+    {
+        return $this->hasMany(AiRecommendationRequest::class);
+    }
+
+    public function aiBookRecommendations()
+    {
+        return $this->hasMany(AiBookRecommendation::class);
+    }
+
+    public function bookPreferences()
+    {
+        return $this->hasOne(UserBookPreference::class);
+    }
+
+    /**
      * Update cached review statistics
      */
     public function updateReviewStats(): void
