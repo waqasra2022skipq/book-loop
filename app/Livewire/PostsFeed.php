@@ -36,6 +36,9 @@ class PostsFeed extends Component
     {
         return view('livewire.posts-feed', [
             'posts' => $this->posts,
+        ])->layoutData([
+            'title' => 'Book Posts',
+            'description' => 'Explore recent posts from our community of book lovers.',
         ]);
     }
 }

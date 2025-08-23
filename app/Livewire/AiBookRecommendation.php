@@ -222,6 +222,9 @@ class AiBookRecommendation extends Component
             $history = $aiService->getRecommendationHistory(auth()->user(), $this->getPage());
         }
 
-        return view('livewire.ai-book-recommendation', compact('history', 'rateLimitInfo'));
+        return view('livewire.ai-book-recommendation', compact('history', 'rateLimitInfo'))->layoutData([
+            'title' => 'AI Book Recommendation',
+            'description' => 'Get AI powered personalized book recommendations based on your reading history.',
+        ]);
     }
 }
