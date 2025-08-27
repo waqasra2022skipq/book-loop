@@ -238,77 +238,116 @@
                     <div class="mt-8 bg-white rounded-lg shadow-sm p-4 sm:p-6">
                         <h2 class="text-xl font-semibold text-gray-900 mb-6">Your AI Book Recommendations</h2>
 
-                        <div class="grid gap-6">
-                            @foreach ($recommendations as $recommendation)
-                                <div class="border rounded-lg p-4 hover:shadow-md transition-shadow duration-200">
-                                    <div class="flex flex-col sm:flex-row gap-4">
-                                        <!-- Book Cover Placeholder -->
+                        <!-- Responsive Grid with max width on extra large screens -->
+                        <div class="max-w-7xl mx-auto">
+                            <div
+                                class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 recommendation-grid">
+                                @foreach ($recommendations as $recommendation)
+                                    <div
+                                        class="book-card border rounded-lg p-4 bg-white h-full flex flex-col shadow-sm">
+                                        <!-- Book Cover Placeholder with better proportions -->
                                         <div
-                                            class="w-full sm:w-24 h-32 sm:h-36 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center flex-shrink-0">
-                                            <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor"
+                                            class="w-full h-40 bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg flex items-center justify-center mb-4 flex-shrink-0 relative overflow-hidden">
+                                            <svg class="w-10 h-10 text-blue-600" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253z">
                                                 </path>
                                             </svg>
+                                            <!-- Genre badge overlay -->
+                                            <div class="absolute top-2 left-2">
+                                                <span
+                                                    class="px-2 py-1 bg-white/90 backdrop-blur text-blue-800 text-xs rounded-full font-medium shadow-sm">
+                                                    {{ $recommendation->genre }}
+                                                </span>
+                                            </div>
                                         </div>
 
                                         <!-- Book Details -->
-                                        <div class="flex-1">
-                                            <div class="mb-2">
-                                                <h3 class="text-lg font-semibold text-gray-900">
-                                                    {{ $recommendation->title }}</h3>
-                                                <p class="text-gray-600">by {{ $recommendation->author }}</p>
-                                                <div class="flex flex-wrap gap-2 mt-1">
-                                                    <span
-                                                        class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">{{ $recommendation->genre }}</span>
+                                        <div class="flex-1 flex flex-col">
+                                            <div class="mb-3">
+                                                <h3
+                                                    class="text-lg font-bold text-gray-900 line-clamp-2 mb-2 leading-tight">
+                                                    {{ $recommendation->title }}
+                                                </h3>
+                                                <p class="text-gray-600 text-sm mb-3 font-medium">by
+                                                    {{ $recommendation->author }}</p>
+
+                                                <!-- Metadata tags -->
+                                                <div class="flex flex-wrap gap-1 mb-3">
                                                     @if ($recommendation->publication_year)
                                                         <span
-                                                            class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">{{ $recommendation->publication_year }}</span>
+                                                            class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md font-medium">
+                                                            {{ $recommendation->publication_year }}
+                                                        </span>
                                                     @endif
                                                     @if ($recommendation->pages)
                                                         <span
-                                                            class="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded-full">{{ $recommendation->pages }}
-                                                            pages</span>
+                                                            class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-md font-medium">
+                                                            {{ $recommendation->pages }}p
+                                                        </span>
                                                     @endif
-                                                    <span
-                                                        class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded-full">
-                                                        {{ number_format($recommendation->confidence_score * 100) }}%
-                                                        match
-                                                    </span>
+                                                </div>
+
+                                                <!-- Confidence Score with better design -->
+                                                <div
+                                                    class="bg-gradient-to-r from-green-50 to-emerald-50 rounded-lg p-3 mb-3">
+                                                    <div class="flex items-center justify-between mb-1">
+                                                        <span class="text-xs font-medium text-gray-600">Match
+                                                            Score</span>
+                                                        <span class="text-sm font-bold text-green-700">
+                                                            {{ number_format($recommendation->confidence_score * 100) }}%
+                                                        </span>
+                                                    </div>
+                                                    <div class="w-full bg-green-100 rounded-full h-2">
+                                                        <div class="bg-gradient-to-r from-green-500 to-emerald-500 h-2 rounded-full transition-all duration-500"
+                                                            style="width: {{ $recommendation->confidence_score * 100 }}%">
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
 
-                                            <p class="text-gray-700 text-sm mb-3">{{ $recommendation->description }}
+                                            <!-- Description -->
+                                            <p class="text-gray-700 text-sm mb-4 flex-1 line-clamp-3 leading-relaxed">
+                                                {{ $recommendation->description }}
                                             </p>
 
-                                            <div class="bg-blue-50 rounded-lg p-3 mb-3">
-                                                <p class="text-blue-800 text-sm">
-                                                    <strong>Why this book:</strong> {{ $recommendation->ai_reason }}
-                                                </p>
-                                            </div>
-
-                                            <!-- Feedback Buttons -->
+                                            <!-- AI Reason with better styling -->
+                                            <div
+                                                class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-3 mb-4 border-l-4 border-blue-400">
+                                                <div class="flex items-start gap-2">
+                                                    <svg class="w-4 h-4 text-blue-600 mt-0.5 flex-shrink-0"
+                                                        fill="currentColor" viewBox="0 0 20 20">
+                                                        <path
+                                                            d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                                    </svg>
+                                                    <p class="text-blue-800 text-xs leading-relaxed">
+                                                        <strong class="text-blue-900">Why recommended:</strong>
+                                                        {{ Str::limit($recommendation->ai_reason, 150) }}
+                                                    </p>
+                                                </div>
+                                            </div> <!-- Feedback Buttons -->
                                             @if (!$recommendation->user_feedback)
-                                                <div class="flex flex-wrap gap-2">
+                                                <div class="flex flex-wrap gap-2 mt-auto">
                                                     <button
                                                         wire:click="submitFeedback({{ $recommendation->id }}, 'saved')"
-                                                        class="px-3 py-1 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition-colors duration-200">
+                                                        class="flex-1 px-3 py-2 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition-colors duration-200 text-center">
                                                         💾 Save
                                                     </button>
                                                     <button
                                                         wire:click="submitFeedback({{ $recommendation->id }}, 'already_read')"
-                                                        class="px-3 py-1 bg-orange-600 text-white text-xs rounded-lg hover:bg-orange-700 transition-colors duration-200">
-                                                        ✓ Already Read
+                                                        class="flex-1 px-3 py-2 bg-orange-600 text-white text-xs rounded-lg hover:bg-orange-700 transition-colors duration-200 text-center">
+                                                        ✓ Read
                                                     </button>
                                                     <button
                                                         wire:click="submitFeedback({{ $recommendation->id }}, 'not_interested')"
-                                                        class="px-3 py-1 bg-gray-600 text-white text-xs rounded-lg hover:bg-gray-700 transition-colors duration-200">
-                                                        ✕ Not Interested
+                                                        class="flex-1 px-3 py-2 bg-gray-600 text-white text-xs rounded-lg hover:bg-gray-700 transition-colors duration-200 text-center">
+                                                        ✕ Pass
                                                     </button>
                                                 </div>
                                             @else
-                                                <div class="text-xs text-gray-500">
+                                                <div
+                                                    class="text-xs text-gray-500 mt-auto p-2 bg-gray-50 rounded-lg text-center">
                                                     @if ($recommendation->user_feedback === 'saved')
                                                         ✅ Saved to your list
                                                     @elseif ($recommendation->user_feedback === 'already_read')
@@ -320,8 +359,8 @@
                                             @endif
                                         </div>
                                     </div>
-                                </div>
-                            @endforeach
+                                @endforeach
+                            </div>
                         </div>
                     </div>
                 @endif
