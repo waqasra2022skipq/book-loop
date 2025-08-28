@@ -9,9 +9,8 @@ class Book extends Component
 {
     public BookModel $book;
 
-    public function mount($bookId)
+    public function mount(BookModel $book)
     {
-        $book = BookModel::findOrFail($bookId);
         $this->book = $book->load(['genre']);
     }
 

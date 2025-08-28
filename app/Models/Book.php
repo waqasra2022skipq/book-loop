@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Livewire\BookSummaries;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Book extends Model
 {
@@ -16,7 +17,51 @@ class Book extends Model
         'isbn',
         'cover',
         'genre_id',
+        'slug',
     ];
+
+    /**
+     * Boot the model and auto-generate slug
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($book) {
+            $book->slug = $book->generateSlug($book->title);
+        });
+
+        static::updating(function ($book) {
+            if ($book->isDirty('title')) {
+                $book->slug = $book->generateSlug($book->title);
+            }
+        });
+    }
+
+    /**
+     * Generate a unique slug for the book
+     */
+    private function generateSlug($title)
+    {
+        $slug = Str::slug($title);
+        $originalSlug = $slug;
+        $count = 1;
+
+        while (static::where('slug', $slug)->where('id', '!=', $this->id ?? 0)->exists()) {
+            $slug = $originalSlug . '-' . $count;
+            $count++;
+        }
+
+        return $slug;
+    }
+
+    /**
+     * Get the route key for the model.
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function instances()
     {

@@ -39,7 +39,7 @@
                         <div class="space-y-4">
                             <!-- Breadcrumb -->
                             <div class="flex items-center text-sm text-gray-600 mb-4">
-                                <a href="{{ route('books.show', ['bookId' => $bookInstance->book->id]) }}"
+                                <a href="{{ route('books.show', ['book' => $bookInstance->book->slug]) }}"
                                     class="hover:text-blue-600 transition-colors">{{ $bookInstance->book->title }}</a>
                                 <svg class="w-4 h-4 mx-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
