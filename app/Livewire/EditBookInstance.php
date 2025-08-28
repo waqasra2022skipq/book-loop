@@ -60,7 +60,7 @@ class EditBookInstance extends Component
         $validated = $this->validate([
             'title' => 'required|string|max:255',
             'author' => 'nullable|string|max:255',
-            'isbn' => 'nullable|string|max:255',
+            'isbn' => 'nullable|string|max:255|unique:books,isbn,' . $this->book->id,
             'genre_id' => 'nullable|exists:genres,id',
             'status' => 'required|string|in:available,reading,reserved',
             'notes' => 'nullable|string|max:2000',
