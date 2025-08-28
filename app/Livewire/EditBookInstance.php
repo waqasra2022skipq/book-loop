@@ -26,7 +26,7 @@ class EditBookInstance extends Component
     // Book metadata
     public string $title = '';
     public string $author = '';
-    public string $isbn = '';
+    public ?string $isbn = null;
     public ?int $genre_id = null;
 
     // BookInstance metadata
