@@ -8,127 +8,147 @@
 
 <url>
   <loc>https://loopyourbook.com/</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/contact</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/feed</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/ai-book-recommendation</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/login</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/register</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/79</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/instances/79</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/79/request</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/80</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/instances/80</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/80/request</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/81</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/instances/81</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/81/request</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/82</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/instances/82</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/82/request</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://loopyourbook.com/books/instances/83</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://loopyourbook.com/books/83/request</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/forgot-password</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/book/45</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/mind-platter</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/45/guest-summary</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/users/12</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/book/46</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/the-lasting</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/46/guest-summary</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/book/47</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/eat-that-frog</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/47/guest-summary</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
-  <loc>https://loopyourbook.com/books/book/48</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <loc>https://loopyourbook.com/books/seerat-un-nabi-saw-by-dr-israr-ahmed</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 <url>
   <loc>https://loopyourbook.com/books/48/guest-summary</loc>
-  <lastmod>2025-08-21T15:26:07+00:00</lastmod>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://loopyourbook.com/books/zero-to-one</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://loopyourbook.com/books/49/guest-summary</loc>
+  <lastmod>2025-08-28T13:02:43+00:00</lastmod>
   <priority>0.51</priority>
 </url>
 
