@@ -23734,6 +23734,10 @@ namespace App\Livewire {
      */
     class PostsFeed extends \Livewire\Component {
             }
+    /**
+     */
+    class SinglePost extends \Livewire\Component {
+            }
     }
 
 namespace App\Livewire\Auth {

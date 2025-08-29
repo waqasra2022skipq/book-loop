@@ -68,7 +68,8 @@ Route::get('api/books/search', [App\Http\Controllers\AiBookController::class, 's
     ->middleware('auth');
 
 // Posts
-Route::get('feed', PostsFeed::class)->name('feed');
+Route::get('book-posts', PostsFeed::class)->name('feed');
+Route::get('book-posts/{post}', \App\Livewire\SinglePost::class)->name('posts.show');
 // Route::get('posts', PostsIndex::class)->name('posts.index');
 
 

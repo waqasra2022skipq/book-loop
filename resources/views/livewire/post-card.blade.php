@@ -36,26 +36,44 @@
 
     <!-- Action Buttons -->
     <div class="px-3 sm:px-4 py-3 border-b bg-gray-50">
-        <div class="flex space-x-1 sm:space-x-4">
+        <div class="flex justify-between items-center">
             <!-- Like Button (using existing PostReactions component) -->
             <div class="flex-1">
                 <livewire:post-reactions :reactable="$post" :key="'reactions-' . $post->id" />
             </div>
 
             <!-- Comment Button -->
-            @auth
-                <button wire:click="openAddCommentModal"
-                    class="flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
-                    <svg class="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.003 9.003 0 01-8.716-6.747M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2h-3M7 8h10">
-                        </path>
-                    </svg>
-                    Comment
-                </button>
-            @endauth
+            <div class="flex-1 flex justify-center">
+                @auth
+                    <button wire:click="openAddCommentModal"
+                        class="flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.003 9.003 0 01-8.716-6.747M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2h-3M7 8h10">
+                            </path>
+                        </svg>
+                        Comment
+                    </button>
+                @else
+                    <a href="{{ route('login') }}"
+                        class="flex items-center justify-center px-3 py-2 sm:px-4 sm:py-2 text-xs sm:text-sm font-medium text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-200">
+                        <svg class="w-4 h-4 mr-1 sm:mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.003 9.003 0 01-8.716-6.747M3 5a2 2 0 012-2h14a2 2 0 012 2v14a2 2 0 01-2 2h-3M7 8h10">
+                            </path>
+                        </svg>
+                        Comment
+                    </a>
+                @endauth
+            </div>
+
+            <!-- Share Button -->
+            <div class="flex-1 flex justify-end">
+                <livewire:post-share :post="$post" :key="'share-' . $post->id" />
+            </div>
         </div>
     </div>
+
 
     <!-- Add Comment Modal -->
     @if ($showAddCommentModal)
