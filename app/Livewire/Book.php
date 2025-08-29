@@ -23,7 +23,7 @@ class Book extends Component
                 ->latest()
                 ->get(),
         ])->layoutData([
-            'title' => $this->book->title . ' by ' . $this->book->author,
+            'title' => $this->book->title . ' by ' . $this->book->author . ' - Borrow & Reviews | Loop Your Book',
             'description' => "Discover '{$this->book->title}' by {$this->book->author}.",
         ]);
     }
