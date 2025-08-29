@@ -140,15 +140,15 @@
                         </svg>
                         <span class="hidden sm:inline">Details</span>
                     </button>
-                    <button @click="tab = 'summaries'"
-                        :class="tab === 'summaries' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-gray-900'"
+                    <button @click="tab = 'reviews'"
+                        :class="tab === 'reviews' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-gray-900'"
                         class="flex-1 flex items-center justify-center gap-2 px-4 py-3 font-semibold rounded-lg transition-all duration-200">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01">
                             </path>
                         </svg>
-                        <span class="hidden sm:inline">Summaries</span>
+                        <span class="hidden sm:inline">Reviews</span>
                     </button>
                     <button @click="tab = 'owner'"
                         :class="tab === 'owner' ? 'bg-blue-600 text-white shadow-md' : 'text-gray-600 hover:text-gray-900'"
@@ -253,9 +253,9 @@
                                         <p class="font-semibold text-gray-900">
                                             {{ $bookInstance->book->average_rating() ?? 'N/A' }}/5</p>
                                     </div>
-                                    <button @click="tab = 'summaries'"
+                                    <button @click="tab = 'reviews'"
                                         class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors font-medium text-sm">
-                                        View Summaries
+                                        View Reviews
                                     </button>
                                 </div>
                             </div>
@@ -263,8 +263,8 @@
                     </div>
                 </div>
 
-                <!-- Summaries -->
-                <div x-show="tab === 'summaries'" x-transition:enter="transition ease-out duration-200"
+                <!-- Reviews -->
+                <div x-show="tab === 'reviews'" x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
                     @livewire('book-summaries', ['book' => $bookInstance->book])
                 </div>

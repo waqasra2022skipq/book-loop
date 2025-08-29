@@ -1,17 +1,17 @@
 <div>
-    <h3 class="text-2xl font-bold text-gray-800 mb-4">Book Summaries</h3>
-    <!-- Add Summary Button -->
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Book Reviews</h3>
+    <!-- Add Review Button -->
     @auth
         <div class="mb-3">
             <flux:button href="{{ route('books.summary.write', ['book' => $bookId]) }}" icon:trailing="arrow-up-right">
-                Add Summary
+                Add Review
             </flux:button>
         </div>
     @else
         <div class="mb-3">
             <flux:button href="{{ route('books.guest.write.summary', ['book' => $book->slug]) }}"
                 icon:trailing="arrow-up-right">
-                Add Summary
+                Add Review
             </flux:button>
         </div>
     @endauth
@@ -42,11 +42,6 @@
             @endforeach
         </div>
         @if ($summaries->count() < $total)
-            {{-- <div class="mt-8 flex justify-center">
-                <button wire:click="loadMore" class="px-6 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-                    More Summaries
-                </button>
-            </div> --}}
             <div x-intersect="$wire.loadMore()">
                 Loading More
             </div>

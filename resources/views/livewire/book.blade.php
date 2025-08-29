@@ -105,8 +105,8 @@
                         </svg>
                         Details
                     </button>
-                    <button @click="tab = 'summaries'"
-                        :class="tab === 'summaries' ? 'bg-blue-600 text-white shadow-md' :
+                    <button @click="tab = 'reviews'"
+                        :class="tab === 'reviews' ? 'bg-blue-600 text-white shadow-md' :
                             'text-gray-600 hover:text-blue-600 hover:bg-blue-50'"
                         class="flex-1 sm:flex-none px-6 py-3 font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2">
                         <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
@@ -115,7 +115,7 @@
                                 d="M4 5a2 2 0 012-2v1a1 1 0 001 1h6a1 1 0 001-1V3a2 2 0 012 2v6a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z"
                                 clip-rule="evenodd" />
                         </svg>
-                        Summaries
+                        Reviews
                     </button>
                     <button @click="tab = 'instances'"
                         :class="tab === 'instances' ? 'bg-blue-600 text-white shadow-md' :
@@ -232,8 +232,8 @@
                     </div>
                 </div>
 
-                <!-- Summaries Tab -->
-                <div x-show="tab === 'summaries'" x-transition:enter="transition ease-out duration-200"
+                <!-- Reviews Tab -->
+                <div x-show="tab === 'reviews'" x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0 transform scale-95"
                     x-transition:enter-end="opacity-100 transform scale-100" class="p-6 sm:p-8">
                     @livewire('book-summaries', ['book' => $book])

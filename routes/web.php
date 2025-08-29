@@ -70,7 +70,7 @@ Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.prof
 Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
 
 // AI Book Recommendations
-Route::get('ai/book-recommendation', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
+Route::get('ai/book-recommendations', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
 
 // Book search for autocomplete
 Route::get('api/books/search', [App\Http\Controllers\AiBookController::class, 'searchBooks'])
@@ -81,5 +81,6 @@ Route::get('book-posts', PostsFeed::class)->name('feed');
 Route::get('book-posts/{post}', \App\Livewire\SinglePost::class)->name('posts.show');
 // Route::get('posts', PostsIndex::class)->name('posts.index');
 
+Route::redirect('/ai-book-recommendation', '/ai/book-recommendations', 301);
 
 require __DIR__ . '/auth.php';
