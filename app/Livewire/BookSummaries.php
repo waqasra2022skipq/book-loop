@@ -9,11 +9,13 @@ use App\Models\Book;
 class BookSummaries extends Component
 {
     public $bookId;
+    public Book $book;
     public $perPage = 10;
 
     public function mount($bookId)
     {
         $this->bookId = $bookId;
+        $this->book = Book::find($bookId);
     }
 
     public function loadMore()

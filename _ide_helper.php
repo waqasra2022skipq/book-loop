@@ -23700,15 +23700,15 @@ namespace App\Livewire {
             }
     /**
      */
+    class GuestWriteSummary extends \Livewire\Component {
+            }
+    /**
+     */
     class BookInstance extends \Livewire\Component {
             }
     /**
      */
     class BookRequest extends \Livewire\Component {
-            }
-    /**
-     */
-    class GuestWriteSummary extends \Livewire\Component {
             }
     /**
      */

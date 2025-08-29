@@ -48,10 +48,14 @@ Route::middleware(['auth'])->group(function () {
 Route::prefix('books')->group(function () {
     Route::get('/', Books::class)->name('books.all');
     Route::get('/{book:slug}', Book::class)->name('books.show');
-    Route::get('/instances/{id}', BookInstance::class)->name('books.instance');
-    Route::get('/{bookInstance}/request', BookRequest::class)->name('books.instance.request');
-    Route::get('/{bookId}/guest-summary', \App\Livewire\GuestWriteSummary::class)->name('books.guest.write.summary');
+    Route::get('/{book:slug}/guest-summary', \App\Livewire\GuestWriteSummary::class)->name('books.guest.write.summary');
 });
+
+Route::prefix('copies')->group(function () {
+    Route::get('/{id}', BookInstance::class)->name('books.instance');
+    Route::get('/{bookInstance}/request', BookRequest::class)->name('books.instance.request');
+});
+
 
 Route::get('contact', \App\Livewire\ContactUs::class)->name('contact');
 Route::get('admin/user-queries', \App\Livewire\UserQueriesList::class)->name('admin.user-queries');

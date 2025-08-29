@@ -49,10 +49,10 @@ class GuestWriteSummary extends Component
         'rating.max' => 'Rating must be between 1 and 5.',
     ];
 
-    public function mount($bookId)
+    public function mount(Book $book)
     {
-        $this->bookId = $bookId;
-        $this->book = Book::findOrFail($bookId);
+        $this->book = $book;
+        $this->bookId = $book->id;
     }
 
     public function submitSummary()

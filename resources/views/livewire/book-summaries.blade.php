@@ -9,7 +9,7 @@
         </div>
     @else
         <div class="mb-3">
-            <flux:button href="{{ route('books.guest.write.summary', ['bookId' => $bookId]) }}"
+            <flux:button href="{{ route('books.guest.write.summary', ['book' => $book->slug]) }}"
                 icon:trailing="arrow-up-right">
                 Add Summary
             </flux:button>
