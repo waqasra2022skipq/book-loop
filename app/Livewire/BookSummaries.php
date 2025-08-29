@@ -12,10 +12,10 @@ class BookSummaries extends Component
     public Book $book;
     public $perPage = 10;
 
-    public function mount($bookId)
+    public function mount(Book $book)
     {
-        $this->bookId = $bookId;
-        $this->book = Book::find($bookId);
+        $this->book = $book;
+        $this->bookId = $book->id;
     }
 
     public function loadMore()
@@ -31,6 +31,9 @@ class BookSummaries extends Component
             ->take($this->perPage)
             ->get();
         $total = BookSummary::where('book_id', $this->bookId)->count();
-        return view('livewire.book-summaries', compact('summaries', 'total'));
+        return view('livewire.book-summaries', compact('summaries', 'total'))->layoutData([
+            'title' => 'User reviews for ' . $this->book->title,
+            'description' => 'Read the latest reviews for ' . $this->book->title
+        ]);
     }
 }

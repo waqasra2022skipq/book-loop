@@ -11,6 +11,7 @@ use App\Livewire\Books;
 use App\Livewire\BookInstance;
 use App\Livewire\Book;
 use App\Livewire\BookRequest;
+use App\Livewire\BookSummaries;
 use App\Livewire\WriteBookSummary;
 use App\Livewire\PostsFeed;
 use App\Livewire\CreatePost;
@@ -49,6 +50,10 @@ Route::prefix('books')->group(function () {
     Route::get('/', Books::class)->name('books.all');
     Route::get('/{book:slug}', Book::class)->name('books.show');
     Route::get('/{book:slug}/guest-summary', \App\Livewire\GuestWriteSummary::class)->name('books.guest.write.summary');
+
+    Route::prefix('/{book:slug}/reviews')->group(function () {
+        Route::get('/', BookSummaries::class)->name('reviews.all');
+    });
 });
 
 Route::prefix('copies')->group(function () {
@@ -65,7 +70,7 @@ Route::get('users/{userId}', \App\Livewire\UserProfile::class)->name('users.prof
 Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('users.reviews');
 
 // AI Book Recommendations
-Route::get('ai-book-recommendation', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
+Route::get('ai/book-recommendation', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
 
 // Book search for autocomplete
 Route::get('api/books/search', [App\Http\Controllers\AiBookController::class, 'searchBooks'])

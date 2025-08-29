@@ -23704,6 +23704,10 @@ namespace App\Livewire {
             }
     /**
      */
+    class BookSummaries extends \Livewire\Component {
+            }
+    /**
+     */
     class BookInstance extends \Livewire\Component {
             }
     /**

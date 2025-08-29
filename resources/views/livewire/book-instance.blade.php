@@ -266,7 +266,7 @@
                 <!-- Summaries -->
                 <div x-show="tab === 'summaries'" x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100">
-                    @livewire('book-summaries', ['bookId' => $bookInstance->book->id])
+                    @livewire('book-summaries', ['book' => $bookInstance->book])
                 </div>
 
                 <!-- Owner Info -->

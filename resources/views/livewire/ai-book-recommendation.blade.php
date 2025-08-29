@@ -9,11 +9,6 @@
                 <p class="text-sm sm:text-base text-gray-600">
                     Get personalized book recommendations powered by AI
                 </p>
-                @guest
-                    <p class="text-xs text-blue-600 mt-2">
-                        ✨ No account required! We'll create a profile for you to save your recommendations.
-                    </p>
-                @endguest
             </div>
 
             <!-- Navigation Tabs -->

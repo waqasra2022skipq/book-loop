@@ -62,7 +62,8 @@
                                     </svg>
                                     <span
                                         class="text-sm font-semibold text-amber-700">{{ $book->average_rating() ?? '0.00' }}/5</span>
-                                    <span class="text-xs text-amber-600">({{ $book->total_ratings() }} reviews)</span>
+                                    <a href="{{ route('reviews.all', ['book' => $book->slug]) }}"
+                                        class="text-xs text-amber-600">({{ $book->total_ratings() }} reviews)</a>
                                 </div>
 
                                 <div class="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
@@ -235,7 +236,7 @@
                 <div x-show="tab === 'summaries'" x-transition:enter="transition ease-out duration-200"
                     x-transition:enter-start="opacity-0 transform scale-95"
                     x-transition:enter-end="opacity-100 transform scale-100" class="p-6 sm:p-8">
-                    @livewire('book-summaries', ['bookId' => $book->id])
+                    @livewire('book-summaries', ['book' => $book])
                 </div>
 
                 <!-- Enhanced Available Copies Tab -->
