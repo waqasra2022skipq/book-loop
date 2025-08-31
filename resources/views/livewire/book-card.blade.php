@@ -56,7 +56,10 @@
         <div class="flex items-center gap-1">
 
             <flux:icon.star variant="solid" class="text-yellow-500" />
-            <span class="text-sm font-semibold">{{ $instance->book->average_rating() ?? 0 }}/5</span>
+            <a href="{{ route('reviews.all', ['book' => $instance->book->slug]) }}">
+                <span
+                    class="text-sm font-semibold">{{ $instance->book->average_rating() ?? 0 }}/5({{ $instance->book->ratings_count ?? 0 }})</span>
+            </a>
         </div>
 
         <!-- Action Buttons -->
