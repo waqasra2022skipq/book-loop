@@ -45,3 +45,8 @@
     })(window, document, 'script', 'dataLayer', 'GTM-NPSWPVH3');
 </script>
 <!-- End Google Tag Manager -->
+
+{{-- Schema Markup --}}
+<script type="application/ld+json">
+    {!! $schemaMarkup !!}
+</script>
