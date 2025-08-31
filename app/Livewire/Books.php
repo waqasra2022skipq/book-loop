@@ -14,10 +14,15 @@ class Books extends Component
     #[Url(as: 'search', keep: true)]
     public $search = '';
 
+    #[Url(as: 'city', keep: true)]
+    public $citySearch = '';
+
     public $searchPlaceholder = 'Search books by title, author, genre...';
+    public $citySearchPlaceholder = 'Search by city...';
 
     protected $queryString = [
         'search' => ['except' => '', 'as' => 'q'],
+        'citySearch' => ['except' => '', 'as' => 'city'],
     ];
 
     public function updatedSearch()
@@ -25,16 +30,31 @@ class Books extends Component
         $this->resetPage();
     }
 
+    public function updatedCitySearch()
+    {
+        $this->resetPage();
+    }
+
     public function clearSearch()
     {
         $this->search = '';
+        $this->citySearch = '';
         $this->resetPage();
     }
 
     public function getDescriptionProperty()
     {
+        $searchTerms = [];
         if ($this->search) {
-            return "Search results for '{$this->search}' - Find books by title, author, or genre in your area.";
+            $searchTerms[] = "'{$this->search}'";
+        }
+        if ($this->citySearch) {
+            $searchTerms[] = "city '{$this->citySearch}'";
+        }
+
+        if (!empty($searchTerms)) {
+            $searchText = implode(' and ', $searchTerms);
+            return "Search results for {$searchText} - Find books by title, author, genre, or location in your area.";
         }
 
         return 'Explore hundreds of free books to read in your city. Find your next great read from our community of book lovers.';
@@ -42,8 +62,17 @@ class Books extends Component
 
     public function getTitleProperty()
     {
+        $searchTerms = [];
         if ($this->search) {
-            return "Search: {$this->search} - Book Explorer";
+            $searchTerms[] = $this->search;
+        }
+        if ($this->citySearch) {
+            $searchTerms[] = $this->citySearch;
+        }
+
+        if (!empty($searchTerms)) {
+            $searchText = implode(', ', $searchTerms);
+            return "Search: {$searchText} - Book Explorer";
         }
 
         return 'Explore Books - Book Loop';
@@ -61,6 +90,13 @@ class Books extends Component
                     ->orWhere('author', 'like', '%' . $this->search . '%')
                     ->orWhere('genre', 'like', '%' . $this->search . '%')
                     ->orWhere('description', 'like', '%' . $this->search . '%');
+            });
+        }
+
+        if ($this->citySearch) {
+            $query->where(function ($q) {
+                $q->where('city', 'like', '%' . $this->citySearch . '%')
+                    ->orWhere('address', 'like', '%' . $this->citySearch . '%');
             });
         }
 
