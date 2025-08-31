@@ -20,8 +20,8 @@
         <!-- Book Info Card -->
         <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
             <div class="flex space-x-4">
-                @if ($book->image_path)
-                    <img src="{{ Storage::url($book->image_path) }}" alt="{{ $book->title }}"
+                @if ($book->cover_image)
+                    <img src="{{ Storage::url($book->cover_image) }}" alt="{{ $book->title }}"
                         class="w-16 h-24 object-cover rounded-lg flex-shrink-0">
                 @else
                     <div class="w-16 h-24 bg-gray-200 rounded-lg flex items-center justify-center flex-shrink-0">
