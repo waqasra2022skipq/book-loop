@@ -18,6 +18,8 @@ class Book extends Model
         'cover',
         'genre_id',
         'slug',
+        'ratings_count',
+        'avg_rating',
     ];
 
     /**
@@ -104,11 +106,16 @@ class Book extends Model
      */
     public function updateRatingStats(): void
     {
-        $summaries = $this->summaries()->whereNotNull('rating');
+        $ratingsCollection = $this->summaries()
+            ->whereNotNull('rating')
+            ->pluck('rating');
+
+        $count = $ratingsCollection->count();
+        $average = $count > 0 ? $ratingsCollection->avg() : null;
 
         $this->update([
-            'ratings_count' => $summaries->count(),
-            'avg_rating' => $summaries->avg('rating'),
+            'ratings_count' => $count,
+            'avg_rating' => $average,
         ]);
     }
 

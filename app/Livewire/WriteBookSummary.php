@@ -29,7 +29,7 @@ class WriteBookSummary extends Component
     {
         $this->validate([
             'summary' => 'required|string|min:10|max:2000',
-            'rating' => 'nullable|integer|min:1|max:5',
+            'rating' => 'required|integer|min:1|max:5',
         ], [
             'summary.required' => 'Please write a summary.',
             'summary.min' => 'Summary must be at least 10 characters long.',
