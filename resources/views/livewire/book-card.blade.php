@@ -2,7 +2,7 @@
 <div
     class="group relative bg-white rounded-2xl shadow-lg border border-blue-100 hover:shadow-xl hover:border-blue-300 transition-all duration-300 overflow-hidden flex flex-col">
     <!-- Book Cover -->
-    <a href="{{ route('books.instance', $instance->id) }}" class="relative overflow-hidden block rounded-t-2xl">
+    <a href="{{ route('books.show', $instance->book->slug) }}" class="relative overflow-hidden block rounded-t-2xl">
         @if ($instance->book->cover_image)
             <img src="{{ asset('storage/' . $instance->book->cover_image) }}"
                 class="w-full h-48 sm:h-56 object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-2xl"
@@ -36,7 +36,7 @@
     <!-- Book Details -->
     <div class="p-4 sm:p-6 space-y-3 sm:space-y-4 flex-1 flex flex-col">
         <!-- Title -->
-        <a href="{{ route('books.instance', $instance->id) }}">
+        <a href="{{ route('books.show', $instance->book->slug) }}">
             <h3
                 class="text-lg sm:text-xl font-bold text-blue-800 line-clamp-2 group-hover:text-blue-600 transition-colors">
                 {{ $instance->book->title }}
