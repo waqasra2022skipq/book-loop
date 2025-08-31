@@ -64,7 +64,7 @@
 
         <!-- Action Buttons -->
         <div class="flex flex-col gap-2 sm:gap-3 pt-3 sm:pt-4 border-t border-blue-100 mt-auto">
-            <a href="{{ route('books.instance', $instance->id) }}"
+            <a href="{{ route('books.show', $instance->book->slug) }}"
                 class="flex-1 text-center px-4 py-2 text-sm font-semibold text-blue-700 bg-blue-50 rounded-lg flex items-center justify-center gap-2 hover:bg-blue-100 focus:bg-blue-200 transition">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
