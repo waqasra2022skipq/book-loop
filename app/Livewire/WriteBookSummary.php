@@ -28,8 +28,14 @@ class WriteBookSummary extends Component
     public function save()
     {
         $this->validate([
-            'summary' => 'required|string|min:10',
+            'summary' => 'required|string|min:10|max:2000',
             'rating' => 'nullable|integer|min:1|max:5',
+        ], [
+            'summary.required' => 'Please write a summary.',
+            'summary.min' => 'Summary must be at least 10 characters long.',
+            'summary.max' => 'Summary cannot exceed 2000 characters.',
+            'rating.min' => 'Rating must be between 1 and 5 stars.',
+            'rating.max' => 'Rating must be between 1 and 5 stars.',
         ]);
 
         BookSummary::updateOrCreate(

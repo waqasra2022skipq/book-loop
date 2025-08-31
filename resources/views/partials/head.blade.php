@@ -48,5 +48,5 @@
 
 {{-- Schema Markup --}}
 <script type="application/ld+json">
-    {!! $schemaMarkup !!}
+    {!! $schemaMarkup ?? "{}" !!}
 </script>

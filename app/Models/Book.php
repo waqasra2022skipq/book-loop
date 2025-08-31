@@ -83,15 +83,66 @@ class Book extends Model
         return $this->cover ? asset('storage/' . $this->cover) : null;
     }
 
+    /**
+     * Get average rating from cached column (fast)
+     */
     public function average_rating()
     {
-        // Return average rating rounded to 2 decimal points
-        return number_format($this->hasMany(BookSummary::class)->avg('rating'), 2);
+        return $this->avg_rating ? number_format($this->avg_rating, 2) : '0.00';
     }
 
+    /**
+     * Get total ratings from cached column (fast)
+     */
     public function total_ratings()
     {
-        return $this->hasMany(BookSummary::class)->count();
+        return $this->ratings_count ?? 0;
+    }
+
+    /**
+     * Update cached rating statistics
+     */
+    public function updateRatingStats(): void
+    {
+        $summaries = $this->summaries()->whereNotNull('rating');
+
+        $this->update([
+            'ratings_count' => $summaries->count(),
+            'avg_rating' => $summaries->avg('rating'),
+        ]);
+    }
+
+    /**
+     * Get rating breakdown
+     */
+    public function getRatingBreakdown(): array
+    {
+        $breakdown = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $breakdown[$i] = $this->summaries()
+                ->where('rating', $i)
+                ->count();
+        }
+        return $breakdown;
+    }
+
+    /**
+     * Get star rating display
+     */
+    public function getStarRatingAttribute(): string
+    {
+        if (!$this->avg_rating) {
+            return 'No ratings yet';
+        }
+
+        $fullStars = floor($this->avg_rating);
+        $halfStar = ($this->avg_rating - $fullStars) >= 0.5;
+        $emptyStars = 5 - $fullStars - ($halfStar ? 1 : 0);
+
+        return str_repeat('★', $fullStars) .
+            ($halfStar ? '½' : '') .
+            str_repeat('☆', $emptyStars) .
+            ' (' . $this->average_rating() . ')';
     }
 
     public function summaries()

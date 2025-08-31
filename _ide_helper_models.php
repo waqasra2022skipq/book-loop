@@ -63,8 +63,8 @@ namespace App\Models{
  * @property array<array-key, mixed> $recent_books
  * @property string $user_prompt
  * @property array<array-key, mixed>|null $preferences
- * @property string $generated_prompt
- * @property array<array-key, mixed> $ai_response
+ * @property string|null $generated_prompt
+ * @property array<array-key, mixed>|null $ai_response
  * @property int $total_tokens_used
  * @property numeric $response_time
  * @property string $status
@@ -98,6 +98,7 @@ namespace App\Models{
 /**
  * @property int $id
  * @property string $title
+ * @property string|null $slug
  * @property string $author
  * @property string|null $isbn
  * @property string|null $published_date
@@ -111,6 +112,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read mixed $cover_url
+ * @property-read string $star_rating
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookInstance> $instances
  * @property-read int|null $instances_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $loans
@@ -135,6 +137,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book wherePages($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book wherePublishedDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book wherePublisher($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereUpdatedAt($value)
  */
@@ -282,14 +285,17 @@ namespace App\Models{
  * @property int $user_id
  * @property string $summary
  * @property int|null $rating Optional rating 1-5
- * @property string|null $meta For future extensibility, e.g. tags, likes
+ * @property array<array-key, mixed>|null $meta For future extensibility, e.g. tags, likes
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Book $book
+ * @property-read string $star_rating
  * @property-read \App\Models\User $writer
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary byRating($rating)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary query()
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary rated()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary whereBookId($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookSummary whereId($value)
