@@ -26,7 +26,8 @@ class Book extends Component
         ])->layoutData([
             'title' => $this->book->title . ' by ' . $this->book->author . ' - Borrow & Reviews | Loop Your Book',
             'description' => "Discover '{$this->book->title}' by {$this->book->author}.",
-            'schemaMarkup' => $schemaMarkup
+            'schemaMarkup' => $schemaMarkup,
+            'ogImage' => $this->book->cover_image
         ]);
     }
 
