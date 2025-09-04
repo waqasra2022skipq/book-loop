@@ -64,7 +64,7 @@ class Book extends Component
                 "@type" => "Review",
                 "author" => [
                     "@type" => "Person",
-                    "name" => $review?->user?->name
+                    "name" => $review?->writer?->name
                 ],
                 "datePublished" => $review->created_at->format('Y-m-d'),
                 "reviewBody" => $review->summary,
