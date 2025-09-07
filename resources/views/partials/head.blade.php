@@ -7,7 +7,8 @@
 {{-- Open Graph Meta Tags --}}
 <meta property="og:title" content="{{ $title ?? config('app.name') }}">
 <meta property="og:description" content="{{ $description ?? 'Explore, Borrow, Lend Books for free' }}">
-<meta property="og:image" content="{{ asset('storage/' . $ogImage) ?? asset('images/logo.svg') }}" />
+<meta property="og:image"
+    content="{{ isset($ogImage) && $ogImage ? asset('storage/' . $ogImage) : asset('images/logo.svg') }}" />
 <meta property="og:url" content="{{ request()->url() }}">
 <meta property="og:type" content="website">
 
@@ -15,7 +16,8 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{{ $title ?? config('app.name') }}">
 <meta name="twitter:description" content="{{ $description ?? 'Explore, Borrow, Lend Books for free' }}">
-<meta name="twitter:image" content="{{ asset('storage/' . $ogImage) ?? asset('images/logo.svg') }}">
+<meta name="twitter:image"
+    content="{{ isset($ogImage) && $ogImage ? asset('storage/' . $ogImage) : asset('images/logo.svg') }}">
 
 <link rel="icon" href="{{ asset('images/book_icon.png') }}" sizes="any">
 <link rel="icon" href="{{ asset('images/book_icon.png') }}" type="image/svg+xml">
