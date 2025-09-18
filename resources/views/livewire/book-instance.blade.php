@@ -96,11 +96,14 @@
                                 <!-- Price Badge -->
                                 @if ($bookInstance->price)
                                     <div class="flex items-center gap-2 bg-green-50 px-4 py-2 rounded-full">
-                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                                                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1">
+                                            </path>
                                         </svg>
-                                        <span class="text-sm font-semibold text-green-700">${{ number_format($bookInstance->price, 2) }}</span>
+                                        <span
+                                            class="text-sm font-semibold text-green-700">${{ number_format($bookInstance->price, 2) }}</span>
                                     </div>
                                 @endif
                             </div>
