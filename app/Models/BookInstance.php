@@ -13,11 +13,18 @@ class BookInstance extends Model
         'book_id',
         'owner_id',
         'condition_notes',
+        'price',
         'status',
         'city',
         'address',
         'lat',
         'lng',
+    ];
+
+    protected $casts = [
+        'price' => 'decimal:2',
+        'lat' => 'decimal:8',
+        'lng' => 'decimal:8',
     ];
 
     public function book()

@@ -101,6 +101,8 @@ namespace App\Models{
  * @property string|null $slug
  * @property string $author
  * @property string|null $isbn
+ * @property int $ratings_count
+ * @property string|null $avg_rating Average rating from book summaries
  * @property string|null $published_date
  * @property string|null $description
  * @property string|null $cover_image
@@ -126,6 +128,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book query()
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereAuthor($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereAvgRating($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereCoverImage($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereDescription($value)
@@ -137,6 +140,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book wherePages($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book wherePublishedDate($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book wherePublisher($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereRatingsCount($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|Book whereUpdatedAt($value)
@@ -150,13 +154,14 @@ namespace App\Models{
  * @property int $book_id
  * @property int $owner_id
  * @property string|null $condition_notes
+ * @property numeric|null $price
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $city
  * @property string|null $address
- * @property string|null $lat
- * @property string|null $lng
+ * @property numeric|null $lat
+ * @property numeric|null $lng
  * @property-read \App\Models\BookLoan|null $activeLoan
  * @property-read \App\Models\Book $book
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\BookLoan> $loans
@@ -177,6 +182,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookInstance whereLat($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookInstance whereLng($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookInstance whereOwnerId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder<static>|BookInstance wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookInstance whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder<static>|BookInstance whereUpdatedAt($value)
  */

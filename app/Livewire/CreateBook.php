@@ -20,6 +20,7 @@ class CreateBook extends Component
     public string $isbn = '';
     public string $status = "available";
     public string $notes = '';
+    public $price = '';
     public $cover_image;
     public string $city = '';
     public string $address = '';
@@ -46,6 +47,7 @@ class CreateBook extends Component
             'genre_id' => 'nullable|exists:genres,id',
             'status' => 'required|string',
             'notes' => 'nullable|string',
+            'price' => 'nullable|numeric|min:0',
             'cover_image' => 'nullable|image|max:2048',
             'city' => 'nullable|string',
             'address' => 'nullable|string',
@@ -65,12 +67,13 @@ class CreateBook extends Component
             'book_id' => $book->id,
             'owner_id' => Auth::id(),
             'condition_notes' => $validated['notes'],
+            'price' => $validated['price'] ?: null,
             'status' => $validated['status'],
             'city' => $validated['city'],
             'address' => $validated['address'],
         ]);
 
-        $this->reset(['searchTerm', 'title', 'author', 'isbn', 'genre_id', 'status', 'notes', 'cover_image', 'city', 'address', 'lat', 'lng']);
+        $this->reset(['searchTerm', 'title', 'author', 'isbn', 'genre_id', 'status', 'notes', 'price', 'cover_image', 'city', 'address', 'lat', 'lng']);
         return redirect()->route('books.my-books');
     }
 
