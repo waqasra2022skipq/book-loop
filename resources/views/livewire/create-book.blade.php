@@ -35,6 +35,12 @@
             <flux:textarea wire:model="notes" label="Condition notes" placeholder="No lettuce, tomato, or onion..." />
         </div>
 
+        <!-- Price -->
+        <div>
+            <flux:input wire:model="price" label="Price (Optional)" type="number" step="0.01" min="0"
+                placeholder="0.00" />
+        </div>
+
         <!-- cover_image upload -->
         <div>
             <flux:input type="file" wire:model="cover_image" label="Cover Image (Optional)" />

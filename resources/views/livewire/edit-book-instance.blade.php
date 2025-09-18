@@ -53,6 +53,11 @@
             <flux:textarea wire:model="notes" label="Condition Notes"
                 placeholder="Describe the book’s condition (optional)" />
         </div>
+        <!-- Price -->
+        <div>
+            <flux:input wire:model="price" label="Price (Optional)" type="number" step="0.01" min="0"
+                placeholder="0.00" />
+        </div>
         <!-- Address fields -->
         <div>
             <flux:input wire:model="city" :label="__('City')" type="text" autocomplete="address-level2" />

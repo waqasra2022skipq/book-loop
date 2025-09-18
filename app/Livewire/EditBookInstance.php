@@ -32,6 +32,7 @@ class EditBookInstance extends Component
     // BookInstance metadata
     public string $status = '';
     public string $notes = '';
+    public $price = '';
 
     public $image;
     public $currentImage;
@@ -49,6 +50,7 @@ class EditBookInstance extends Component
             'genre_id' => $this->book->genre_id,
             'status' => $this->bookInstance->status,
             'notes' => $this->bookInstance->condition_notes,
+            'price' => $this->bookInstance->price ?? '',
             'currentImage' => $this->bookInstance->book->cover_image ?? null,
             'city' => $this->bookInstance->city ?? '',
             'address' => $this->bookInstance->address ?? '',
@@ -64,6 +66,7 @@ class EditBookInstance extends Component
             'genre_id' => 'nullable|exists:genres,id',
             'status' => 'required|string|in:available,reading,reserved',
             'notes' => 'nullable|string|max:2000',
+            'price' => 'nullable|numeric|min:0',
             'image' => 'nullable|image|max:2048', // 2MB Max
             'city' => 'nullable|string|max:255',
             'address' => 'nullable|string|max:255',
@@ -79,6 +82,7 @@ class EditBookInstance extends Component
         $updateData = [
             'status' => $validated['status'],
             'condition_notes' => $validated['notes'],
+            'price' => $validated['price'] ?: null,
             'city' => $validated['city'],
             'address' => $validated['address'],
         ];
