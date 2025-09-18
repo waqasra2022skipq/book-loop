@@ -18,6 +18,9 @@
                     <h2 class="text-base sm:text-lg font-semibold leading-tight">{{ $instance->book->title }}</h2>
                     <p class="text-xs sm:text-sm text-gray-600 mb-0.5 sm:mb-1">By {{ $instance->book->author }}</p>
                     <p class="text-xs sm:text-sm text-gray-500 mb-1 sm:mb-2">Status: <span class="font-medium capitalize">{{ $instance->status }}</span></p>
+                    @if($instance->price)
+                        <p class="text-xs sm:text-sm text-green-600 font-semibold mb-1 sm:mb-2">Price: ${{ number_format($instance->price, 2) }}</p>
+                    @endif
                     <p class="text-xs sm:text-sm text-gray-700">{{ $instance->condition_notes }}</p>
 
                     <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 mt-2">
