@@ -38,6 +38,10 @@
                     icon="book-open" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Explore') }}
                 </flux:navbar.item>
+                <flux:navbar.item :href="route('genres.index')" :current="request()->routeIs('genres.*')" wire:navigate
+                    icon="tag" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
+                    {{ __('Genres') }}
+                </flux:navbar.item>
                 <flux:navbar.item :href="route('contact')" :current="request()->routeIs('contact')" wire:navigate
                     icon="phone" class="rounded-lg px-4 py-2 text-base font-medium hover:bg-blue-100 transition">
                     {{ __('Contact Us') }}

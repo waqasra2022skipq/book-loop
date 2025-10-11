@@ -4,18 +4,21 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\Book;
+use App\Models\Genre;
 
 class HomePage extends Component
 {
     public $search = '';
     public $newlyUploadedBooks = [];
     public $popularBooks = [];
+    public $popularGenres = [];
 
     public function mount()
     {
         // Load sample data - replace with actual database queries
         $this->loadNewlyUploadedBooks();
         $this->loadPopularBooks();
+        $this->loadPopularGenres();
     }
 
     public function updatedSearch()
@@ -75,6 +78,16 @@ class HomePage extends Component
                 'category' => 'Poetry'
             ]
         ];
+    }
+
+    private function loadPopularGenres()
+    {
+        $this->popularGenres = Genre::active()
+            ->withCount('books')
+            // ->having('books_count', '>', 0)
+            ->orderBy('books_count', 'desc')
+            ->limit(6)
+            ->get();
     }
 
     public function render()

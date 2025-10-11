@@ -23742,6 +23742,14 @@ namespace App\Livewire {
      */
     class SinglePost extends \Livewire\Component {
             }
+    /**
+     */
+    class GenresList extends \Livewire\Component {
+            }
+    /**
+     */
+    class GenreShow extends \Livewire\Component {
+            }
     }
 
 namespace App\Livewire\Auth {

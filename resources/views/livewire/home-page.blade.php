@@ -7,4 +7,8 @@
 
     <!-- Call to Action Section -->
     <x-home.cta />
+
+
+    <!-- Popular Genres Section -->
+    <x-home.genres :popularGenres="$popularGenres" />
 </section>

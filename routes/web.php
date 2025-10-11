@@ -72,14 +72,17 @@ Route::get('users/{userId}/reviews', \App\Livewire\UserReviews::class)->name('us
 // AI Book Recommendations
 Route::get('ai/book-recommendations', \App\Livewire\AiBookRecommendation::class)->name('ai.books.recommendation');
 
-// Book search for autocomplete
-Route::get('api/books/search', [App\Http\Controllers\AiBookController::class, 'searchBooks'])
-    ->middleware('auth');
 
 // Posts
 Route::get('book-posts', PostsFeed::class)->name('feed');
 Route::get('book-posts/{post}', \App\Livewire\SinglePost::class)->name('posts.show');
 // Route::get('posts', PostsIndex::class)->name('posts.index');
+
+// Genre routes
+Route::prefix('genres')->group(function () {
+    Route::get('/', \App\Livewire\GenresList::class)->name('genres.index');
+    Route::get('/{genre:slug}', \App\Livewire\GenreShow::class)->name('genres.show');
+});
 
 Route::redirect('/ai-book-recommendation', '/ai/book-recommendations', 301);
 
