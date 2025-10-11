@@ -46,15 +46,14 @@ jobs:
       # ---- Package artifact (exclude stuff not needed in prod)
       - name: Create deploy package
         run: |
-          tar -czf release.tar.gz \
-            --exclude-vcs \
-            --exclude="node_modules" \
-            --exclude="tests" \
-            --exclude=".github" \
-            --exclude=".env" \
-            --exclude=".env.*" \
-            --exclude="storage" \
-            .
+          tar --warning=no-file-changed -czf release.tar.gz \
+          --exclude-vcs \
+          --exclude="node_modules" \
+          --exclude="tests" \
+          --exclude=".github" \
+          --exclude=".env*" \
+          --exclude="storage" \
+          .
 
       # ---- Prepare SSH
       - name: Add host to known_hosts
