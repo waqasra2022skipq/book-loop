@@ -18,7 +18,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # ---- PHP / Composer build (vendor included in artifact)
+      # --- PHP / Composer build (vendor included in artifact)
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
