@@ -29,7 +29,7 @@
                     <div class="flex flex-col sm:flex-row gap-1 sm:gap-2 mt-2">
                         <a href="{{ route('books.editBook', $instance->book->id) }}"
                             class="text-blue-600 hover:underline text-sm">Edit Book</a>
-                        <a href="{{ route('books.summary.write', $instance->book->id) }}"
+                        <a href="{{ route('my-books.summary.write', $instance->book->id) }}"
                             class="text-green-600 hover:underline text-sm">Write Summary</a>
                         <button wire:click="delete({{ $instance->id }})"
                             class="text-red-600 hover:underline text-sm text-left sm:text-center"

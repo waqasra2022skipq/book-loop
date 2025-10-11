@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('books/my-books', MyBooks::class)->name('books.my-books');
     Route::get('books/my-books/requests', \App\Livewire\MyBookRequests::class)->name('my-books.requests');
     Route::get('books/loans', \App\Livewire\BookLoans::class)->name('books.loans');
-    Route::get('books/my-books/{bookId}/summary', WriteBookSummary::class)->name('books.summary.write');
+    Route::get('books/my-books/{bookId}/summary', WriteBookSummary::class)->name('my-books.summary.write');
     Route::get('books/{book}/write-summary', WriteBookSummary::class)->name('books.summary.write');
     Route::get('books/my-books/{bookId}/edit', EditBookInstance::class)->name('books.editBook');
     Route::get('notifications', \App\Livewire\NotificationsPage::class)->name('notifications.index');
