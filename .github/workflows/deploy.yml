@@ -44,16 +44,16 @@ jobs:
           npm run build
 
       # ---- Package artifact (exclude stuff not needed in prod)
-      - name: Create deploy package
+      - name: Create *** package
         run: |
-          tar --warning=no-file-changed -czf release.tar.gz \
+          tar -czf release.tar.gz \
           --exclude-vcs \
           --exclude="node_modules" \
           --exclude="tests" \
           --exclude=".github" \
           --exclude=".env*" \
           --exclude="storage" \
-          .
+          . || ([ $? -eq 1 ] && exit 0 || exit $?)
 
       # ---- Prepare SSH
       - name: Add host to known_hosts
