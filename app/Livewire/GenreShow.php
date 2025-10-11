@@ -33,12 +33,12 @@ class GenreShow extends Component
     public function render()
     {
         $instances = BookInstance::whereHas('book', function ($query) {
-                $query->where('genre_id', $this->genre->id);
-            })
+            $query->where('genre_id', $this->genre->id);
+        })
             ->when($this->search, function ($query) {
                 $query->whereHas('book', function ($bookQuery) {
                     $bookQuery->where('title', 'like', '%' . $this->search . '%')
-                             ->orWhere('author', 'like', '%' . $this->search . '%');
+                        ->orWhere('author', 'like', '%' . $this->search . '%');
                 });
             })
             ->with(['book', 'owner'])
@@ -50,13 +50,13 @@ class GenreShow extends Component
             })
             ->when($this->sortBy === 'title_asc', function ($query) {
                 $query->join('books', 'book_instances.book_id', '=', 'books.id')
-                      ->orderBy('books.title', 'asc')
-                      ->select('book_instances.*');
+                    ->orderBy('books.title', 'asc')
+                    ->select('book_instances.*');
             })
             ->when($this->sortBy === 'title_desc', function ($query) {
                 $query->join('books', 'book_instances.book_id', '=', 'books.id')
-                      ->orderBy('books.title', 'desc')
-                      ->select('book_instances.*');
+                    ->orderBy('books.title', 'desc')
+                    ->select('book_instances.*');
             })
             ->paginate(12);
 
