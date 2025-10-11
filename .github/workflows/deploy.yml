@@ -1,0 +1,82 @@
+name: Deploy to EC2 on push to main
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
+      SSH_PORT: ${{ secrets.SSH_PORT }}
+      DEPLOY_PATH: ${{ secrets.DEPLOY_PATH || '/var/www/book-loop' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ---- PHP / Composer build (vendor included in artifact)
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          tools: composer:v2
+
+      - name: Composer install (no-dev, optimized)
+        run: |
+          composer install --no-dev --prefer-dist --optimize-autoloader
+          composer dump-autoload -o
+
+      # ---- Node / Vite build
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Build front-end assets
+        run: |
+          npm ci
+          npm run build
+
+      # ---- Package artifact (exclude stuff not needed in prod)
+      - name: Create deploy package
+        run: |
+          tar -czf release.tar.gz \
+            --exclude-vcs \
+            --exclude="node_modules" \
+            --exclude="tests" \
+            --exclude=".github" \
+            --exclude=".env" \
+            --exclude=".env.*" \
+            --exclude="storage" \
+
+      # ---- Prepare SSH
+      - name: Add host to known_hosts
+        run: |
+          mkdir -p ~/.ssh
+          ssh-keyscan -p "${SSH_PORT:-22}" "$SSH_HOST" >> ~/.ssh/known_hosts
+
+      - name: Upload package to server
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "release.tar.gz"
+          target: "${{ env.DEPLOY_PATH }}/"
+
+      - name: Run remote deploy script
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            /var/www/book-loop/deploy.sh /var/www/book-loop/release.tar.gz
+            rm -f /var/www/book-loop/release.tar.gz
